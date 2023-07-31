@@ -13,6 +13,12 @@ const router = createRouter({
         component: IndexPage,
     },
     {
+        path: "/auth",
+        redirect: {
+            path: '/auth/login'
+        }
+    },
+    {
         name: "auth.login",
         path: "/auth/login",
         meta: {},

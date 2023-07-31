@@ -6,6 +6,10 @@ const messages = {
         auth: {
             login: "Login",
             logout: "Log Out",
+            password: "Password",
+            email: "Email Address",
+            welcome: "Welcome back! Log in to your account.",
+            signup: "Not a user? Sign up"
         },
     },
     'es-ES': {
