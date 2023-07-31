@@ -14,10 +14,10 @@
             <ul class="nav">
                 <li class="nav-item nav-category">Main</li>
                 <li class="nav-item">
-                    <a href="../../dashboard.html" class="nav-link">
+                    <router-link :to="{name:'dashboard'}" class="nav-link">
                         <i class="link-icon bi bi-grid"></i>
                         <span class="link-title">Dashboard</span>
-                    </a>
+                    </router-link>
                 </li>
                 <li class="nav-item nav-category">web apps</li>
                 <li class="nav-item">
@@ -53,28 +53,23 @@
                         <span class="link-title">Calendar</span>
                     </a>
                 </li>
-                <li class="nav-item nav-category">Components</li>
+                <li class="nav-item nav-category">Settings</li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#uiComponents" role="button" aria-expanded="false"
-                        aria-controls="uiComponents">
-                        <i class="link-icon" data-feather="feather"></i>
-                        <span class="link-title">UI Kit</span>
+                    <a class="nav-link" data-bs-toggle="collapse" href="#settings" role="button" aria-expanded="false" aria-controls="settings">
+                        <i class="link-icon bi bi-gear"></i>
+                        <span class="link-title">Settings</span>
                         <i class="link-arrow bi bi-chevron-down"></i>
                     </a>
-                    <div class="collapse" id="uiComponents">
+                    <div class="collapse" id="settings">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="../../pages/ui-components/accordion.html" class="nav-link">Accordion</a>
+                                <router-link :to="{name:'dashboard.settings.general'}" class="nav-link">General</router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link :to="{name:'dashboard.settings.localization'}" class="nav-link">Localization</router-link>
                             </li>
                         </ul>
                     </div>
-                </li>
-                <li class="nav-item nav-category">Docs</li>
-                <li class="nav-item">
-                    <a href="https://www.nobleui.com/html/documentation/docs.html" target="_blank" class="nav-link">
-                        <i class="link-icon" data-feather="hash"></i>
-                        <span class="link-title">Documentation</span>
-                    </a>
                 </li>
             </ul>
         </div>

@@ -11,6 +11,14 @@ const messages = {
             welcome: "Welcome back! Log in to your account.",
             signup: "Not a user? Sign up"
         },
+        dashboard: {
+            settings: {
+                settings: "Settings",
+                localization: "Localization",
+                general: "General",
+                analytics: "Analytics"
+            }
+        }
     },
     'es-ES': {
         auth: {
