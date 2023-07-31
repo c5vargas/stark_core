@@ -16,18 +16,18 @@
 
                         <h6 class="card-title">{{ $t('dashboard.settings.general') }}</h6>
 
-                        <form class="forms-sample" data-bitwarden-watching="1">
+                        <form>
                             <div class="mb-3">
-                                <label class="form-label">Primary site url</label>
+                                <label class="form-label">{{ $t('dashboard.settings.site_url') }}</label>
                                 <input type="text" readonly disabled class="form-control" autocomplete="off" placeholder="https://site.url" :value="app.url">
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Site name</label>
-                                <input type="text" class="form-control" autocomplete="off" placeholder="Site name" :value="app.name">
+                                <label class="form-label">{{ $t('dashboard.settings.site_name') }}</label>
+                                <input v-model="form.name" type="text" class="form-control" autocomplete="off" :placeholder="$t('dashboard.settings.site_name')">
                             </div>
 
-                            <button type="submit" class="btn btn-primary me-2">Update settings</button>
+                            <button type="submit" class="btn btn-primary me-2">{{ $t('dashboard.settings.update') }}</button>
                         </form>
 
                     </div>
@@ -40,5 +40,12 @@
 <script setup>
 import Admin from "@/views/layouts/Admin";
 import SettingsNavTabs from "@/views/components/Dashboard/SettingsNavTabs.vue";
+import { onBeforeMount, ref } from "vue";
+
 const app = window.AppConfig
+const form = ref({})
+
+onBeforeMount(() => {
+    form.value = {...app}
+})
 </script>

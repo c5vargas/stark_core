@@ -16,7 +16,16 @@ const messages = {
                 settings: "Settings",
                 localization: "Localization",
                 general: "General",
-                analytics: "Analytics"
+                analytics: "Analytics",
+                site_name: "Site name",
+                update: "Update settings",
+                site_url: "Primary site URL",
+                default_locale: "Default locale",
+                locale_desc: "Which translation should be selected by default for new users.",
+                default_timezone: "Timezone",
+                timezone_desc: "Choose either a city in the same timezone as you or a UTC timezone offset.",
+                translations: "Enable translations",
+                translations_desc: "Enable translations functionality for the site."
             }
         }
     },

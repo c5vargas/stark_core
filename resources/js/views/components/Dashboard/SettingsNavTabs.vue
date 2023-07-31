@@ -1,9 +1,11 @@
 <template>
     <div class="col-5 col-md-3">
-        <div class="nav nav-tabs nav-tabs-vertical border-0 rounded-0">
-            <router-link :to="{name:'dashboard.settings.general'}" class="nav-link border-0 py-3">{{ $t('dashboard.settings.general') }}</router-link>
-            <router-link :to="{name:'dashboard.settings.localization'}" class="nav-link border-0 py-3">{{ $t('dashboard.settings.localization') }}</router-link>
-            <router-link :to="{name:'dashboard.settings.analytics'}" class="nav-link border-0 py-3">{{ $t('dashboard.settings.analytics') }}</router-link>
+        <div class="card">
+            <div class="nav nav-tabs nav-tabs-vertical border-0 rounded-0">
+                <router-link :to="{name:'dashboard.settings.general'}" class="nav-link border-0 py-3">{{ $t('dashboard.settings.general') }}</router-link>
+                <router-link :to="{name:'dashboard.settings.localization'}" class="nav-link border-0 py-3">{{ $t('dashboard.settings.localization') }}</router-link>
+                <router-link :to="{name:'dashboard.settings.analytics'}" class="nav-link border-0 py-3">{{ $t('dashboard.settings.analytics') }}</router-link>
+            </div>
         </div>
     </div>
 </template>
