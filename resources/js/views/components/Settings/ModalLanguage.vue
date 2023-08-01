@@ -18,16 +18,16 @@
 
 <script setup>
 import { ref } from "vue";
-import { useSettingsStore } from "@/stores/settings";
+import { useLangStore } from "@/stores/lang";
 import isoLangs from "@/plugins/isoLangs.js"
 import Modal from "../Shared/Modal.vue";
 
 const emits = defineEmits(['on-close'])
-const settingsStore = useSettingsStore()
+const settingsStore = useLangStore()
 const form = ref({code: '', name: ''})
 
 async function handleNew() {
-    const resp = await settingsStore.addLocale(form.value)
+    const resp = await settingsStore.create(form.value)
 
     if(resp)
         emits('on-close')
