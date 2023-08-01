@@ -6,7 +6,6 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Laravel\Passport\PersonalAccessTokenResult;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 interface AuthRepositoryInterface extends EloquentRepositoryInterface {
 
-    public function login(String $email, String $password): Array|Bool;
+    public function login(String $email, String $password);
 
     public function updateUserProfile(Array $data): Bool;
 

@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class AuthRepository extends BaseRepository implements AuthRepositoryInterface
@@ -25,7 +24,7 @@ class AuthRepository extends BaseRepository implements AuthRepositoryInterface
         $this->model = $user;
     }
 
-    public function login(String $email, String $password): Array|Bool
+    public function login(String $email, String $password)
     {
         $user = $this->model->where('email', $email)->first();
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Events\WantResetPassword;
-use App\Http\Requests\Api\Authentication\CheckAuthRequest;
 use App\Http\Requests\Api\Authentication\ForgetPasswordRequest;
 use App\Http\Requests\Api\Authentication\LoginRequest;
 use App\Http\Requests\Api\Authentication\RegisterRequest;
@@ -13,7 +12,6 @@ use App\Http\Transformers\UserTransformer;
 use App\Repositories\Eloquent\AuthRepository;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 Use Illuminate\Support\Str;
 
