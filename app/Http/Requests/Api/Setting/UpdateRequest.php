@@ -11,7 +11,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -26,6 +26,7 @@ class UpdateRequest extends FormRequest
             'app_locale'    => 'string',
             'app_email'     => 'email',
             'app_timezone'  => 'string',
+            'app_translations' => 'boolean'
         ];
     }
 }

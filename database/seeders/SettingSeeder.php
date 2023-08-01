@@ -48,5 +48,10 @@ class SettingSeeder extends Seeder
             'key'   => 'app_timezone',
             'value' => config('app.timezone'),
         ]);
+
+        DB::table('settings')->insert([
+            'key'   => 'app_translations',
+            'value' => 1,
+        ]);
     }
 }

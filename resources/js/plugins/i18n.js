@@ -2,7 +2,7 @@ import { createI18n } from 'vue-i18n'
 
 //TODO Automatic messages
 const messages = {
-    'en-US': {
+    'en': {
         auth: {
             login: "Login",
             logout: "Log Out",
@@ -25,11 +25,16 @@ const messages = {
                 default_timezone: "Timezone",
                 timezone_desc: "Choose either a city in the same timezone as you or a UTC timezone offset.",
                 translations: "Enable translations",
-                translations_desc: "Enable translations functionality for the site."
+                translations_desc: "Enable translations functionality for the site.",
+                select: "Select an option",
+                translations: "Translations",
+                translation: "Translation",
+                selected_locale: "Selected locale",
+                source_text: "Source Text",
             }
         }
     },
-    'es-ES': {
+    'es': {
         auth: {
             login: "Acceder",
             logout: "Cerrar sesión",

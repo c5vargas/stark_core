@@ -19,12 +19,12 @@
                         <form>
                             <div class="mb-3">
                                 <label class="form-label">{{ $t('dashboard.settings.site_url') }}</label>
-                                <input type="text" readonly disabled class="form-control" autocomplete="off" placeholder="https://site.url" :value="app.url">
+                                <input :value="app.app_url" type="text" readonly disabled class="form-control" autocomplete="off" placeholder="https://site.url">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">{{ $t('dashboard.settings.site_name') }}</label>
-                                <input v-model="form.name" type="text" class="form-control" autocomplete="off" :placeholder="$t('dashboard.settings.site_name')">
+                                <input v-model="form.app_name" type="text" class="form-control" autocomplete="off" :placeholder="$t('dashboard.settings.site_name')">
                             </div>
 
                             <button type="submit" class="btn btn-primary me-2">{{ $t('dashboard.settings.update') }}</button>
