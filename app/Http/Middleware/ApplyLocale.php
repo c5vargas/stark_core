@@ -17,9 +17,11 @@ class ApplyLocale
     public function handle(Request $request, Closure $next)
     {
         $locale = $request->header('X-Locale');
+
         if(!empty($locale)) {
             app()->setLocale($locale);
         }
+
         return $next($request);
     }
 }

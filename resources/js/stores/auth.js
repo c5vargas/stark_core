@@ -1,9 +1,9 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
-// import { swalToast } from '@/helpers/swal'
+import { swalToast } from '@/plugins/swal'
 import { useLocalStorage } from "@vueuse/core"
-import server from '../api/server'
+import useAuthService from '@/services/authService'
 
 export const useAuthStore = defineStore('authStore', () => {
     const router = useRouter()
@@ -12,10 +12,11 @@ export const useAuthStore = defineStore('authStore', () => {
     const isLoading = ref(true)
     const bearerToken = useLocalStorage('token', '')
 
+    const { login, logout, getUser } = useAuthService()
+
     const submitLogin = async({email, password}) => {
         try {
-            await server.get("/sanctum/csrf-cookie");
-            const { data } = await server.post('/api/auth/login', {email, password})
+            const { data } = await login({email, password})
             const { status, results, message } = data
 
             if(!status) {
@@ -25,12 +26,11 @@ export const useAuthStore = defineStore('authStore', () => {
 
             setAuth(results.user, 'authorised')
             bearerToken.value = results.token
+            return true
         } catch(err) {
-            swalToast(err.response.data.data.message, 'error')
+            swalToast(err.response.data.message, 'error')
             return false
         }
-
-        return true
     }
 
     const getCurrentUser = async() => {
@@ -38,69 +38,67 @@ export const useAuthStore = defineStore('authStore', () => {
             return auth.value
 
         try {
-            await server.get("/sanctum/csrf-cookie");
-            const { data } = await server.get('/api/auth')
-            const { status, user, message } = data
+            const { data } = await getUser()
 
-            if(!status) {
-                swalToast(message, 'error')
+            if(!data.status)
                 return null
-            }
-            setAuth(user, 'authorised')
 
-            return user
+            setAuth(data.user, 'authorised')
+            return data.user
         } catch(err) {
-            swalToast(err.response.data.data.message, 'error')
-            auth.value = null
+            console.log("[ERR] auth.js", err)
+
+            setAuth(null, 'unauthorised')
+            bearerToken.value = null
             return null
         }
     }
 
-    const submitLostPassword = async(email) => {
-        try {
-            const { data } = await server.post('/auth/password/forget', { email })
-            const { status, message } = data
+    // const submitLostPassword = async(email) => {
+    //     try {
+    //         const { data } = await server.post('/auth/password/forget', { email })
+    //         const { status, message } = data
 
-            if(!status) {
-                swalToast(message, 'error')
-                return false
-            }
+    //         if(!status) {
+    //             swalToast(message, 'error')
+    //             return false
+    //         }
 
-            swalToast(message, 'success')
-            return true
-        } catch(err) {
-            swalToast(err, 'error')
-            return false
-        }
-    }
+    //         swalToast(message, 'success')
+    //         return true
+    //     } catch(err) {
+    //         swalToast(err, 'error')
+    //         return false
+    //     }
+    // }
 
-    const submitResetPassword = async(formData) => {
-        try {
-            const { data } = await server.post('/auth/password/reset', formData)
-            const { status, message } = data
+    // const submitResetPassword = async(formData) => {
+    //     try {
+    //         const { data } = await server.post('/auth/password/reset', formData)
+    //         const { status, message } = data
 
-            if(!status) {
-                swalToast(message, 'error')
-                return false
-            }
+    //         if(!status) {
+    //             swalToast(message, 'error')
+    //             return false
+    //         }
 
-            swalToast(message, 'success')
+    //         swalToast(message, 'success')
 
-            return true
-        } catch(err) {
-            let errors = err.response.data.errors
-            Object.keys(errors).forEach(key => {
-                swalToast(errors[key][0], 'error')
-            });
-            return false
-        }
-    }
+    //         return true
+    //     } catch(err) {
+    //         let errors = err.response.data.errors
+    //         Object.keys(errors).forEach(key => {
+    //             swalToast(errors[key][0], 'error')
+    //         });
+    //         return false
+    //     }
+    // }
 
     const logOut = async() => {
         setAuth(null, 'unauthorised')
         bearerToken.value = null
         localStorage.removeItem('token')
-        await server.post('/api/auth/logout')
+        await logout()
 
         router.push({ name: 'auth.login'} )
     }
@@ -118,7 +116,7 @@ export const useAuthStore = defineStore('authStore', () => {
         logOut,
         submitLogin,
         getCurrentUser,
-        submitResetPassword,
-        submitLostPassword,
+        // submitResetPassword,
+        // submitLostPassword,
     }
 })

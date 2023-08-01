@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class AuthRepository extends BaseRepository implements AuthRepositoryInterface
+class AuthRepository extends BaseRepository
 {
     protected $model;
 

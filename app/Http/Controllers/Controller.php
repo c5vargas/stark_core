@@ -73,12 +73,13 @@ class Controller extends BaseController
         return response()->json($data, $status);
     }
 
-    protected function respondWithItem(object $item, int $status = 200)
+    protected function respondWithItem(object $item, int $status = 200, string $message = '')
     {
         $item = new Item($item, $this->transformer);
         $itemTransformed = $this->fractal->createData($item)->toArray();
 
         $data = [
+            'message' => $message,
             'results' => $itemTransformed,
             'status'  => $status
         ];

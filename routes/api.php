@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,10 @@ Route::prefix('auth')->middleware(['apply_locale'])->group(function () {
 Route::middleware(['auth:sanctum'])->group( function() {
     Route::prefix('settings')->middleware(['apply_locale'])->group(function () {
         Route::post('update', [SettingController::class, 'update']);
+    });
+
+    Route::prefix('languages')->middleware(['apply_locale'])->group(function () {
+        Route::post('', [LanguageController::class, 'create']);
     });
 });
 

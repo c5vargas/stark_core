@@ -50,7 +50,12 @@ class AuthController extends Controller
 
     public function get(Request $request)
     {
-        return $this->respondWithAuth($request->user(), 201);
+        $user = $request->user();
+
+        if(!$user)
+            return $this->respondWithMessage(__('controller.auth.no_token'), 401);
+
+        return $this->respondWithAuth($user, 201);
     }
 
     /**

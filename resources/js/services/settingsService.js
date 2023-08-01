@@ -13,7 +13,17 @@ export default function settingsService() {
         })
     }
 
+    async function create(payload) {
+        isLoading.value = true
+
+        await server.get("/sanctum/csrf-cookie");
+        return server.post('/api/settings/locale', payload).finally(() => {
+            isLoading.value = false
+        })
+    }
+
     return {
         update,
+        create,
     }
 }

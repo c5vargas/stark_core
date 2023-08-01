@@ -3,9 +3,8 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\Setting;
-use App\Repositories\SettingRepositoryInterface;
 
-class SettingRepository extends BaseRepository implements SettingRepositoryInterface
+class SettingRepository extends BaseRepository
 {
     protected $model;
 

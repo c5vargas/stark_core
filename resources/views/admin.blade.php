@@ -32,7 +32,8 @@
                 app_locale: '{{ $settings->app_locale }}',
                 app_timezone: '{{ $settings->app_timezone }}',
                 locales: {
-                    en: {!! json_encode(\Illuminate\Support\Facades\Lang::get('frontend', [], 'en')) !!},
+                    en: {!! json_encode(\Illuminate\Support\Facades\Lang::get('en', [], 'en')) !!},
+                    es: {!! json_encode(\Illuminate\Support\Facades\Lang::get('es', [], 'es')) !!},
                 }
             }
         </script>
