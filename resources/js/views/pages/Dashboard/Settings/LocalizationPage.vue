@@ -23,4 +23,12 @@ import Admin from "@/views/layouts/Admin";
 import SettingsNavTabs from "@/views/components/Dashboard/SettingsNavTabs.vue";
 import FormLocalization from "@/views/components/Settings/FormLocalization.vue";
 import TranslateStrings from "@/views/components/Settings/TranslateStrings.vue";
+import { useLangStore } from "@/stores/lang";
+import { onBeforeMount } from "vue";
+
+const langStore = useLangStore()
+
+onBeforeMount(async() => {
+    await langStore.fetch()
+})
 </script>

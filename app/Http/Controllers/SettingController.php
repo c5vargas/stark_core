@@ -28,8 +28,8 @@ class SettingController extends Controller
         $updated = $this->repository->updateKey($request->validated());
 
         if(!$updated)
-            throw new Exception(__('controller.common.error_500'), 500);
+            throw new Exception(__('messages.controller.common.error_500'), 500);
 
-        return $this->respondWithMessage(__('controller.updated'));
+        return $this->respondWithMessage(__('messages.controller.updated'));
     }
 }

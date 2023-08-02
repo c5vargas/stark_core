@@ -33,7 +33,7 @@ class LanguageController extends Controller
     public function create(CreateRequest $request)
     {
         $item = $this->repository->create($request->validated());
-        return $this->respondWithItem($item, 201, __('controller.created'));
+        return $this->respondWithItem($item, 201, __('messages.controller.created'));
     }
 
     public function delete($id)
@@ -41,8 +41,8 @@ class LanguageController extends Controller
         $deleted = $this->repository->delete($id);
 
         if(!$deleted)
-            throw new Exception(__('controller.common.error_500'), 500);
+            throw new Exception(__('messages.controller.common.error_500'), 500);
 
-        return $this->respondWithMessage(__('controller.user.deleted'));
+        return $this->respondWithMessage(__('messages.controller.user.deleted'));
     }
 }

@@ -9,15 +9,17 @@
                     <label class="form-label">{{ $t('dashboard.settings.default_locale') }}</label>
                     <select class="form-select" v-model="form.app_locale" required>
                         <option value="">{{ $t('dashboard.settings.select') }}</option>
-                        <option value="es">Spanish</option>
-                        <option value="en">English</option>
+                        <option v-for="lang in langStore.languages" :key="lang.code" :value="lang.code">{{lang.name}}</option>
                     </select>
                     <small class="text-muted">{{ $t('dashboard.settings.locale_desc') }}</small>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">{{ $t('dashboard.settings.default_timezone') }}</label>
-                    <input v-model="form.app_timezone" type="text" class="form-control" autocomplete="off" placeholder="Europe/Madrid">
+                    <select class="form-select" v-model="form.app_timezone" required>
+                        <option value="">{{ $t('dashboard.settings.select') }}</option>
+                        <option v-for="item in phpTimezone" :key="item" :value="item">{{ item }}</option>
+                    </select>
                     <small class="text-muted">{{ $t('dashboard.settings.timezone_desc') }}</small>
                 </div>
 
@@ -39,10 +41,13 @@
 <script setup>
 import { onBeforeMount, ref } from "vue";
 import { useSettingsStore } from "@/stores/settings";
+import phpTimezone from "@/plugins/phpTimezone.js"
+import { useLangStore } from "@/stores/lang";
 
 const app = window.AppConfig
-const form = ref({})
 const settingStore = useSettingsStore()
+const langStore = useLangStore()
+const form = ref({})
 
 onBeforeMount(() => {
     form.value = {...app}

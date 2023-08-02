@@ -43,7 +43,7 @@ class AuthController extends Controller
         $user = $this->repository->create($request->validated());
 
         if(!$user)
-            throw new Exception(__('controller.common.error_500'), 500);
+            throw new Exception(__('messages.controller.common.error_500'), 500);
 
         return $this->respondWithItem($user, 201);
     }
@@ -53,7 +53,7 @@ class AuthController extends Controller
         $user = $request->user();
 
         if(!$user)
-            return $this->respondWithMessage(__('controller.auth.no_token'), 401);
+            return $this->respondWithMessage(__('messages.controller.auth.no_token'), 401);
 
         return $this->respondWithAuth($user, 201);
     }
@@ -74,7 +74,7 @@ class AuthController extends Controller
 
         if(!$result) {
             RateLimiter::hit($this->throttleKey(), $seconds = 3600);
-            throw new Exception(__('controller.auth.invalid_password'), 401);
+            throw new Exception(__('messages.controller.auth.invalid_password'), 401);
         }
 
         RateLimiter::clear($this->throttleKey());
@@ -93,7 +93,7 @@ class AuthController extends Controller
         $user = $request->user();
         if($user) $user->token()->revoke();
 
-        return $this->respondWithMessage( __('controller.auth.logout'));
+        return $this->respondWithMessage( __('messages.controller.auth.logout'));
     }
 
     /**
@@ -109,9 +109,9 @@ class AuthController extends Controller
         $updated = $this->repository->updateUserProfile($request->validated());
 
         if(!$updated)
-            throw new Exception(__('controller.auth.profile_failed'), 500);
+            throw new Exception(__('messages.controller.auth.profile_failed'), 500);
 
-        return $this->respondWithMessage( __('controller.auth.profile_success'));
+        return $this->respondWithMessage( __('messages.controller.auth.profile_success'));
     }
 
     /**
@@ -127,9 +127,9 @@ class AuthController extends Controller
         $status = $this->repository->resetPassword($request);
 
         if(!$status)
-            throw new Exception(__('controller.auth.email_or_token_invalid'), 401);
+            throw new Exception(__('messages.controller.auth.email_or_token_invalid'), 401);
 
-        return $this->respondWithMessage(__('controller.auth.password_reset'));
+        return $this->respondWithMessage(__('messages.controller.auth.password_reset'));
     }
 
     /**
@@ -144,12 +144,12 @@ class AuthController extends Controller
         $result = $this->repository->forgetPassword($request->validated());
 
         if(!$result['user']) {
-            throw new Exception(__('controller.auth.email_failed'), 401);
+            throw new Exception(__('messages.controller.auth.email_failed'), 401);
         }
 
         WantResetPassword::dispatch($result['user'], $result['token']);
 
-        return $this->respondWithMessage( __('controller.auth.forget_password'));
+        return $this->respondWithMessage( __('messages.controller.auth.forget_password'));
     }
 
     /**
@@ -173,6 +173,6 @@ class AuthController extends Controller
             return;
         }
 
-        throw new Exception(__('controller.auth.login_attempts'), 401);
+        throw new Exception(__('messages.controller.auth.login_attempts'), 401);
     }
 }

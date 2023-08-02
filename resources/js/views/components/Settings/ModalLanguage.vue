@@ -9,7 +9,7 @@
             <label class="form-label">{{ $t('dashboard.settings.select_new_locale') }}</label>
             <select class="form-select" v-model="form.code" required>
                 <option value="">{{ $t('dashboard.settings.select') }}</option>
-                <option v-for="lang in isoLangs" :value="lang.code">{{ lang.name }}</option>
+                <option v-for="lang in isoLangs" :key="lang.code" :value="lang.code">{{ lang.name }}</option>
             </select>
             <small class="text-muted">{{ $t('dashboard.settings.select_new_locale_desc') }}</small>
         </div>
@@ -23,11 +23,11 @@ import isoLangs from "@/plugins/isoLangs.js"
 import Modal from "../Shared/Modal.vue";
 
 const emits = defineEmits(['on-close'])
-const settingsStore = useLangStore()
+const langStore = useLangStore()
 const form = ref({code: '', name: ''})
 
 async function handleNew() {
-    const resp = await settingsStore.create(form.value)
+    const resp = await langStore.create(form.value)
 
     if(resp)
         emits('on-close')

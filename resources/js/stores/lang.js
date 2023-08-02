@@ -11,11 +11,12 @@ export const useLangStore = defineStore('langStore', () => {
 
         try {
             const { data } = await get()
+            const { status, results, message } = data
 
-            if(!data.status)
-                swalToast(message, 'error')
+            if(!status)
+                return swalToast(message, 'error')
 
-            languages.value = data.results
+            languages.value = results.data
         } catch(err) {
             console.log("[ERR] lang.js", err)
         }
@@ -26,12 +27,14 @@ export const useLangStore = defineStore('langStore', () => {
 
         try {
             const { data } = await create(payload)
-            const { status, message } = data
+            const { status, results, message } = data
 
             if(!status) {
                 swalToast(message, 'error')
                 return false
             }
+
+            languages.value.push(results.data)
 
             swalToast(message)
             return true
