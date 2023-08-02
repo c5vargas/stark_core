@@ -22,11 +22,11 @@ class LanguageRepository extends BaseRepository
 
     public function create(array $data): Model
     {
-        //Get All Lang Directories
         $directories = Storage::disk("root")->directories("lang");
+        $code = $data['code'];
 
-        if(!$directories.includes($data['code'])) {
-            Storage::disk("root")->copy("/lang/en", "lang/{$data['code']}");
+        if(!$directories.includes($code)) {
+            Storage::disk("root")->copy("/lang/en", "lang/{$code}");
         }
 
         return $this->model->create($data);
