@@ -4,14 +4,14 @@
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
-                <button type="button" class="btn-close" @click="$emit('on-cancel')"></button>
+                <button class="btn-close" @click="$emit('on-cancel')"></button>
             </div>
             <div class="modal-body">
                 <slot />
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" @click="$emit('on-cancel')">{{$t('buttons.cancel')}}</button>
-                <button type="button" class="btn btn-primary" @click="$emit('on-submit')">{{ $t('buttons.save_changes') }}</button>
+                <button class="btn btn-secondary" @click="$emit('on-cancel')">{{$t('buttons.cancel')}}</button>
+                <button class="btn btn-primary" @click="$emit('on-submit')">{{ $t('buttons.save_changes') }}</button>
             </div>
             </div>
         </div>

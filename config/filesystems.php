@@ -44,9 +44,9 @@ return [
             'throw' => false,
         ],
 
-        'root' => [
+        'lang' => [
             'driver' => 'local',
-            'root' => base_path(),
+            'root' => lang_path(),
             'visibility' => 'private',
             'throw' => false,
         ],

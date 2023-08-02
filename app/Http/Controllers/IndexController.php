@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Language;
 use Illuminate\Http\Request;
 use App\Models\Setting;
 
@@ -14,6 +15,7 @@ class IndexController extends Controller
 
     public function show() {
         $data = Setting::all();
+        $languages = Language::all();
         $settings = new \stdClass();
 
         foreach ($data as $key => $item) {

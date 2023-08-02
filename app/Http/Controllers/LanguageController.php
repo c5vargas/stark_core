@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Api\Language\CreateRequest;
+use App\Http\Requests\Api\Language\UpdateRequest;
 use App\Http\Transformers\LanguageTransformer;
 use App\Repositories\Eloquent\LanguageRepository;
 use Exception;
@@ -34,6 +35,17 @@ class LanguageController extends Controller
     {
         $item = $this->repository->create($request->validated());
         return $this->respondWithItem($item, 201, __('messages.controller.created'));
+    }
+
+    public function update(UpdateRequest $request)
+    {
+        $updated = $this->repository->updateTranslation($request->validated());
+
+        return $updated;
+        if(!$updated)
+            throw new Exception(__('controller.common.error_500'), 500);
+
+        return $this->respondWithMessage(__('controller.user.updated'));
     }
 
     public function delete($id)

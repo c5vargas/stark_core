@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum'])->group( function() {
     Route::prefix('languages')->middleware(['apply_locale'])->group(function () {
         Route::get('', [LanguageController::class, 'index']);
         Route::post('', [LanguageController::class, 'create']);
+        Route::post('/update', [LanguageController::class, 'update']);
     });
 });
 

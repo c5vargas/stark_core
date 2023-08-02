@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Language;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,7 @@ class DashboardController extends Controller
 
     public function show() {
         $data = Setting::all();
+        $languages = Language::all();
         $settings = new \stdClass();
 
         foreach ($data as $key => $item) {
@@ -20,6 +22,6 @@ class DashboardController extends Controller
             $settings->$propiety = $item->value;
         }
 
-        return view('admin', compact('settings'));
+        return view('admin', compact('settings', 'languages'));
     }
 }

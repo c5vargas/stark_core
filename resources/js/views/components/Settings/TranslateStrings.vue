@@ -1,7 +1,6 @@
 <template>
     <div class="card">
         <div class="card-body">
-
             <h6 class="card-title">{{ $t('dashboard.settings.translations') }}</h6>
 
             <form @submit.prevent="handleUpdate">
@@ -10,8 +9,7 @@
                     <div class="input-group">
                         <select class="form-select" v-model="selectedLocale" @change="changeLocale" required>
                             <option value="">{{ $t('dashboard.settings.select') }}</option>
-                            <option value="es">Spanish</option>
-                            <option value="en">English</option>
+                            <option v-for="lang in langStore.languages" :key="lang.code" :value="lang.code">{{lang.name}}</option>
                         </select>
 
                         <button class="btn btn-outline-primary" type="button" @click="handleModal(true)">
@@ -31,9 +29,9 @@
                             </tr>
                         </thead>
                         <tbody v-if="strings.length > 0">
-                            <tr v-for="message in strings" :key="message[0]">
+                            <tr v-for="(message, key) in strings" :key="message[0]">
                                 <td scope="row">{{message[0]}}</td>
-                                <td><input type="text" :value="message[1]" class="form-control border-0 bg-light"></td>
+                                <td><input type="text" :value="message[1]" @change="onWrite($event, key)" class="form-control border-0 bg-light"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -49,11 +47,12 @@
 
 <script setup>
 import { onBeforeMount, ref } from "vue";
+import { useLangStore } from "@/stores/lang";
 import { useSettingsStore } from "@/stores/settings";
 import ModalLanguage from "./ModalLanguage.vue";
 
 const app = window.AppConfig
-const settingStore = useSettingsStore()
+const langStore = useLangStore()
 const strings = ref([])
 const selectedLocale = ref(null)
 const showModal = ref(false)
@@ -64,11 +63,20 @@ onBeforeMount( async() => {
 })
 
 function handleUpdate() {
-    settingStore.update(form.value)
+    langStore.update({strings: strings.value, code: selectedLocale.value})
 }
 
 function handleModal(value) {
     showModal.value = value
+}
+
+function changeLocale() {
+    strings.value = Object.entries(app.locales[selectedLocale.value])
+}
+
+function onWrite($event, key) {
+    console.log($event)
+    strings.value[key][1] = $event.target.value
 }
 
 

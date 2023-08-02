@@ -35,7 +35,6 @@ export const useLangStore = defineStore('langStore', () => {
             }
 
             languages.value.push(results.data)
-
             swalToast(message)
             return true
         } catch(err) {
@@ -44,10 +43,27 @@ export const useLangStore = defineStore('langStore', () => {
         }
     }
 
+    const update = async(payload) => {
+        const { update } = useLanguagesService()
+
+        try {
+            const { data } = await update(payload)
+            const { status, message } = data
+
+            if(!status)
+                return swalToast(message, 'error')
+
+            swalToast(message)
+        } catch(err) {
+            swalToast(err.response.data.message, 'error')
+        }
+    }
+
 
     return {
         languages: computed( () => languages.value ),
         create,
+        update,
         fetch
     }
 })

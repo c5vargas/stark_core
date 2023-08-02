@@ -22,8 +22,18 @@ export default function languagesService() {
         })
     }
 
+    async function update(payload) {
+        isLoading.value = true
+
+        await server.get("/sanctum/csrf-cookie");
+        return server.post('/api/languages/update', payload).finally(() => {
+            isLoading.value = false
+        })
+    }
+
     return {
         get,
         create,
+        update,
     }
 }

@@ -11,14 +11,16 @@
 
         <script>
             window.AppConfig = {
-                name: '{{ $settings->app_name }}',
-                logo: '{{ $settings->app_logo }}',
-                url: '{{ $settings->app_url }}',
+                app_name: '{{ $settings->app_name }}',
+                app_logo: '{{ $settings->app_logo }}',
+                app_url: '{{ $settings->app_url }}',
                 csrf: '{{ csrf_token() }}',
-                defaultLocale: '{{ $settings->app_locale }}',
-                defaultTimezone: '{{ $settings->app_timezone }}',
+                app_locale: '{{ $settings->app_locale }}',
+                app_timezone: '{{ $settings->app_timezone }}',
                 locales: {
-                    en: {!! json_encode(\Illuminate\Support\Facades\Lang::get('frontend', [], 'en')) !!},
+                    @foreach ($languages as $lang)
+                        {{$lang->code}}: {!! json_encode(\Illuminate\Support\Facades\Lang::get('messages', [], $lang->code)) !!},
+                    @endforeach
                 }
             }
         </script>

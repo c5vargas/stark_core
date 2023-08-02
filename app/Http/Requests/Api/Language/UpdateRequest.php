@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\Language;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,8 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'  => 'string|min:4|max:100',
-            'code'  => 'string|unique:languages,code' . $this->code,
+            'strings'   => 'required|array',
+            'code'      => 'string|exists:languages,code',
         ];
     }
 }
