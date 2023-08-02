@@ -31,6 +31,7 @@
                 csrf: '{{ csrf_token() }}',
                 app_locale: '{{ $settings->app_locale }}',
                 app_timezone: '{{ $settings->app_timezone }}',
+                app_translations: '{{ $settings->app_translations }}',
                 locales: {
                     @foreach ($languages as $lang)
                         {{$lang->code}}: {!! json_encode(\Illuminate\Support\Facades\Lang::get('messages', [], $lang->code)) !!},

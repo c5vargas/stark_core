@@ -1,5 +1,5 @@
 <template>
-    <div class="col-5 col-md-3">
+    <div class="col-5 col-md-2 col-lg-3">
         <div class="card">
             <div class="nav nav-tabs nav-tabs-vertical border-0 rounded-0">
                 <router-link :to="{name:'dashboard.settings.general'}" class="nav-link border-0 py-3">

@@ -10,7 +10,7 @@
         <div class="row">
             <settings-nav-tabs />
 
-            <div class="col-7 col-md-9 ps-0">
+            <div class="col-7 col-md-10 col-lg-9 ps-0">
                 <form-localization class="mb-3" />
                 <translate-strings />
             </div>

@@ -51,6 +51,9 @@ const form = ref({})
 
 onBeforeMount(() => {
     form.value = {...app}
+    form.value.app_translations
+        = app.app_translations === "1"
+        ? true : false
 })
 
 function handleUpdate() {
