@@ -23,6 +23,6 @@ class IndexController extends Controller
             $settings->$propiety = $item->value;
         }
 
-        return view('index', compact('settings'));
+        return view('index', compact('settings', 'languages'));
     }
 }

@@ -41,7 +41,6 @@ class LanguageController extends Controller
     {
         $updated = $this->repository->updateTranslation($request->validated());
 
-        return $updated;
         if(!$updated)
             throw new Exception(__('controller.common.error_500'), 500);
 
