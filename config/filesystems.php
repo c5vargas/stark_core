@@ -47,6 +47,7 @@ return [
         'root' => [
             'driver' => 'local',
             'root' => base_path(),
+            'visibility' => 'private',
             'throw' => false,
         ],
 

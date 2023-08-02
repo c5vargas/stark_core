@@ -7,7 +7,6 @@ use App\Http\Transformers\LanguageTransformer;
 use App\Repositories\Eloquent\LanguageRepository;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class LanguageController extends Controller
 {
@@ -33,11 +32,6 @@ class LanguageController extends Controller
 
     public function create(CreateRequest $request)
     {
-        //Get All Directories Within A Directory
-        // return base_path().'/lang';
-        $directories = Storage::disk('root')->directories('lang');
-        return $directories;
-
         $item = $this->repository->create($request->validated());
         return $this->respondWithItem($item, 201, __('messages.controller.created'));
     }
