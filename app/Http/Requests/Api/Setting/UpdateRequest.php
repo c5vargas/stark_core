@@ -22,11 +22,14 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'app_name'      => 'string|min:4|max:100',
-            'app_locale'    => 'string',
-            'app_email'     => 'email',
-            'app_timezone'  => 'string',
-            'app_translations' => 'boolean'
+            'app_name'                  => 'string|min:4|max:100',
+            'app_locale'                => 'string',
+            'app_email'                 => 'email',
+            'app_timezone'              => 'string',
+            'app_translations'          => 'boolean',
+            'analytics_property_id'     => 'nullable|string',
+            'manager_measurement_id'    => 'nullable|string',
+            'maps_api_key'              => 'nullable|string',
         ];
     }
 }

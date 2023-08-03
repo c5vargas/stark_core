@@ -11,24 +11,22 @@
             <settings-nav-tabs />
 
             <div class="col-7 col-md-10 col-lg-9 ps-0">
-                <form-localization class="mb-3" />
-                <translate-strings />
+                <form-component v-if="settingStore.settings" class="mb-3" />
             </div>
         </div>
     </Admin>
 </template>
 
 <script setup>
-import Admin from "@/views/layouts/Admin";
-import SettingsNavTabs from "@/views/components/Dashboard/SettingsNavTabs.vue";
-import FormLocalization from "@/views/components/Settings/Language/FormLocalization.vue";
-import TranslateStrings from "@/views/components/Settings/Language/TranslateStrings.vue";
-import { useLangStore } from "@/stores/lang";
 import { onBeforeMount } from "vue";
+import { useSettingsStore } from "@/stores/settings";
+import Admin from "@/views/layouts/Admin";
+import FormComponent from "@/views/components/Settings/Analytics/FormComponent.vue";
+import SettingsNavTabs from "@/views/components/Dashboard/SettingsNavTabs.vue";
 
-const langStore = useLangStore()
+const settingStore = useSettingsStore()
 
 onBeforeMount(async() => {
-    await langStore.fetch()
+    await settingStore.fetch()
 })
 </script>

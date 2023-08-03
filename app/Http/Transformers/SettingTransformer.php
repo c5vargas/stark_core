@@ -12,8 +12,8 @@ class SettingTransformer extends TransformerAbstract
     {
         return [
             'id' => $item->id,
-            'key' => $item->name,
-            'value' => $item->email,
+            'key' => $item->key,
+            'value' => $item->value,
         ];
     }
 }

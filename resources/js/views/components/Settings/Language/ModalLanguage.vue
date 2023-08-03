@@ -20,7 +20,7 @@
 import { ref } from "vue";
 import { useLangStore } from "@/stores/lang";
 import isoLangs from "@/plugins/isoLangs.js"
-import Modal from "../Shared/Modal.vue";
+import Modal from "@/views/components/Shared/Modal.vue";
 
 const emits = defineEmits(['on-close'])
 const langStore = useLangStore()

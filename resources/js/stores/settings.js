@@ -6,6 +6,28 @@ import useLanguagesService from '@/services/languagesService'
 
 export const useSettingsStore = defineStore('settingsStore', () => {
     const settings = ref(null)
+    const isLoading = ref(false)
+
+    const fetch = async() => {
+        const { get } = useSettingsService()
+
+        try {
+            const { data } = await get()
+            const { status, results, message } = data
+
+            if(!status)
+                return swalToast(message, 'error')
+
+            let aux = {}
+            results.data.forEach(element => {
+                aux[element.key] = element.value
+            })
+
+            settings.value = aux
+        } catch(err) {
+            console.log("[ERR] settings.js", err)
+        }
+    }
 
     const update = async(payload) => {
         const { update } = useSettingsService()
@@ -19,7 +41,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
 
             swalToast(message)
         } catch(err) {
-            swalToast(err.response.data.data.message, 'error')
+            console.log("[ERR] settings.js", err)
         }
     }
 
@@ -38,15 +60,22 @@ export const useSettingsStore = defineStore('settingsStore', () => {
             swalToast(message)
             return true
         } catch(err) {
-            swalToast(err.response.data.data.message, 'error')
+            console.log("[ERR] settings.js", err)
             return false
         }
     }
 
+    function setLoading(status) {
+        isLoading.value = status
+    }
+
 
     return {
-        settings: computed( () => settings.value ),
+        settings: computed( () => settings.value),
+        isLoading: computed( () => isLoading.value),
+        setLoading,
         update,
+        fetch,
         addLocale,
     }
 })

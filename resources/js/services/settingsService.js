@@ -1,28 +1,38 @@
 import server from '@/api/server'
-import { ref } from 'vue'
+import { useSettingsStore } from '@/stores/settings'
 
 export default function settingsService() {
-    const isLoading = ref(false)
+    const settingsStore = useSettingsStore()
+
+    async function get() {
+        settingsStore.setLoading(true)
+
+        await server.get("/sanctum/csrf-cookie");
+        return server.get('/api/settings').finally(() => {
+            settingsStore.setLoading(false)
+        })
+    }
 
     async function update(payload) {
-        isLoading.value = true
+        settingsStore.setLoading(true)
 
         await server.get("/sanctum/csrf-cookie");
         return server.post('/api/settings/update', payload).finally(() => {
-            isLoading.value = false
+            settingsStore.setLoading(false)
         })
     }
 
     async function create(payload) {
-        isLoading.value = true
+        settingsStore.setLoading(true)
 
         await server.get("/sanctum/csrf-cookie");
         return server.post('/api/settings/locale', payload).finally(() => {
-            isLoading.value = false
+            settingsStore.setLoading(false)
         })
     }
 
     return {
+        get,
         update,
         create,
     }

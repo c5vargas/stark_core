@@ -30,12 +30,13 @@ Route::prefix('auth')->middleware(['apply_locale'])->group(function () {
     Route::post('password/reset', [AuthController::class, 'resetPassword'])->name('auth.reset-password');
 });
 
-Route::middleware(['auth:sanctum'])->group( function() {
-    Route::prefix('settings')->middleware(['apply_locale'])->group(function () {
+Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
+    Route::prefix('settings')->group(function () {
+        Route::get('', [SettingController::class, 'index']);
         Route::post('update', [SettingController::class, 'update']);
     });
 
-    Route::prefix('languages')->middleware(['apply_locale'])->group(function () {
+    Route::prefix('languages')->group(function () {
         Route::get('', [LanguageController::class, 'index']);
         Route::post('', [LanguageController::class, 'create']);
         Route::post('/update', [LanguageController::class, 'update']);

@@ -1,6 +1,7 @@
 import IndexPage from '@/views/pages/Dashboard/IndexPage.vue'
 import SettingsPage from '@/views/pages/Dashboard/Settings/SettingsPage.vue'
 import LocalizationPage from '@/views/pages/Dashboard/Settings/LocalizationPage.vue'
+import AnalyticsPage from '@/views/pages/Dashboard/Settings/AnalyticsPage.vue'
 
 const routes = [
     {
@@ -21,7 +22,7 @@ const routes = [
     {
         name: "dashboard.settings.analytics",
         path: "/dashboard/settings/analytics",
-        component: SettingsPage,
+        component: AnalyticsPage,
     },
     {
         name: "dashboard.settings.localization",

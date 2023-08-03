@@ -48,4 +48,12 @@
   'buttons.save_changes' => 'Save changes',
   'buttons.cancel' => 'Cancel',
   'form.placeholder.search' => 'Search something...',
+  'dashboard.settings.google.analytics' => 'Analytics',
+  'dashboard.settings.google.analytics_desc' => 'Configure google analytics integration and credentials.',
+  'dashboard.settings.google.account_key' => 'Google service account key file (.json)',
+  'dashboard.settings.google.analytics_property' => 'Google analytics property ID',
+  'dashboard.settings.google.manager_measurement' => 'Google tag manager measurement ID',
+  'dashboard.settings.google.manager_measurement_desc' => 'Google analytics measurement ID only, not the whole javascript snippet.',
+  'dashboard.settings.google.maps_api_key' => 'Google maps javascript API key',
+  'dashboard.settings.google.maps_api_key_desc' => 'Only required in order to show world geochart on integrated analytics pages.'
 );

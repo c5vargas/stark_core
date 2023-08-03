@@ -23,6 +23,12 @@ class SettingController extends Controller
         $this->repository = $repository;
     }
 
+    public function index()
+    {
+        $items = $this->repository->all();
+        return $this->respondWithCollection($items);
+    }
+
     public function update(UpdateRequest $request)
     {
         $updated = $this->repository->updateKey($request->validated());
