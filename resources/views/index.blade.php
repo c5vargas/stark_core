@@ -7,7 +7,19 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>{{ $settings->app_name }}</title>
 
-        @vite(['resources/scss/main.scss', 'resources/js/main.js'])
+        @vite(['resources/scss/app.css', 'resources/css/custom.css', 'resources/js/main.js'])
+
+        @if($settings->manager_measurement_id)
+            <!-- Google tag (gtag.js) -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-SC3W7JW1NR"></script>
+
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '{{ $settings->manager_measurement_id }}');
+            </script>
+        @endif
 
         <script>
             window.AppConfig = {

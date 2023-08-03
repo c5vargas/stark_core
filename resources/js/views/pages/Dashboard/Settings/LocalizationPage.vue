@@ -10,25 +10,30 @@
         <div class="row">
             <settings-nav-tabs />
 
-            <div class="col-7 col-md-10 col-lg-9 ps-0">
-                <form-localization class="mb-3" />
-                <translate-strings />
-            </div>
+            <transition name="fade" appear>
+                <div class="col-7 col-md-10 col-lg-9 ps-0" v-if="settingStore.settings && langStore.languages">
+                    <form-localization class="mb-3" />
+                    <translate-strings class="mb-3" />
+                </div>
+            </transition>
         </div>
     </Admin>
 </template>
 
 <script setup>
-import Admin from "@/views/layouts/Admin";
-import SettingsNavTabs from "@/views/components/Dashboard/SettingsNavTabs.vue";
-import FormLocalization from "@/views/components/Settings/Language/FormLocalization.vue";
-import TranslateStrings from "@/views/components/Settings/Language/TranslateStrings.vue";
-import { useLangStore } from "@/stores/lang";
 import { onBeforeMount } from "vue";
+import { useLangStore } from "@/stores/lang";
+import { useSettingsStore } from "@/stores/settings";
+import Admin from "@/views/layouts/Admin";
+import FormLocalization from "@/views/components/Settings/Language/FormLocalization.vue";
+import SettingsNavTabs from "@/views/components/Dashboard/SettingsNavTabs.vue";
+import TranslateStrings from "@/views/components/Settings/Language/TranslateStrings.vue";
 
 const langStore = useLangStore()
+const settingStore = useSettingsStore()
 
 onBeforeMount(async() => {
+    await settingStore.fetch()
     await langStore.fetch()
 })
 </script>

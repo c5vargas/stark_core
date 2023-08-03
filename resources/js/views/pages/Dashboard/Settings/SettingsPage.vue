@@ -10,42 +10,25 @@
         <div class="row">
             <settings-nav-tabs />
 
-            <div class="col-7 col-md-9 ps-0">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h6 class="card-title">{{ $t('dashboard.settings.general') }}</h6>
-
-                        <form>
-                            <div class="mb-3">
-                                <label class="form-label">{{ $t('dashboard.settings.site_url') }}</label>
-                                <input :value="app.app_url" type="text" readonly disabled class="form-control" autocomplete="off" placeholder="https://site.url">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">{{ $t('dashboard.settings.site_name') }}</label>
-                                <input v-model="form.app_name" type="text" class="form-control" autocomplete="off" :placeholder="$t('dashboard.settings.site_name')">
-                            </div>
-
-                            <button type="submit" class="btn btn-primary me-2">{{ $t('dashboard.settings.update') }}</button>
-                        </form>
-
-                    </div>
+            <transition name="fade" appear>
+                <div class="col-7 col-md-9 ps-0" v-if="settingStore.settings">
+                    <form-component class="mb-3" />
                 </div>
-            </div>
+            </transition>
         </div>
     </Admin>
 </template>
 
 <script setup>
+import { onBeforeMount } from "vue";
+import { useSettingsStore } from "@/stores/settings";
 import Admin from "@/views/layouts/Admin";
+import FormComponent from "@/views/components/Settings/General/FormComponent.vue";
 import SettingsNavTabs from "@/views/components/Dashboard/SettingsNavTabs.vue";
-import { onBeforeMount, ref } from "vue";
 
-const app = window.AppConfig
-const form = ref({})
+const settingStore = useSettingsStore()
 
-onBeforeMount(() => {
-    form.value = {...app}
+onBeforeMount(async() => {
+    await settingStore.fetch()
 })
 </script>
