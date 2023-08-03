@@ -14,8 +14,8 @@ class SettingSeeder extends Seeder
      */
     public function run()
     {
+        // App settings
         DB::table('settings')->insert(['key' => 'app_logo', 'value' => '/assets/img/logo.png']);
-        DB::table('settings')->insert(['key' => 'app_url', 'value' => config('app.url')]);
         DB::table('settings')->insert(['key' => 'app_favicon', 'value' => '/assets/img/favicon.png']);
         DB::table('settings')->insert(['key' => 'app_name', 'value' => config('app.name')]);
         DB::table('settings')->insert(['key' => 'app_locale', 'value' => config('app.locale')]);

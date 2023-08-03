@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h6 class="card-title mb-0">{{ $t('dashboard.settings.mail') }}</h6>
-            <h6 class="text-muted mb-3">{{ $t('dashboard.settings.google.mail_desc') }}</h6>
+            <h6 class="text-muted mb-3">{{ $t('dashboard.settings.mail_desc') }}</h6>
 
             <form @submit.prevent="handleSubmit">
                 <div class="mb-3">

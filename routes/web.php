@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('send-email', [DashboardController::class, 'testMail']); // TODO Eliminar
 Route::get('auth/{path?}', [DashboardController::class, 'show'])->where('path', '(.*)');
 Route::get('dashboard/{path?}', [DashboardController::class, 'show'])->where('path', '(.*)');
 Route::get('{path}', [IndexController::class, 'show'])->where('path', '(.*)');

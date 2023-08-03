@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendWelcomeMailJob;
 use App\Models\Language;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -23,5 +24,12 @@ class DashboardController extends Controller
         }
 
         return view('admin', compact('settings', 'languages'));
+    }
+
+    public function testMail() //TODO Eliminar
+    {
+        $user = \App\Models\User::first();
+        dispatch(new SendWelcomeMailJob($user));
+        dd("Email is sent successfully.");
     }
 }

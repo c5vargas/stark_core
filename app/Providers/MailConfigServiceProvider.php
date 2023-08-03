@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use stdClass;
 
 class MailConfigServiceProvider extends ServiceProvider
 {
@@ -15,26 +16,19 @@ class MailConfigServiceProvider extends ServiceProvider
     public function register()
     {
         if (Schema::hasTable('settings')) {
-            $fromAddress = DB::table('settings')->where('key', 'mail_from_address')->first();
-            $fromName = DB::table('settings')->where('key', 'mail_from_name')->first();
-            $driver = DB::table('settings')->where('key', 'mail_driver')->first();
-            $host = DB::table('settings')->where('key', 'mail_host')->first();
-            $port = DB::table('settings')->where('key', 'mail_port')->first();
-            $encryption = DB::table('settings')->where('key', 'mail_encryption')->first();
-            $username = DB::table('settings')->where('key', 'mail_username')->first();
-            $password = DB::table('settings')->where('key', 'mail_password')->first();
+            $app = $this->getSettingsPhp();
 
-            if(!$driver)
+            if(!$app->mail_host || !$app->mail_port || !$app->mail_username || !$app->mail_password)
                 return;
 
             $config = array(
-                'driver'     => $driver,
-                'host'       => $host,
-                'port'       => $port,
-                'from'       => array('address' => $fromAddress, 'name' => $fromName),
-                'encryption' => $encryption,
-                'username'   => $username,
-                'password'   => $password,
+                'driver'     => $app->mail_driver,
+                'host'       => $app->mail_host,
+                'port'       => $app->mail_port,
+                'from'       => array('address' => $app->mail_from_address, 'name' => $app->mail_from_name),
+                'encryption' => $app->mail_encryption,
+                'username'   => $app->mail_username,
+                'password'   => $app->mail_password,
                 'sendmail'   => '/usr/sbin/sendmail -bs -i',
                 'pretend'    => false,
             );
@@ -49,5 +43,17 @@ class MailConfigServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+    }
+
+    private function getSettingsPhp(): stdClass {
+        $data = DB::table('settings')->where('key', 'like', 'mail_%')->get();
+        $settings = new stdClass();
+
+        foreach ($data as $item) {
+            $propiety = $item->key;
+            $settings->$propiety = $item->value;
+        }
+
+        return $settings;
     }
 }

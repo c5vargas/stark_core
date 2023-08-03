@@ -19,4 +19,14 @@ class Setting extends Model
     protected $fillable = [
         'key', 'value'
     ];
+
+    public function scopeLogo($query)
+    {
+        return $query->where('key', 'app_logo')->first()->value;
+    }
+
+    public function scopeName($query)
+    {
+        return $query->where('key', 'app_name')->first()->value;
+    }
 }
