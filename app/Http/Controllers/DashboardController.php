@@ -25,11 +25,4 @@ class DashboardController extends Controller
 
         return view('admin', compact('settings', 'languages'));
     }
-
-    public function testMail() //TODO Eliminar
-    {
-        $user = \App\Models\User::first();
-        dispatch(new SendWelcomeMailJob($user));
-        dd("Email is sent successfully.");
-    }
 }
