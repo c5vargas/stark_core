@@ -55,5 +55,7 @@
   'dashboard.settings.google.manager_measurement' => 'Google tag manager measurement ID',
   'dashboard.settings.google.manager_measurement_desc' => 'Google analytics measurement ID only, not the whole javascript snippet.',
   'dashboard.settings.google.maps_api_key' => 'Google maps javascript API key',
-  'dashboard.settings.google.maps_api_key_desc' => 'Only required in order to show world geochart on integrated analytics pages.'
+  'dashboard.settings.google.maps_api_key_desc' => 'Only required in order to show world geochart on integrated analytics pages.',
+  'dashboard.settings.google.mail' => 'Mail',
+  'dashboard.settings.mail.from_address' => ''
 );

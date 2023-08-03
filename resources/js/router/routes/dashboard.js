@@ -1,7 +1,8 @@
-import IndexPage from '@/views/pages/Dashboard/IndexPage.vue'
-import SettingsPage from '@/views/pages/Dashboard/Settings/SettingsPage.vue'
-import LocalizationPage from '@/views/pages/Dashboard/Settings/LocalizationPage.vue'
 import AnalyticsPage from '@/views/pages/Dashboard/Settings/AnalyticsPage.vue'
+import IndexPage from '@/views/pages/Dashboard/IndexPage.vue'
+import LocalizationPage from '@/views/pages/Dashboard/Settings/LocalizationPage.vue'
+import MailPage from '@/views/pages/Dashboard/Settings/MailPage.vue'
+import SettingsPage from '@/views/pages/Dashboard/Settings/SettingsPage.vue'
 
 const routes = [
     {
@@ -28,6 +29,11 @@ const routes = [
         name: "dashboard.settings.localization",
         path: "/dashboard/settings/localization",
         component: LocalizationPage,
+    },
+    {
+        name: "dashboard.settings.mail",
+        path: "/dashboard/settings/mail",
+        component: MailPage,
     },
 ]
 

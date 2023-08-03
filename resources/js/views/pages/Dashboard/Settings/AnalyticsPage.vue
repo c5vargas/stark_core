@@ -24,7 +24,7 @@ import { onBeforeMount } from "vue";
 import { useSettingsStore } from "@/stores/settings";
 import Admin from "@/views/layouts/Admin";
 import FormComponent from "@/views/components/Settings/Analytics/FormComponent.vue";
-import SettingsNavTabs from "@/views/components/Dashboard/SettingsNavTabs.vue";
+import SettingsNavTabs from "@/views/components/Settings/SettingsNavTabs.vue";
 
 const settingStore = useSettingsStore()
 
