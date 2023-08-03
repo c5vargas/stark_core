@@ -23,7 +23,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'name'  => 'string|min:4|max:100',
-            'code'  => 'string|unique:languages,code' . $this->code,
+            'code'  => 'string|unique:languages,code,' . $this->code,
         ];
     }
 }

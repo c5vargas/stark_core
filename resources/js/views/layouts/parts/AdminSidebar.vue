@@ -53,20 +53,23 @@
                         <span class="link-title">Calendar</span>
                     </a>
                 </li>
-                <li class="nav-item nav-category">Settings</li>
+                <li class="nav-item nav-category">{{ $t('dashboard.settings.settings') }}</li>
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#settings" role="button" aria-expanded="false" aria-controls="settings">
                         <i class="link-icon bi bi-gear"></i>
-                        <span class="link-title">Settings</span>
+                        <span class="link-title">{{ $t('dashboard.settings.settings') }}</span>
                         <i class="link-arrow bi bi-chevron-down"></i>
                     </a>
                     <div class="collapse" id="settings">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <router-link :to="{name:'dashboard.settings.general'}" class="nav-link">General</router-link>
+                                <router-link :to="{name:'dashboard.settings.general'}" class="nav-link">{{ $t('dashboard.settings.general') }}</router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link :to="{name:'dashboard.settings.localization'}" class="nav-link">Localization</router-link>
+                                <router-link :to="{name:'dashboard.settings.localization'}" class="nav-link">{{ $t('dashboard.settings.localization') }}</router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link :to="{name:'dashboard.settings.analytics'}" class="nav-link">{{ $t('dashboard.settings.analytics') }}</router-link>
                             </li>
                         </ul>
                     </div>
