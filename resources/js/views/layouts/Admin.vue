@@ -19,5 +19,4 @@
 import AdminSidebar from './parts/AdminSidebar.vue';
 import AdminNavbar from './parts/AdminNavbar.vue';
 import AdminFooter from './parts/AdminFooter.vue'
-import { onBeforeMount } from 'vue';
 </script>
