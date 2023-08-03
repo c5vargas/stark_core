@@ -24,8 +24,8 @@ const navigator = [
         icon: 'bi-translate'
     },
     {
-        name: 'dashboard.settings.localization',
-        route: 'dashboard.settings.localization',
+        name: 'dashboard.settings.analytics',
+        route: 'dashboard.settings.analytics',
         icon: 'bi-graph-up'
     },
     {

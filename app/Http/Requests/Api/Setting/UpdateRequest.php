@@ -24,12 +24,20 @@ class UpdateRequest extends FormRequest
         return [
             'app_name'                  => 'string|min:4|max:100',
             'app_locale'                => 'string',
-            'app_email'                 => 'email',
             'app_timezone'              => 'string',
             'app_translations'          => 'boolean',
             'analytics_property_id'     => 'nullable|string',
             'manager_measurement_id'    => 'nullable|string',
             'maps_api_key'              => 'nullable|string',
+            'mail_from_address'         => 'nullable|email',
+            'mail_contact_address'      => 'nullable|email',
+            'mail_from_name'            => 'nullable|string|min:4|max:100',
+            'mail_driver'               => 'nullable|string',
+            'mail_host'                 => 'nullable|string',
+            'mail_port'                 => 'nullable|string',
+            'mail_encryption'           => 'nullable|string',
+            'mail_username'             => 'nullable|string',
+            'mail_password'             => 'nullable|string',
         ];
     }
 }
