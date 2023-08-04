@@ -25,7 +25,6 @@
             window.AppConfig = {
                 app_name: '{{ $settings->app_name }}',
                 app_logo: '{{ $settings->app_logo }}',
-                app_url: '{{ $settings->app_url }}',
                 csrf: '{{ csrf_token() }}',
                 app_locale: '{{ $settings->app_locale }}',
                 app_timezone: '{{ $settings->app_timezone }}',
