@@ -15,6 +15,7 @@
         "@vitejs/plugin-vue": "^4.2.3",
         "@vueuse/core": "^10.2.1",
         "bootstrap-icons": "^1.10.5",
+        "moment": "^2.29.4",
         "pinia": "^2.1.6",
         "sweetalert2": "^11.7.20",
         "vue-i18n": "^9.2.2",

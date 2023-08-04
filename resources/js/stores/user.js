@@ -7,6 +7,17 @@ export const useUserStore = defineStore('userStore', () => {
     const users = ref(null)
     const isLoading = ref(false)
     const page = ref(1)
+    const itemsPerPage = ref(15)
+    const search = ref('')
+
+    const usersPaginated = computed( () => {
+        if(search.value.length > 2)
+            return users.value.filter( el =>
+                el.name.toLowerCase().indexOf(search.value.toLowerCase()) >= 0 ||
+                el.email.toLowerCase().indexOf(search.value.toLowerCase()) >= 0)
+
+        return users.value.slice(itemsPerPage.value * (page.value - 1), itemsPerPage.value * page.value)
+    })
 
     const fetch = async() => {
         const { get } = useUserService()
@@ -70,13 +81,16 @@ export const useUserStore = defineStore('userStore', () => {
     }
 
     return {
-        users: computed( () => users.value ),
-        page: computed( () => page.value ),
         isLoading: computed( () => isLoading.value),
+        itemsPerPage: computed( () => itemsPerPage.value),
+        page: computed( () => page.value ),
+        users: computed( () => users.value ),
+        usersPaginated,
+        search,
         create,
-        update,
         fetch,
         setLoading,
-        setPage
+        setPage,
+        update
     }
 })

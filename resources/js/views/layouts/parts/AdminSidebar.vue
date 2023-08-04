@@ -21,22 +21,19 @@
                 </li>
                 <li class="nav-item nav-category">web apps</li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false"
-                        aria-controls="emails">
-                        <i class="link-icon bi bi-envelope"></i>
-                        <span class="link-title">Email</span>
+                    <a class="nav-link" data-bs-toggle="collapse" href="#users" role="button" aria-expanded="false"
+                        aria-controls="users">
+                        <i class="link-icon bi bi-people"></i>
+                        <span class="link-title">{{$t('dashboard.users')}}</span>
                         <i class="link-arrow bi bi-chevron-down"></i>
                     </a>
-                    <div class="collapse" id="emails">
+                    <div class="collapse" id="users">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="../../pages/email/inbox.html" class="nav-link">Inbox</a>
+                                <router-link :to="{name: 'dashboard.users'}" class="nav-link">{{$t('dashboard.users.list')}}</router-link>
                             </li>
                             <li class="nav-item">
-                                <a href="../../pages/email/read.html" class="nav-link">Read</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../pages/email/compose.html" class="nav-link">Compose</a>
+                                <router-link :to="{name: 'dashboard.users'}" class="nav-link">{{$t('dashboard.users.create')}}</router-link>
                             </li>
                         </ul>
                     </div>
@@ -45,12 +42,6 @@
                     <a href="../../pages/apps/chat.html" class="nav-link">
                         <i class="link-icon bi bi-chat"></i>
                         <span class="link-title">Chat</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="../../pages/apps/calendar.html" class="nav-link">
-                        <i class="link-icon bi bi-calendar"></i>
-                        <span class="link-title">Calendar</span>
                     </a>
                 </li>
                 <li class="nav-item nav-category">{{ $t('dashboard.settings.settings') }}</li>

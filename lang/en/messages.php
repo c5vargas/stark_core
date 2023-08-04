@@ -5,6 +5,9 @@
   'auth.password' => 'Password',
   'auth.signup' => 'Not a user? Sign up',
   'auth.welcome' => 'Welcome back! Log in to your account.',
+  'common.email' => 'Email',
+  'common.name' => 'Name',
+  'common.created_at' => 'Created at',
   'controller.auth.email_failed' => 'The email provided is not valid.',
   'controller.auth.email_or_token_invalid' => 'The token or email is not valid.',
   'controller.auth.forget_password' => 'We have emailed your password reset link!',
@@ -82,5 +85,6 @@
   'dashboard.settings.mail.password' => 'SMTP password',
   'dashboard.users' => 'Users',
   'dashboard.users.list' => 'List of users',
+  'dashboard.users.create' => 'Create new user',
   'dashboard.users.list_desc' => 'Displays all registered users and allows you to perform different actions.'
 );
