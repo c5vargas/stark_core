@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,14 @@ Route::prefix('auth')->middleware(['apply_locale'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
+    Route::prefix('users')->group(function () {
+        Route::get('', [UserController::class, 'index']);
+        Route::get('/{id}', [UserController::class, 'show']);
+        Route::post('', [UserController::class, 'create']);
+        Route::post('/update', [UserController::class, 'update']);
+        Route::delete('/{id}', [UserController::class, 'delete']);
+    });
+
     Route::prefix('settings')->group(function () {
         Route::get('', [SettingController::class, 'index']);
         Route::post('update', [SettingController::class, 'update']);

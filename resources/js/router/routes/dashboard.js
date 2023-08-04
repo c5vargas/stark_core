@@ -3,12 +3,18 @@ import IndexPage from '@/views/pages/Dashboard/IndexPage.vue'
 import LocalizationPage from '@/views/pages/Dashboard/Settings/LocalizationPage.vue'
 import MailPage from '@/views/pages/Dashboard/Settings/MailPage.vue'
 import SettingsPage from '@/views/pages/Dashboard/Settings/SettingsPage.vue'
+import UsersPage from '@/views/pages/Dashboard/Users/UsersPage.vue'
 
 const routes = [
     {
         name: "dashboard",
         path: "/dashboard",
         component: IndexPage,
+    },
+    {
+        name: "dashboard.users",
+        path: "/dashboard/users",
+        component: UsersPage,
     },
     {
         name: "dashboard.settings",

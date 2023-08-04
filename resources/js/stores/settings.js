@@ -69,7 +69,6 @@ export const useSettingsStore = defineStore('settingsStore', () => {
         isLoading.value = status
     }
 
-
     return {
         settings: computed( () => settings.value),
         isLoading: computed( () => isLoading.value),
