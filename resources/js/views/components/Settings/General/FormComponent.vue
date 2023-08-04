@@ -6,7 +6,7 @@
             <form @submit.prevent="handleSubmit">
                 <div class="mb-3">
                     <label class="form-label">{{ $t('dashboard.settings.site_url') }}</label>
-                    <input :value="settingStore.settings.app_url" type="text" readonly disabled class="form-control" autocomplete="off" placeholder="https://site.url">
+                    <input :value="appUrl" type="text" readonly disabled class="form-control" autocomplete="off" placeholder="https://site.url">
                 </div>
 
                 <div class="mb-3">
@@ -25,6 +25,7 @@ import { onMounted, ref } from "vue";
 import { useSettingsStore } from "@/stores/settings";
 
 const settingStore = useSettingsStore()
+const appUrl = import.meta.env.VITE_APP_URL
 const form = ref({})
 
 onMounted( async() => {
