@@ -72,6 +72,24 @@ export const useUserStore = defineStore('userStore', () => {
         }
     }
 
+    const destroy = async(id) => {
+        const { destroy } = useUserService()
+
+        try {
+            const { data } = await destroy(id)
+            const { status, message } = data
+
+            if(!status)
+                return swalToast(message, 'error')
+
+            const index = users.value.findIndex(el => el.id === id)
+            users.value.splice(index, 1)
+            swalToast(message)
+        } catch(err) {
+            swalToast(err.response.data.message, 'error')
+        }
+    }
+
     function setLoading(status) {
         isLoading.value = status
     }
@@ -91,6 +109,7 @@ export const useUserStore = defineStore('userStore', () => {
         fetch,
         setLoading,
         setPage,
-        update
+        update,
+        destroy
     }
 })

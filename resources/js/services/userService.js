@@ -31,9 +31,19 @@ export default function userService() {
         })
     }
 
+    async function destroy(id) {
+        usrStore.setLoading(true)
+
+        await server.get("/sanctum/csrf-cookie");
+        return server.delete(`/api/users/${id}`).finally(() => {
+            usrStore.setLoading(false)
+        })
+    }
+
     return {
         get,
         update,
         create,
+        destroy,
     }
 }

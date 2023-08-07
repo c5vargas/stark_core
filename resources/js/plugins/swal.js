@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2'
+import { useI18n } from 'vue-i18n'
 
 export const swalClose = () => {
     Swal.close()

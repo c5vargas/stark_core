@@ -48,9 +48,9 @@ class UserController extends Controller
         $updated = $this->repository->update($request->validated(), $request->input('user_id'));
 
         if(!$updated)
-            throw new Exception(__('controller.common.error_500'), 500);
+            throw new Exception(__('messages.controller.common.error_500'), 500);
 
-        return $this->respondWithMessage(__('controller.user.updated'));
+        return $this->respondWithMessage(__('messages.controller.user.updated'));
     }
 
     public function delete($id)
@@ -58,8 +58,8 @@ class UserController extends Controller
         $deleted = $this->repository->delete($id);
 
         if(!$deleted)
-            throw new Exception(__('controller.common.error_500'), 500);
+            throw new Exception(__('messages.controller.common.error_500'), 500);
 
-        return $this->respondWithMessage(__('controller.user.deleted'));
+        return $this->respondWithMessage(__('messages.controller.user.deleted'));
     }
 }

@@ -18,7 +18,6 @@
                     </button>
                 </div>
             </div>
-
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -32,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in usrStore.usersPaginated" :key="user.id" @click="checkItem(user.id)">
+                        <tr v-for="user in usrStore.usersPaginated" :key="user.id">
                             <td class="align-middle">
                                 <img :src="`https://i.pravatar.cc/36?id=${user.id}`" class="rounded-circle" :alt="user.name">
                             </td>
@@ -40,13 +39,7 @@
                             <td class="align-middle d-none d-md-table-cell">{{ user.email }}</td>
                             <td class="align-middle d-none d-md-table-cell">{{ dateFormatted(user.created_at) }}</td>
                             <td class="align-middle text-end">
-                                <button class="btn btn-sm btn-link">
-                                    <i class="bi bi-pen"></i>
-                                </button>
-
-                                <button class="btn btn-sm btn-link">
-                                    <i class="bi bi-trash"></i>
-                                </button>
+                                <buttons-table :canUpdate="true" :canDelete="true" @on-update="$router.push({name: 'dashboard'})" @on-delete="usrStore.destroy(user.id)" />
                             </td>
                         </tr>
                     </tbody>
@@ -65,6 +58,7 @@
 import Pagination from "@/views/components/Shared/Pagination.vue";
 import { useUserStore } from "@/stores/user";
 import { dateFormatted } from "@/plugins/moment";
+import ButtonsTable from "../Shared/ButtonsTable.vue";
 const usrStore = useUserStore()
 </script>
 
