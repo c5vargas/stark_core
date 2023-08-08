@@ -34,7 +34,7 @@ async function onDelete() {
     const confirmButtonText = t('buttons.confirm')
     const cancelButtonText = t('buttons.cancel')
 
-    const resp = await await Swal.fire({
+    const {isConfirmed} = await Swal.fire({
         title,
         text,
         icon: 'info',
@@ -45,7 +45,7 @@ async function onDelete() {
         cancelButtonText
     })
 
-    if(resp)
+    if(isConfirmed)
         emits('on-delete', props.id)
 }
 </script>
