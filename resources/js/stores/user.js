@@ -31,7 +31,23 @@ export const useUserStore = defineStore('userStore', () => {
 
             users.value = results.data
         } catch(err) {
-            console.log("[ERR] lang.js", err)
+            console.log("[ERR] user.js", err)
+        }
+    }
+
+    const find = async(id) => {
+        const { find } = useUserService()
+
+        try {
+            const { data } = await find(id)
+            const { status, results, message } = data
+
+            if(!status)
+                return swalToast(message, 'error')
+
+            return results.data
+        } catch(err) {
+            console.log("[ERR] user.js", err)
         }
     }
 
@@ -110,6 +126,7 @@ export const useUserStore = defineStore('userStore', () => {
         setLoading,
         setPage,
         update,
-        destroy
+        destroy,
+        find
     }
 })

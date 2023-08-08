@@ -33,7 +33,7 @@
                                 <router-link :to="{name: 'dashboard.users'}" class="nav-link">{{$t('dashboard.users.list')}}</router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link :to="{name: 'dashboard.users'}" class="nav-link">{{$t('dashboard.users.create')}}</router-link>
+                                <router-link :to="{name: 'dashboard.users.single', params: {id:'new'}}" class="nav-link">{{$t('dashboard.users.create')}}</router-link>
                             </li>
                         </ul>
                     </div>

@@ -13,6 +13,15 @@ export default function userService() {
         })
     }
 
+    async function find(id) {
+        usrStore.setLoading(true)
+
+        await server.get("/sanctum/csrf-cookie");
+        return server.get(`/api/users/${id}`).finally(() => {
+            usrStore.setLoading(false)
+        })
+    }
+
     async function update(payload) {
         usrStore.setLoading(true)
 
@@ -45,5 +54,6 @@ export default function userService() {
         update,
         create,
         destroy,
+        find,
     }
 }

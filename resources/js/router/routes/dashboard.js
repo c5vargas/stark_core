@@ -4,6 +4,7 @@ import LocalizationPage from '@/views/pages/Dashboard/Settings/LocalizationPage.
 import MailPage from '@/views/pages/Dashboard/Settings/MailPage.vue'
 import SettingsPage from '@/views/pages/Dashboard/Settings/SettingsPage.vue'
 import UsersPage from '@/views/pages/Dashboard/Users/UsersPage.vue'
+import SinglePage from '@/views/pages/Dashboard/Users/SinglePage.vue'
 
 const routes = [
     {
@@ -15,6 +16,12 @@ const routes = [
         name: "dashboard.users",
         path: "/dashboard/users",
         component: UsersPage,
+    },
+    {
+        name: "dashboard.users.single",
+        path: "/dashboard/users/:id",
+        props: (route) => ({ id: route.params.id }),
+        component: SinglePage,
     },
     {
         name: "dashboard.settings",
