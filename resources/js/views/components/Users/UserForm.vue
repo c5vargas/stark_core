@@ -15,7 +15,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">{{ $t('common.password') }}</label>
-                    <input v-model="form.password" type="password" class="form-control" autocomplete="off" required placeholder="********">
+                    <input v-model="form.password" type="password" class="form-control" autocomplete="off" placeholder="********">
                 </div>
 
                 <div class="d-flex justify-content-start">

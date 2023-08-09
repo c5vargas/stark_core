@@ -83,8 +83,10 @@ export const useUserStore = defineStore('userStore', () => {
                 return swalToast(message, 'error')
 
             swalToast(message)
+            return true
         } catch(err) {
             swalToast(err.response.data.message, 'error')
+            return false
         }
     }
 
