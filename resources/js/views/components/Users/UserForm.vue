@@ -2,7 +2,7 @@
     <form @submit.prevent="handleSubmit">
         <div class="card">
             <div class="card-body">
-                <h6 class="card-title">{{ $t('dashboard.users.create') }}</h6>
+                <h6 class="card-title">{{ form.id === 'new' ? $t('dashboard.users.create') : $t('dashboard.users.update') }}</h6>
                 <div class="mb-3">
                     <label class="form-label">{{ $t('common.name') }}</label>
                     <input v-model="form.name" type="text" class="form-control" autocomplete="off" required placeholder="John Doe...">

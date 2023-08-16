@@ -92,5 +92,6 @@
   'dashboard.users' => 'Users',
   'dashboard.users.list' => 'List of users',
   'dashboard.users.create' => 'Create new user',
+  'dashboard.users.update' => 'Modify a user',
   'dashboard.users.list_desc' => 'Displays all registered users and allows you to perform different actions.'
 );
