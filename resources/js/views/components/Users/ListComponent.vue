@@ -7,10 +7,10 @@
             </div>
 
             <div class="d-flex justify-content-between ms-auto gap-3">
-                <button class="btn btn-primary wd-115 d-flex justify-content-between align-items-center">
+                <router-link :to="{name: 'dashboard.users.single', params: { id: 'new'}}" class="btn btn-primary wd-115 d-flex justify-content-between align-items-center">
                     New user
                     <i class="ms-2 bi bi-plus-lg"></i>
-                </button>
+                </router-link>
                 <div class="input-group wd-150">
                     <input type="text" v-model="usrStore.search" class="form-control" placeholder="Search...">
                     <button class="btn btn-outline-primary">
@@ -39,7 +39,7 @@
                             <td class="align-middle d-none d-md-table-cell">{{ user.email }}</td>
                             <td class="align-middle d-none d-md-table-cell">{{ dateFormatted(user.created_at) }}</td>
                             <td class="align-middle text-end">
-                                <buttons-table :canUpdate="true" :canDelete="true" @on-update="$router.push({name: 'dashboard'})" @on-delete="usrStore.destroy(user.id)" />
+                                <buttons-table :canUpdate="true" :canDelete="true" @on-update="$router.push({name: 'dashboard.users.single', params: { id: user.id}})" @on-delete="usrStore.destroy(user.id)" />
                             </td>
                         </tr>
                     </tbody>

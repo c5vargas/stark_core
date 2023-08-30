@@ -103,8 +103,11 @@ export const useUserStore = defineStore('userStore', () => {
             const index = users.value.findIndex(el => el.id === id)
             users.value.splice(index, 1)
             swalToast(message)
+
+            return true
         } catch(err) {
             swalToast(err.response.data.message, 'error')
+            return false
         }
     }
 
