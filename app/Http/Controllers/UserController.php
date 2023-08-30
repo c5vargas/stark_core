@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Api\Users\UserCreateRequest;
-use App\Http\Requests\Api\Users\UserUpdateRequest;
+use App\Http\Requests\Api\Authentication\RegisterRequest;
+use App\Http\Requests\Api\Authentication\UpdateUserRequest;
 use App\Http\Transformers\UserTransformer;
 use App\Repositories\Eloquent\UserRepository;
 use Exception;
@@ -37,20 +37,20 @@ class UserController extends Controller
         return $this->respondWithItem($user);
     }
 
-    public function create(UserCreateRequest $request)
+    public function create(RegisterRequest $request)
     {
         $user = $this->repository->create($request->validated());
-        return $this->respondWithItem($user, 201);
+        return $this->respondWithItem($user, 201, __('messages.controller.created'));
     }
 
-    public function update(UserUpdateRequest $request)
+    public function update(UpdateUserRequest $request)
     {
         $updated = $this->repository->update($request->validated(), $request->input('user_id'));
 
         if(!$updated)
             throw new Exception(__('messages.controller.common.error_500'), 500);
 
-        return $this->respondWithMessage(__('messages.controller.user.updated'));
+        return $this->respondWithMessage(__('messages.controller.updated'));
     }
 
     public function delete($id)
