@@ -2,8 +2,12 @@
     <Admin>
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><router-link :to="{name:'dashboard.users'}">{{ $t('dashboard.users') }}</router-link></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $t('dashboard.users.create') }}</li>
+                <li class="breadcrumb-item">
+                    <router-link :to="{name:'dashboard.users'}">{{ $t('dashboard.users') }}</router-link>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    {{ id === 'new' ? $t('dashboard.users.create') : $t('dashboard.users.update') }}
+                </li>
             </ol>
         </nav>
 

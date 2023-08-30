@@ -7,7 +7,9 @@
             </div>
 
             <div class="d-flex justify-content-between ms-auto gap-3">
-                <router-link :to="{name: 'dashboard.users.single', params: { id: 'new'}}" class="btn btn-primary wd-115 d-flex justify-content-between align-items-center">
+                <router-link
+                    :to="{name:'dashboard.users.single', params: {id:'new'}}"
+                    class="btn btn-primary wd-115 d-flex justify-content-between align-items-center">
                     New user
                     <i class="ms-2 bi bi-plus-lg"></i>
                 </router-link>
@@ -39,7 +41,14 @@
                             <td class="align-middle d-none d-md-table-cell">{{ user.email }}</td>
                             <td class="align-middle d-none d-md-table-cell">{{ dateFormatted(user.created_at) }}</td>
                             <td class="align-middle text-end">
-                                <buttons-table :canUpdate="true" :canDelete="true" @on-update="$router.push({name: 'dashboard.users.single', params: { id: user.id}})" @on-delete="usrStore.destroy(user.id)" />
+                                <buttons-table
+                                    :canUpdate="true"
+                                    :canDelete="true"
+                                    @on-update="$router.push({
+                                        name: 'dashboard.users.single',
+                                        params: {id: user.id}
+                                    })"
+                                    @on-delete="usrStore.destroy(user.id)" />
                             </td>
                         </tr>
                     </tbody>

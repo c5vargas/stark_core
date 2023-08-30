@@ -37,6 +37,7 @@
   'mail.welcome.link_1' => 'Click here to access',
   'controller.user.deleted' => 'User successfully deleted.',
   'controller.user.updated' => 'User data has been updated correctly.',
+  'controller.user.created' => 'User has been created correctly.',
   'dashboard.settings.analytics' => 'Analytics',
   'dashboard.settings.default_locale' => 'Default locale',
   'dashboard.settings.default_timezone' => 'Timezone',
@@ -91,5 +92,6 @@
   'dashboard.users' => 'Users',
   'dashboard.users.list' => 'List of users',
   'dashboard.users.create' => 'Create new user',
+  'dashboard.users.update' => 'Modify a user',
   'dashboard.users.list_desc' => 'Displays all registered users and allows you to perform different actions.'
 );
