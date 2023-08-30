@@ -45,7 +45,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request)
     {
-        $updated = $this->repository->update($request->validated(), $request->input('user_id'));
+        $updated = $this->repository->update($request->validated(), $request->input('id'));
 
         if(!$updated)
             throw new Exception(__('messages.controller.common.error_500'), 500);

@@ -13,7 +13,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        if(!auth()->check() || !$this->user_id) return false;
+        if(!auth()->check() || !$this->id) return false;
 
         return true;
     }
@@ -26,9 +26,9 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id'       => 'required|exists:users,id',
+            'id'       => 'required|exists:users,id',
             'name'          => 'required|string',
-            'email'         => 'required|string|email|max:100|unique:users,email,' . $this->user_id,
+            'email'         => 'required|string|email|max:100|unique:users,email,' . $this->id,
         ];
     }
 }
