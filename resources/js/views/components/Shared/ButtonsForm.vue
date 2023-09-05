@@ -10,7 +10,7 @@
             <i class="ms-1 bi bi-trash"></i>
         </button>
 
-        <button v-if="canSubmit" type="submit" class="btn btn-primary me-2" @click="$emit('on-submit', id)">
+        <button v-if="canSubmit" type="button" class="btn btn-primary me-2" @click="$emit('on-submit', id)">
             {{ $t('buttons.save_changes') }} <i class="ms-1 bi bi-check"></i>
         </button>
     </div>
