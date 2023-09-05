@@ -59,6 +59,8 @@
                                         </div>
                                     </div>
                                     <div class="col-6 col-md-12 col-xl-7">
+                                        <div class="fw-bold" v-if="authStore.can('view.dashboard')">You can view dashboard.</div>
+
                                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, error sint, temporibus minus quod voluptate facere cum officia pariatur neque corporis repellat nisi. Suscipit voluptatem sunt eligendi nulla dolorem magnam.
                                     </div>
                                 </div>
@@ -73,5 +75,7 @@
 
 <script setup>
 import Admin from "@/views/layouts/Admin";
+import { useAuthStore } from "@/stores/auth";
 const app = window.AppConfig
+const authStore = useAuthStore()
 </script>

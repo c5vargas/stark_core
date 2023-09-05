@@ -6,7 +6,9 @@
             <admin-navbar />
 
             <div class="page-content">
-                <admin-notices :notice="notices[0]" />
+                <transition name="list" appear>
+                    <admin-notices :key="notices.length" v-if="notices.length > 0" :notice="notices[0]" />
+                </transition>
                 <slot></slot>
             </div>
 

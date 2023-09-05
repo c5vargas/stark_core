@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SendWelcomeMailJob;
 use App\Models\Language;
 use App\Models\Setting;
 use Illuminate\Http\Request;

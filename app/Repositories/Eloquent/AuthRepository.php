@@ -35,6 +35,8 @@ class AuthRepository extends BaseRepository
         Auth::login($user);
         $token = $user->createToken($user->email)->plainTextToken;
 
+        $user->getAllPermissions();
+
         return ['user' => $user, 'token' => $token];
     }
 
