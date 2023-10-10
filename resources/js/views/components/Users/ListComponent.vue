@@ -33,24 +33,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in usrStore.usersPaginated" :key="user.id">
-                            <td class="align-middle">
-                                <img :src="`https://i.pravatar.cc/36?id=${user.id}`" class="rounded-circle" :alt="user.name">
-                            </td>
-                            <td class="align-middle">{{ user.name }}</td>
-                            <td class="align-middle d-none d-md-table-cell">{{ user.email }}</td>
-                            <td class="align-middle d-none d-md-table-cell">{{ dateFormatted(user.created_at) }}</td>
-                            <td class="align-middle text-end">
-                                <buttons-table
-                                    :canUpdate="true"
-                                    :canDelete="true"
-                                    @on-update="$router.push({
-                                        name: 'dashboard.users.single',
-                                        params: {id: user.id}
-                                    })"
-                                    @on-delete="usrStore.destroy(user.id)" />
-                            </td>
-                        </tr>
+                        <transition-group name="list">
+                            <tr v-for="user in usrStore.usersPaginated" :key="user.id">
+                                <td class="align-middle">
+                                    <img :src="`https://i.pravatar.cc/36?id=${user.id}`" class="rounded-circle" :alt="user.name">
+                                </td>
+                                <td class="align-middle">{{ user.name }}</td>
+                                <td class="align-middle d-none d-md-table-cell">{{ user.email }}</td>
+                                <td class="align-middle d-none d-md-table-cell">{{ dateFormatted(user.created_at) }}</td>
+                                <td class="align-middle text-end">
+                                    <buttons-table
+                                        :canUpdate="true"
+                                        :canDelete="true"
+                                        @on-update="$router.push({
+                                            name: 'dashboard.users.single',
+                                            params: {id: user.id}
+                                        })"
+                                        @on-delete="usrStore.destroy(user.id)" />
+                                </td>
+                            </tr>
+                        </transition-group>
                     </tbody>
                 </table>
                 <pagination
