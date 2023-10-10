@@ -43,3 +43,11 @@
     position: absolute;
     width: 100%;
 }
+
+
+/* Login page */
+.main-wrapper .page-wrapper.full-page .page-content.d-flex.align-items-center {
+background-image: url('../assets/city-325185.jpg');
+background-size: cover;
+background-position: center;
+}
