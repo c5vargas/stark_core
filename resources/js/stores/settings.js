@@ -3,10 +3,12 @@ import { defineStore } from 'pinia'
 import { swalToast } from '@/plugins/swal'
 import useSettingsService from '@/services/settingsService'
 import useLanguagesService from '@/services/languagesService'
+import {useI18n} from 'vue-i18n';
 
 export const useSettingsStore = defineStore('settingsStore', () => {
     const settings = ref(null)
     const isLoading = ref(false)
+    const {t} = useI18n()
 
     const fetch = async() => {
         const { get } = useSettingsService()
@@ -65,6 +67,31 @@ export const useSettingsStore = defineStore('settingsStore', () => {
         }
     }
 
+    function getNotices() {
+        const {app_name, mail_password, mail_username} = {...settings.value}
+        let notices = []
+
+        if(app_name == 'Laravel' || !app_name) {
+            notices.push({
+                title: t('notice.title.app_name'),
+                message: t('notice.message.app_name'),
+                optional: t('notice.optional.app_name'),
+                type: 'primary'
+            })
+        }
+
+        if(!mail_username || !mail_password) {
+            notices.push({
+                title: t('notice.title.app_mailer'),
+                message: t('notice.message.app_mailer'),
+                optional: t('notice.optional.app_mailer'),
+                type: 'primary'
+            })
+        }
+
+        return notices
+    }
+
     function setLoading(status) {
         isLoading.value = status
     }
@@ -72,9 +99,10 @@ export const useSettingsStore = defineStore('settingsStore', () => {
     return {
         settings: computed( () => settings.value),
         isLoading: computed( () => isLoading.value),
+        addLocale,
+        fetch,
+        getNotices,
         setLoading,
         update,
-        fetch,
-        addLocale,
     }
 })

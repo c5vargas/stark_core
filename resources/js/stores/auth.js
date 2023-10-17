@@ -9,10 +9,9 @@ export const useAuthStore = defineStore('authStore', () => {
     const router = useRouter()
     const auth = ref(null)
     const status = ref('unauthorised')
-    const isLoading = ref(true)
     const bearerToken = useLocalStorage('token', '')
 
-    const { login, logout, getUser } = useAuthService()
+    const { login, logout, getUser, isLoading } = useAuthService()
 
     const submitLogin = async({email, password}) => {
         try {
@@ -37,62 +36,30 @@ export const useAuthStore = defineStore('authStore', () => {
         if(auth.value)
             return auth.value
 
+        if(!bearerToken.value)
+            return null
+
         try {
             const { data } = await getUser()
 
-            if(!data.status)
+            if(!data.status) {
+                setAuth(null, 'unauthorised')
+                bearerToken.value = null
                 return null
+            }
 
             setAuth(data.user, 'authorised')
+
+            isLoading.value = false
             return data.user
         } catch(err) {
             console.log("[ERR] auth.js", err)
-
             setAuth(null, 'unauthorised')
             bearerToken.value = null
             return null
         }
+
     }
-
-    // const submitLostPassword = async(email) => {
-    //     try {
-    //         const { data } = await server.post('/auth/password/forget', { email })
-    //         const { status, message } = data
-
-    //         if(!status) {
-    //             swalToast(message, 'error')
-    //             return false
-    //         }
-
-    //         swalToast(message, 'success')
-    //         return true
-    //     } catch(err) {
-    //         swalToast(err, 'error')
-    //         return false
-    //     }
-    // }
-
-    // const submitResetPassword = async(formData) => {
-    //     try {
-    //         const { data } = await server.post('/auth/password/reset', formData)
-    //         const { status, message } = data
-
-    //         if(!status) {
-    //             swalToast(message, 'error')
-    //             return false
-    //         }
-
-    //         swalToast(message, 'success')
-
-    //         return true
-    //     } catch(err) {
-    //         let errors = err.response.data.errors
-    //         Object.keys(errors).forEach(key => {
-    //             swalToast(errors[key][0], 'error')
-    //         });
-    //         return false
-    //     }
-    // }
 
     const logOut = async() => {
         setAuth(null, 'unauthorised')
@@ -101,6 +68,10 @@ export const useAuthStore = defineStore('authStore', () => {
         await logout()
 
         router.push({ name: 'auth.login'} )
+    }
+
+    const can = (permissionName) => {
+        return auth.value.roles[0].permissions.findIndex( (el) => el.name === permissionName) != -1
     }
 
     const setAuth = async(authArg, statusArg) => {
@@ -113,10 +84,9 @@ export const useAuthStore = defineStore('authStore', () => {
         status: computed( () => status.value ),
         isLoading: computed( () => isLoading.value ),
         getToken: computed( () => bearerToken.value ),
+        can,
+        getCurrentUser,
         logOut,
         submitLogin,
-        getCurrentUser,
-        // submitResetPassword,
-        // submitLostPassword,
     }
 })

@@ -18,14 +18,11 @@
                     <input v-model="form.password" type="password" class="form-control" autocomplete="off" placeholder="********">
                 </div>
 
-                <div class="d-flex justify-content-start">
-                    <button type="submit" class="btn btn-danger me-2">
-                        {{ $t('buttons.delete') }} <i class="ms-1 bi bi-trash"></i>
-                    </button>
-                    <button type="submit" class="btn btn-primary me-2">
-                        {{ $t('buttons.save_changes') }} <i class="ms-1 bi bi-check"></i>
-                    </button>
-                </div>
+                <buttons-form
+                    :id="user.id"
+                    @on-cancel="$router.push({name: 'dashboard.users'})"
+                    @on-submit="handleSubmit"
+                    @on-delete="handleDelete" />
             </div>
         </div>
     </form>
@@ -33,9 +30,9 @@
 
 <script setup>
 import { onBeforeMount, ref } from "vue";
+import ButtonsForm from "../Shared/ButtonsForm.vue";
 
-const form = ref({})
-const emits = defineEmits(['on-submit'])
+const emits = defineEmits(['on-submit', 'on-delete'])
 const props = defineProps({
     user: {
         required: true,
@@ -43,11 +40,17 @@ const props = defineProps({
     }
 })
 
+const form = ref({})
+
 onBeforeMount( async() => {
     form.value = {...props.user}
 })
 
 function handleSubmit() {
     emits('on-submit', form.value)
+}
+
+function handleDelete() {
+    emits('on-delete')
 }
 </script>

@@ -50,7 +50,7 @@ class UserController extends Controller
         if(!$updated)
             throw new Exception(__('messages.controller.common.error_500'), 500);
 
-        return $this->respondWithMessage(__('messages.controller.user.updated'));
+        return $this->respondWithMessage(__('messages.controller.updated'));
     }
 
     public function delete($id)

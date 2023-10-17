@@ -98,5 +98,11 @@
   'dashboard.users.list' => 'List of users',
   'dashboard.users.create' => 'Create new user',
   'dashboard.users.update' => 'Modify a user',
-  'dashboard.users.list_desc' => 'Displays all registered users and allows you to perform different actions.'
+  'dashboard.users.list_desc' => 'Displays all registered users and allows you to perform different actions.',
+  'notice.title.app_name' => 'Application name',
+  'notice.message.app_name' => 'You must configure a different name for your application',
+  'notice.optional.app_name' => 'You can change it by going to Settings > General > Site name',
+  'notice.title.app_mailer' => 'Application mailer',
+  'notice.message.app_mailer' => 'You must set up an e-mail account to send e-mails',
+  'notice.optional.app_mailer' => 'You can change it by going to Settings > Mail > Form',
 );
