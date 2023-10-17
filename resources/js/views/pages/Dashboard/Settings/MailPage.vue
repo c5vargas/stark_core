@@ -13,6 +13,7 @@
             <transition name="fade" appear>
                 <div class="col-7 col-md-10 col-lg-9 ps-0" v-if="settingStore.settings">
                     <form-component class="mb-3" />
+                    <send-test-component class="mb-3" />
                 </div>
             </transition>
         </div>
@@ -24,6 +25,7 @@ import { onBeforeMount } from "vue";
 import { useSettingsStore } from "@/stores/settings";
 import Admin from "@/views/layouts/Admin";
 import FormComponent from "@/views/components/Settings/Mail/FormComponent.vue";
+import SendTestComponent from "@/views/components/Settings/Mail/SendTestComponent.vue";
 import SettingsNavTabs from "@/views/components/Settings/SettingsNavTabs.vue";
 
 const settingStore = useSettingsStore()

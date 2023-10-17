@@ -61,9 +61,10 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary me-2">{{ $t('dashboard.settings.update') }}</button>
+                <div class="d-grid d-md-block">
+                    <button type="submit" class="btn btn-primary me-2">{{ $t('dashboard.settings.update') }}</button>
+                </div>
             </form>
-
         </div>
     </div>
 </template>

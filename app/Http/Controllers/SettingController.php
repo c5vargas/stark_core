@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Api\Setting\EmailTestRequest;
 use App\Http\Requests\Api\Setting\UpdateRequest;
 use App\Http\Transformers\SettingTransformer;
+use App\Jobs\SendTestMailJob;
 use App\Repositories\Eloquent\SettingRepository;
+use Exception;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -37,5 +40,15 @@ class SettingController extends Controller
             throw new Exception(__('messages.controller.common.error_500'), 500);
 
         return $this->respondWithMessage(__('messages.controller.updated'));
+    }
+
+    public function sendTest(EmailTestRequest $request)
+    {
+        try {
+            SendTestMailJob::dispatchSync($request->input('email'));
+            return $this->respondWithMessage(__('messages.controller.sent'));
+        } catch (\Throwable $th) {
+            throw new Exception(__('messages.controller.common.error_500'), 500);
+        }
     }
 }

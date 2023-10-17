@@ -10,29 +10,22 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeMail extends Mailable
+class TestEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $toUser;
-    public $appName;
-    public $appLogo;
-    public $appUrl;
     public $actualDate;
-
-    public $password;
-    public $fromUser;
+    public $appLogo;
+    public $appName;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($user)
+    public function __construct()
     {
+        $this->actualDate = Carbon::now()->toFormattedDateString();
         $this->appName =  Setting::name();
         $this->appLogo = Setting::logo();
-        $this->appUrl = config('app.url');
-        $this->toUser = $user;
-        $this->actualDate = Carbon::now()->toFormattedDateString();
     }
 
     /**
@@ -41,7 +34,7 @@ class WelcomeMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Welcome to ' . config('app.name'),
+            subject: "{$this->appName}: Test Email",
         );
     }
 
@@ -51,7 +44,7 @@ class WelcomeMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.welcomeMail',
+            view: 'emails.test',
         );
     }
 
