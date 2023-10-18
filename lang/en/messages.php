@@ -94,6 +94,7 @@
   'dashboard.settings.mail.encryption' => 'SMTP encryption',
   'dashboard.settings.mail.username' => 'SMTP username',
   'dashboard.settings.mail.password' => 'SMTP password',
+  'dashboard.settings.roles' => 'Roles and permissions',
   'dashboard.users' => 'Users',
   'dashboard.users.list' => 'List of users',
   'dashboard.users.create' => 'Create new user',

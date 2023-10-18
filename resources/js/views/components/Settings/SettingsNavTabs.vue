@@ -32,6 +32,11 @@ const navigator = [
         name: 'dashboard.settings.mail',
         route: 'dashboard.settings.mail',
         icon: 'bi-envelope'
+    },
+    {
+        name: 'dashboard.settings.roles',
+        route: 'dashboard.settings.roles',
+        icon: 'bi-person-lock'
     }
 ]
 </script>

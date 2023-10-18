@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,12 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
         Route::get('', [LanguageController::class, 'index']);
         Route::post('', [LanguageController::class, 'create']);
         Route::post('/update', [LanguageController::class, 'update']);
+    });
+
+    Route::prefix('roles')->group(function () {
+        Route::get('', [RoleController::class, 'index']);
+        Route::post('', [RoleController::class, 'create']);
+        Route::post('/update', [RoleController::class, 'update']);
     });
 });
 

@@ -18,17 +18,26 @@ class PermissionsBaseSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
+        // All Application Roles default
+        $root = Role::create(['name' => 'root']);
+        $editor = Role::create(['name' => 'editor']);
+        $member = Role::create(['name' => 'member']);
+        $trial = Role::create(['name' => 'trial']);
+        $guest = Role::create(['name' => 'guest']);
+
+        // Users
         Permission::create(['name' => 'edit.users']);
         Permission::create(['name' => 'delete.users']);
         Permission::create(['name' => 'create.users']);
         Permission::create(['name' => 'view.users']);
 
+        // Settings
         Permission::create(['name' => 'edit.settings']);
         Permission::create(['name' => 'view.settings']);
 
+        // Dashboard
         Permission::create(['name' => 'view.dashboard']);
 
-        $root = Role::create(['name' => 'root']);
 
         $root->syncPermissions([
             'create.users',
