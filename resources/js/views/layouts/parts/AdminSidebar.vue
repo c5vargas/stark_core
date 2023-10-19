@@ -65,6 +65,9 @@
                             <li class="nav-item">
                                 <router-link :to="{name:'dashboard.settings.mail'}" class="nav-link">{{ $t('dashboard.settings.mail') }}</router-link>
                             </li>
+                            <li class="nav-item">
+                                <router-link :to="{name:'dashboard.settings.roles'}" class="nav-link">{{ $t('dashboard.settings.roles') }}</router-link>
+                            </li>
                         </ul>
                     </div>
                 </li>

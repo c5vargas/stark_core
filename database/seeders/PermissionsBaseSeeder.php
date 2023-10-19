@@ -40,13 +40,21 @@ class PermissionsBaseSeeder extends Seeder
 
 
         $root->syncPermissions([
+            'view.users',
             'create.users',
-            'delete.users',
-            'edit.settings',
             'edit.users',
+            'delete.users',
             'view.dashboard',
             'view.settings',
+            'edit.settings',
+        ]);
+
+        $editor->syncPermissions([
             'view.users',
+            'create.users',
+            'edit.users',
+            'delete.users',
+            'view.dashboard',
         ]);
 
         $user = User::factory()->createQuietly([

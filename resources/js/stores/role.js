@@ -5,6 +5,7 @@ import useRoleService from '@/services/roleService'
 
 export const useRoleStore = defineStore('roleStore', () => {
     const roles = ref(null)
+    const permissions = ref(null)
 
     const fetch = async() => {
         const { get } = useRoleService()
@@ -16,7 +17,8 @@ export const useRoleStore = defineStore('roleStore', () => {
             if(!status)
                 return swalToast(message, 'error')
 
-            languages.value = results.data
+            roles.value = results.roles
+            permissions.value = results.permissions
         } catch(err) {
             console.log("[ERR] role.js", err)
         }
@@ -34,7 +36,7 @@ export const useRoleStore = defineStore('roleStore', () => {
                 return false
             }
 
-            languages.value.push(results.data)
+            roles.value.push(results.data)
             swalToast(message)
             return true
         } catch(err) {
@@ -62,6 +64,7 @@ export const useRoleStore = defineStore('roleStore', () => {
 
     return {
         roles: computed( () => roles.value ),
+        permissions: computed( () => permissions.value ),
         create,
         update,
         fetch

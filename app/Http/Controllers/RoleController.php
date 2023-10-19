@@ -27,8 +27,8 @@ class RoleController extends Controller
 
     public function index()
     {
-        $items = $this->repository->all();
-        return $this->respondWithCollection($items);
+        $items = $this->repository->getRolesAndPermissions();
+        return $this->respondWithArray($items);
     }
 
     public function create(CreateRequest $request)
@@ -39,12 +39,13 @@ class RoleController extends Controller
 
     public function update(UpdateRequest $request)
     {
+        //TODO update on repository (attach perms on role)
         $updated = $this->repository->update($request->validated(), $request->input('id'));
 
         if(!$updated)
             throw new Exception(__('controller.common.error_500'), 500);
 
-        return $this->respondWithMessage(__('controller.user.updated'));
+        return $this->respondWithMessage(__('controller.updated'));
     }
 
     public function delete($id)
@@ -54,6 +55,6 @@ class RoleController extends Controller
         if(!$deleted)
             throw new Exception(__('messages.controller.common.error_500'), 500);
 
-        return $this->respondWithMessage(__('messages.controller.user.deleted'));
+        return $this->respondWithMessage(__('messages.controller.deleted'));
     }
 }

@@ -15,8 +15,9 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'   => 'required|unique:roles,id,'.$this->id,
-            'name' => 'required|string|min:3',
+            'id'    => 'required|unique:roles,id,'.$this->id,
+            'name'  => 'required|string|min:3',
+            'perms' => 'required|array'
         ];
     }
 }
