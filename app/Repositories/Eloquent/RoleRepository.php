@@ -21,6 +21,21 @@ class RoleRepository extends BaseRepository
     }
 
     /**
+     * Update a Model
+     *
+     * @param Array $data
+     *
+     * @return Model
+     */
+    public function update(array $data, int $id): bool
+    {
+        $model = $this->find($id);
+        $model->permissions()->sync($data['perms']);
+
+        return $model->update($data);
+    }
+
+    /**
      * Retrieve all Models
      *
      * @return Collection

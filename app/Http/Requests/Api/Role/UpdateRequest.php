@@ -9,7 +9,7 @@ class UpdateRequest extends FormRequest
 
     public function authorize(): bool
     {
-        return (auth()->check() && $this->id);
+        return (auth()->check() && auth()->user()->hasRole('root'));
     }
 
     public function rules(): array

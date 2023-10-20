@@ -39,7 +39,6 @@ class RoleController extends Controller
 
     public function update(UpdateRequest $request)
     {
-        //TODO update on repository (attach perms on role)
         $updated = $this->repository->update($request->validated(), $request->input('id'));
 
         if(!$updated)

@@ -52,7 +52,7 @@ const routes = [
         path: "/dashboard/settings/general",
         beforeEnter: [hasPermission],
         meta: {
-            permission: 'edit.settings'
+            permission: 'view.settings'
         },
         component: SettingsPage,
     },
@@ -61,7 +61,7 @@ const routes = [
         path: "/dashboard/settings/analytics",
         beforeEnter: [hasPermission],
         meta: {
-            permission: 'edit.settings'
+            permission: 'view.settings'
         },
         component: AnalyticsPage,
     },
@@ -70,7 +70,7 @@ const routes = [
         path: "/dashboard/settings/localization",
         beforeEnter: [hasPermission],
         meta: {
-            permission: 'edit.settings'
+            permission: 'view.settings'
         },
         component: LocalizationPage,
     },
@@ -79,7 +79,7 @@ const routes = [
         path: "/dashboard/settings/mail",
         beforeEnter: [hasPermission],
         meta: {
-            permission: 'edit.settings'
+            permission: 'view.settings'
         },
         component: MailPage,
     },
@@ -88,7 +88,7 @@ const routes = [
         path: "/dashboard/settings/roles",
         beforeEnter: [hasPermission],
         meta: {
-            permission: 'edit.settings'
+            permission: 'view.settings'
         },
         component: RolesPage,
     },

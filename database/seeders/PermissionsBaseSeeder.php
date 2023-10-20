@@ -26,17 +26,17 @@ class PermissionsBaseSeeder extends Seeder
         $guest = Role::create(['name' => 'guest']);
 
         // Users
-        Permission::create(['name' => 'edit.users']);
-        Permission::create(['name' => 'delete.users']);
-        Permission::create(['name' => 'create.users']);
-        Permission::create(['name' => 'view.users']);
+        Permission::create(['name' => 'edit.users', 'descr' => 'Allows user editing.']);
+        Permission::create(['name' => 'delete.users', 'descr' => 'Permits user deletion.']);
+        Permission::create(['name' => 'create.users', 'descr' => 'Enables user creation.']);
+        Permission::create(['name' => 'view.users', 'descr' => 'Grants access to view user list.']);
 
         // Settings
-        Permission::create(['name' => 'edit.settings']);
-        Permission::create(['name' => 'view.settings']);
+        Permission::create(['name' => 'edit.settings', 'descr' => 'Allows editing application settings.']);
+        Permission::create(['name' => 'view.settings', 'descr' => 'Permits viewing application settings.']);
 
         // Dashboard
-        Permission::create(['name' => 'view.dashboard']);
+        Permission::create(['name' => 'view.dashboard', 'descr' => 'Provides access to the application dashboard.']);
 
 
         $root->syncPermissions([
@@ -57,11 +57,19 @@ class PermissionsBaseSeeder extends Seeder
             'view.dashboard',
         ]);
 
-        $user = User::factory()->createQuietly([
+        $userRoot = User::factory()->createQuietly([
             'name' => 'John Doe',
             'email' => 'admin@admin.com',
             'password' => 'admin'
         ]);
-        $user->syncRoles([$root]);
+
+        $userEditor = User::factory()->createQuietly([
+            'name' => 'Stiven Or',
+            'email' => 'editor@editor.com',
+            'password' => 'editor'
+        ]);
+
+        $userRoot->syncRoles([$root]);
+        $userEditor->syncRoles([$editor]);
     }
 }

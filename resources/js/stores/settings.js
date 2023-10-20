@@ -38,12 +38,13 @@ export const useSettingsStore = defineStore('settingsStore', () => {
             const { data } = await update(payload)
             const { status, message } = data
 
-            if(!status)
-                swalToast(message, 'error')
-
-            swalToast(message)
+            swalToast(message, status
+                ? 'success'
+                : 'error'
+            )
         } catch(err) {
             console.log("[ERR] settings.js", err)
+            swalToast(err.response.data.message || err.message, 'error')
         }
     }
 
@@ -63,6 +64,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
             return true
         } catch(err) {
             console.log("[ERR] settings.js", err)
+            swalToast(err.response.data.message || err.message, 'error')
             return false
         }
     }
