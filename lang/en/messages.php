@@ -95,6 +95,8 @@
   'dashboard.settings.mail.username' => 'SMTP username',
   'dashboard.settings.mail.password' => 'SMTP password',
   'dashboard.settings.roles' => 'Roles and permissions',
+  'dashboard.settings.roles_desc' => 'Grant permissions to users',
+  'dashboard.settings.roles_long_desc' => 'This form is used to grant permissions to users, allowing them to access specific areas of our web application. Permissions are essential for controlling who can perform particular actions within the application. Through this form, you can efficiently assign and manage user permissions. Please be sure to carefully select the appropriate permissions for each user, based on their responsibilities and needs within the application.',
   'dashboard.users' => 'Users',
   'dashboard.users.list' => 'List of users',
   'dashboard.users.create' => 'Create new user',

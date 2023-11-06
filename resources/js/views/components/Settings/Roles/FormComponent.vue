@@ -1,7 +1,10 @@
 <template>
     <div class="card mb-3">
         <div class="card-body">
-            <h6 class="card-title">{{ $t('dashboard.settings.general') }}</h6>
+            <h6 class="card-title">{{ $t('dashboard.settings.roles') }}</h6>
+            <h6 class="text-muted mb-3">{{ $t('dashboard.settings.roles_desc') }}</h6>
+
+            <p>{{ $t('dashboard.settings.roles_long_desc') }}</p>
         </div>
     </div>
 
@@ -12,8 +15,8 @@
             <ul class="list-group">
                 <li v-for="perm in permissions" :key="`item-role-${role.id}-perm-${perm.id}`" class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
-                        <p class="fw-bold">{{ perm.name }}</p>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                        <p class="fw-bold">[{{ perm.name }}]</p>
+                        <p>{{perm.descr}}</p>
                     </div>
                     <div class="form-check form-switch">
                         <input class="form-check-input"

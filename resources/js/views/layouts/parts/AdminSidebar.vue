@@ -12,66 +12,100 @@
         </div>
         <div class="sidebar-body">
             <ul class="nav">
-                <li class="nav-item nav-category">Main</li>
-                <li class="nav-item">
-                    <router-link :to="{name:'dashboard'}" class="nav-link">
-                        <i class="link-icon bi bi-grid"></i>
-                        <span class="link-title">Dashboard</span>
-                    </router-link>
-                </li>
-                <li class="nav-item nav-category">web apps</li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#users" role="button" aria-expanded="false"
-                        aria-controls="users">
-                        <i class="link-icon bi bi-people"></i>
-                        <span class="link-title">{{$t('dashboard.users')}}</span>
-                        <i class="link-arrow bi bi-chevron-down"></i>
-                    </a>
-                    <div class="collapse" id="users">
-                        <ul class="nav sub-menu">
-                            <li class="nav-item">
-                                <router-link :to="{name: 'dashboard.users'}" class="nav-link">{{$t('dashboard.users.list')}}</router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link :to="{name: 'dashboard.users.single', params: {id:'new'}}" class="nav-link">{{$t('dashboard.users.create')}}</router-link>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="../../pages/apps/chat.html" class="nav-link">
-                        <i class="link-icon bi bi-chat"></i>
-                        <span class="link-title">Chat</span>
-                    </a>
-                </li>
-                <li class="nav-item nav-category">{{ $t('dashboard.settings.settings') }}</li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#settings" role="button" aria-expanded="false" aria-controls="settings">
-                        <i class="link-icon bi bi-gear"></i>
-                        <span class="link-title">{{ $t('dashboard.settings.settings') }}</span>
-                        <i class="link-arrow bi bi-chevron-down"></i>
-                    </a>
-                    <div class="collapse" id="settings">
-                        <ul class="nav sub-menu">
-                            <li class="nav-item">
-                                <router-link :to="{name:'dashboard.settings.general'}" class="nav-link">{{ $t('dashboard.settings.general') }}</router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link :to="{name:'dashboard.settings.localization'}" class="nav-link">{{ $t('dashboard.settings.localization') }}</router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link :to="{name:'dashboard.settings.analytics'}" class="nav-link">{{ $t('dashboard.settings.analytics') }}</router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link :to="{name:'dashboard.settings.mail'}" class="nav-link">{{ $t('dashboard.settings.mail') }}</router-link>
-                            </li>
-                            <li class="nav-item">
-                                <router-link :to="{name:'dashboard.settings.roles'}" class="nav-link">{{ $t('dashboard.settings.roles') }}</router-link>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                <template v-for="cat in categories" :key="`cat-${cat}`">
+                    <li class="nav-item nav-category text-uppercase">{{cat}}</li>
+                    <li class="nav-item" v-for="item in sidebar.filter(el => el.category == cat)">
+
+                        <router-link :to="{name: item.route}" class="nav-link" v-if="item.childRoutes.length === 0">
+                            <i class="link-icon bi" :class="item.icon"></i>
+                            <span class="link-title">{{item.name}}</span>
+                        </router-link>
+
+                        <template v-else>
+                            <a class="nav-link" data-bs-toggle="collapse" :href="`#${item.route}`" role="button" aria-expanded="false"
+                                :aria-controls="item.route">
+                                <i class="link-icon bi" :class="item.icon"></i>
+                                <span class="link-title">{{item.name}}</span>
+                                <i class="link-arrow bi bi-chevron-down"></i>
+                            </a>
+                            <div class="collapse" :id="item.route">
+                                <ul class="nav sub-menu">
+                                    <li class="nav-item" v-for="child in item.childRoutes" :key="`child-${child.route}`">
+                                        <router-link :to="{name: child.route, params: child.params }" class="nav-link">{{child.name}}</router-link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </template>
+                    </li>
+                </template>
             </ul>
         </div>
     </nav>
 </template>
+
+<script setup>
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
+const categories = ['main', 'web apps', 'configuration']
+const sidebar = [
+    {
+        name: 'Dashboard',
+        category: 'main',
+        route: 'dashboard',
+        icon: 'bi-grid',
+        childRoutes: []
+    },
+    {
+        name: t('dashboard.users'),
+        category: 'web apps',
+        route: 'users',
+        icon: 'bi-people',
+        childRoutes: [
+            {
+                name: t('dashboard.users.list'),
+                route: 'dashboard.users',
+                params: null
+            },
+            {
+                name: t('dashboard.users.create'),
+                route: 'dashboard.users.single',
+                params: {id: 'new'}
+            }
+        ]
+    },
+    {
+        name: t('dashboard.settings.general'),
+        category: 'configuration',
+        route: 'settings',
+        icon: 'bi-gear',
+        childRoutes: [
+            {
+                name: t('dashboard.settings.general'),
+                route: 'dashboard.settings.general',
+                params: null
+            },
+            {
+                name: t('dashboard.settings.localization'),
+                route: 'dashboard.settings.localization',
+                params: null
+            },
+            {
+                name: t('dashboard.settings.analytics'),
+                route: 'dashboard.settings.analytics',
+                params: null
+            },
+            {
+                name: t('dashboard.settings.mail'),
+                route: 'dashboard.settings.mail',
+                params: null
+            },
+            {
+                name: t('dashboard.settings.roles'),
+                route: 'dashboard.settings.roles',
+                params: null
+            },
+        ]
+    }
+]
+</script>
