@@ -14,6 +14,11 @@
                     <input v-model="form.app_name" type="text" class="form-control" autocomplete="off" :placeholder="$t('dashboard.settings.site_name')">
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label">{{ $t('dashboard.settings.site_descr') }}</label>
+                    <textarea v-model="form.app_descr" class="form-control"></textarea>
+                </div>
+
                 <button type="submit" class="btn btn-primary me-2">{{ $t('dashboard.settings.update') }}</button>
             </form>
         </div>
@@ -31,6 +36,7 @@ const form = ref({})
 onMounted( async() => {
     form.value = {
         app_name: settingStore.settings.app_name,
+        app_descr: settingStore.settings.app_descr,
     }
 })
 

@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <meta name="author" content="CARVAR">
         <title>Panel Administrador - {{ $settings->app_name }}</title>
-
+        <meta name="description" content="{{ $settings->app_descr }}">
         <link rel="shortcut icon" href="{{ $settings->app_favicon}}" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,7 +21,7 @@
             'resources/css/core.admin.min.css',
             'resources/css/core.admin.min.js',
             'resources/css/template.js',
-            'resources/js/main.js'
+            'resources/js/main.js',
         ])
 
         <script>

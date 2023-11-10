@@ -44,7 +44,7 @@ export const useSettingsStore = defineStore('settingsStore', () => {
             )
         } catch(err) {
             console.log("[ERR] settings.js", err)
-            swalToast(err.response.data.message || err.message, 'error')
+            swalToast(Object.values(err.response.data.errors)[0] || err.message, 'error')
         }
     }
 
