@@ -7,7 +7,7 @@
 
             <div class="page-content">
                 <transition name="list" appear>
-                    <admin-notices :key="notices.length" v-if="notices.length > 0" :notice="notices[0]" />
+                    <admin-notices :key="notices.length" v-if="notices.length > 0" :notice="notices[0]" @on-cancel="notices = []" />
                 </transition>
                 <slot></slot>
             </div>
@@ -30,7 +30,9 @@ const store = useSettingsStore()
 const notices = ref([])
 
 onBeforeMount( async() => {
-    await store.fetch();
-    notices.value = store.getNotices();
+    if(!store.settings) {
+        await store.fetch()
+        notices.value = store.getNotices()
+    }
 })
 </script>

@@ -76,6 +76,7 @@
 <script setup>
 import Admin from "@/views/layouts/Admin";
 import { useAuthStore } from "@/stores/auth";
-const app = window.AppConfig
+// const app = window.AppConfig
+
 const authStore = useAuthStore()
 </script>

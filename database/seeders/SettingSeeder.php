@@ -20,6 +20,7 @@ class SettingSeeder extends Seeder
         DB::table('settings')->insert(['key' => 'app_name', 'value' => config('app.name')]);
         DB::table('settings')->insert(['key' => 'app_descr', 'value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus rutrum ligula a arcu consequat, in aliquam tellus auctor.']);
         DB::table('settings')->insert(['key' => 'app_locale', 'value' => config('app.locale')]);
+        DB::table('settings')->insert(['key' => 'app_color', 'value' => "#4c59ff"]);
         DB::table('settings')->insert(['key' => 'app_timezone', 'value' => config('app.timezone')]);
         DB::table('settings')->insert(['key' => 'app_translations', 'value' => 1]);
 
