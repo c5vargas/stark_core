@@ -8,7 +8,9 @@
         <meta name="description" content="{{ $settings->app_descr }}">
         <title>{{ $settings->app_name }}</title>
 
-        @vite(['resources/scss/app.css', 'resources/css/custom.css', 'resources/js/main.js'])
+        <link rel="manifest" href="{{ config('app.url') }}/manifest/generate" />
+
+        @vite(['resources/css/app.css', 'resources/css/custom.css', 'resources/js/main.js'])
 
         @if($settings->manager_measurement_id)
             <script async src="https://www.googletagmanager.com/gtag/js?id={{ $settings->manager_measurement_id }}"></script>

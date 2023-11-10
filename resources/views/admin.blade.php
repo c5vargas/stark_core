@@ -10,6 +10,8 @@
         <meta name="description" content="{{ $settings->app_descr }}">
         <link rel="shortcut icon" href="{{ $settings->app_favicon}}" />
 
+        <link rel="manifest" href="{{ config('app.url') }}/manifest/generate" />
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">

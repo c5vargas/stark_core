@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
 Route::prefix('auth')->middleware(['apply_locale'])->group(function () {
-
     Route::middleware(['auth:sanctum'])->group( function() {
         Route::get('', [AuthController::class, 'get'])->name('auth.get');
         Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');

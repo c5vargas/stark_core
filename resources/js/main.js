@@ -6,6 +6,7 @@ import i18n from "@/plugins/i18n";
 import App from "@/App";
 
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import './register-service-worker.js'
 
 const app = createApp(App)
     .use(createPinia())
