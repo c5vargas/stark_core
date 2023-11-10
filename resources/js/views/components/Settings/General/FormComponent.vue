@@ -21,7 +21,9 @@
 
                 <div class="mb-3">
                     <label class="form-label">{{ $t('dashboard.settings.site_color') }}</label>
-                    <div class="d-flex align-items-center">
+
+                    <div class="clr-field w-100" :style="`color: ${form.app_color}`">
+                        <button type="button" aria-labelledby="clr-open-label"></button>
                         <input type="text" class="form-control" v-model="form.app_color" id="coloris">
                     </div>
                 </div>
@@ -50,7 +52,12 @@ onMounted( async() => {
     }
 
     init();
-    coloris({el: "#coloris"});
+
+    coloris({
+        el: "#coloris",
+        defaultColor: form.value.app_color,
+        theme: 'polaroid',
+    });
 
 })
 
@@ -64,9 +71,30 @@ function handleSubmit() {
 </script>
 
 <style scoped>
-.color-preview {
+.clr-field {
+    display: inline-block;
+    position: relative;
+    color: transparent;
+}
+.clr-field button {
     border-radius: 50%;
-    height: 20px;
-    width: 20px;
+    width: 22px;
+    height: 22px;
+    left: 5px;
+    right: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: inherit;
+    text-indent: -1000px;
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+}
+.clr-field input {
+    padding-left: 36px
 }
 </style>
