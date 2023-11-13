@@ -52,6 +52,7 @@
   'dashboard.settings.site_name' => 'Site name',
   'dashboard.settings.site_descr' => 'Site description',
   'dashboard.settings.site_url' => 'Primary site URL',
+  'dashboard.settings.site_color' => "Primary site color",
   'dashboard.settings.source_text' => 'Source Text',
   'dashboard.settings.timezone_desc' => 'Choose either a city in the same timezone as you or a UTC timezone offset.',
   'dashboard.settings.translation' => 'Translation',
