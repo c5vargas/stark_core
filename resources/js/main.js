@@ -7,6 +7,7 @@ import App from "@/App";
 
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './register-service-worker.js'
+import './plugins/oneSignal.js'
 
 const app = createApp(App)
     .use(createPinia())

@@ -1,9 +1,9 @@
 import AnalyticsPage from '@/views/pages/Dashboard/Settings/AnalyticsPage.vue'
 import hasPermission from '../guards/hasPermission'
 import IndexPage from '@/views/pages/Dashboard/IndexPage.vue'
-import isAuth from '../guards/isAuth'
 import LocalizationPage from '@/views/pages/Dashboard/Settings/LocalizationPage.vue'
 import MailPage from '@/views/pages/Dashboard/Settings/MailPage.vue'
+import OneSignalPage from '@/views/pages/Dashboard/Settings/OneSignalPage.vue'
 import RolesPage from '@/views/pages/Dashboard/Settings/RolesPage.vue'
 import SettingsPage from '@/views/pages/Dashboard/Settings/SettingsPage.vue'
 import SinglePage from '@/views/pages/Dashboard/Users/SinglePage.vue'
@@ -91,6 +91,15 @@ const routes = [
             permission: 'view.settings'
         },
         component: RolesPage,
+    },
+    {
+        name: "dashboard.settings.onesignal",
+        path: "/dashboard/settings/onesignal",
+        beforeEnter: [hasPermission],
+        meta: {
+            permission: 'view.settings'
+        },
+        component: OneSignalPage,
     },
 ]
 

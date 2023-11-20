@@ -29,6 +29,11 @@ class SettingSeeder extends Seeder
         DB::table('settings')->insert(['key' => 'manager_measurement_id', 'value' => '']);
         DB::table('settings')->insert(['key' => 'maps_api_key', 'value' => '']);
 
+        // OneSignal Push Notifications
+        DB::table('settings')->insert(['key' => 'onesignal_app_id', 'value' => 'df004855-d21d-4b90-88e3-7c6bb78ddc70']);
+        DB::table('settings')->insert(['key' => 'onesignal_safari_web_id', 'value' => 'web.onesignal.auto.6514249a-4cb8-451b-a889-88f5913c9a7f']);
+        DB::table('settings')->insert(['key' => 'onesignal_api_key', 'value' => 'OGNiMjlkYTMtOTM5MC00YzEwLWE5OWMtMmU5ZDQwOTliM2Rm']);
+
         //Mail
         DB::table('settings')->insert(['key' => 'mail_from_address', 'value' => 'example@mail.com']);
         DB::table('settings')->insert(['key' => 'mail_contact_address', 'value' => 'example@mail.com']);

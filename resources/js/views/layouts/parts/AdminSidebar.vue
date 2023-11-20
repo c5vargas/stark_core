@@ -105,6 +105,11 @@ const sidebar = [
                 route: 'dashboard.settings.roles',
                 params: null
             },
+            {
+                name: t('dashboard.settings.one_signal'),
+                route: 'dashboard.settings.onesignal',
+                params: null
+            },
         ]
     }
 ]

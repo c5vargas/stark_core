@@ -23,6 +23,10 @@
             </script>
         @endif
 
+        @if($settings->onesignal_app_id)
+            <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+        @endif
+
         <script>
             window.AppConfig = {
                 app_name: '{{ $settings->app_name }}',
@@ -31,6 +35,8 @@
                 app_locale: '{{ $settings->app_locale }}',
                 app_timezone: '{{ $settings->app_timezone }}',
                 app_translations: '{{ $settings->app_translations }}',
+                onesignal_app_id: '{{ $settings->onesignal_app_id }}',
+                onesignal_safari_web_id: '{{ $settings->onesignal_safari_web_id }}',
                 locales: {
                     @foreach ($languages as $lang)
                         {{$lang->code}}: {!! json_encode(\Illuminate\Support\Facades\Lang::get('messages', [], $lang->code)) !!},

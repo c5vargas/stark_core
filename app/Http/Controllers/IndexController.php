@@ -47,7 +47,7 @@ class IndexController extends Controller
             "scope" => ".",
             "display" => "standalone",
             "background_color" => "#fff",
-            "theme_color" => '#ddd',
+            "theme_color" => $settings->app_color,
             "description" => $settings->app_descr,
         ];
 

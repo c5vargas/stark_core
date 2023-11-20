@@ -24,7 +24,9 @@
                             :id="`role-${role.id}-perm-${perm.id}`"
                             :checked="role.permissions.find(el => el.id == perm.id) ? true : false"
                             @click="handleSubmit(role, perm)">
-                        <label class="form-check-label" :for="`role-${role.id}-perm-${perm.id}`">Off</label>
+                        <label class="form-check-label" :for="`role-${role.id}-perm-${perm.id}`">
+                        {{ role.permissions.find(el => el.id == perm.id) ? 'On' : 'Off' }}
+                        </label>
                     </div>
                 </li>
             </ul>

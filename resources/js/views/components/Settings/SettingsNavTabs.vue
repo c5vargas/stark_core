@@ -37,6 +37,11 @@ const navigator = [
         name: 'dashboard.settings.roles',
         route: 'dashboard.settings.roles',
         icon: 'bi-person-lock'
+    },
+    {
+        name: 'dashboard.settings.one_signal',
+        route: 'dashboard.settings.onesignal',
+        icon: 'bi-app-indicator'
     }
 ]
 </script>

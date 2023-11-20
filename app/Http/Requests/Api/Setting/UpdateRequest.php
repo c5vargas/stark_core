@@ -40,6 +40,9 @@ class UpdateRequest extends FormRequest
             'mail_encryption'           => 'nullable|string',
             'mail_username'             => 'nullable|string',
             'mail_password'             => 'nullable|string',
+            'onesignal_app_id'          => 'nullable|string',
+            'onesignal_api_key'         => 'nullable|string',
+            'onesignal_safari_web_id'   => 'nullable|string',
         ];
     }
 }
