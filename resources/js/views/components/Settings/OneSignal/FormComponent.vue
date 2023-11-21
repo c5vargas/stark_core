@@ -7,11 +7,11 @@
             <p class="mb-4">{{ $t('dashboard.settings.one_signal_long_desc') }}</p>
 
             <div class="border shadow-sm mb-3 bg-light">
-                <a class="gap-2 align-items-center p-2 d-flex" href="https://documentation.onesignal.com/docs/web-push-custom-code-setup#step-5-add-code-to-site" target="_blank">
+                <a class="gap-2 align-items-center p-2 d-flex" href="https://documentation.onesignal.com/docs/web-push-custom-code-setup" target="_blank">
                     <i class="bi bi-question-square h2 text-muted"></i>
                     <div>
-                        <p class="mb-0 h5 fw-bold">Leer la documentación</p>
-                        <p class="mb-0 text-muted">Crear cuenta y configuración de la aplicación</p>
+                        <p class="mb-0 h5 fw-bold">{{ $t('dashboard.settings.one_signal.read_documentation') }}</p>
+                        <p class="mb-0 text-muted">{{ $t('dashboard.settings.one_signal.read_documentation_desc') }}</p>
                     </div>
                 </a>
             </div>

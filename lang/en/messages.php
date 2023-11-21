@@ -50,6 +50,8 @@
   'dashboard.settings.one_signal.app_id' => 'OneSignal App ID',
   'dashboard.settings.one_signal.api_key' => 'Rest API Key',
   'dashboard.settings.one_signal.safari_web_id' => 'OneSignal Safari Web Id',
+  'dashboard.settings.one_signal.read_documentation' => 'Read the documentation',
+  'dashboard.settings.one_signal.read_documentation_desc' => 'Create account and application configuration',
   'dashboard.settings.locale_desc' => 'Which translation should be selected by default for new users.',
   'dashboard.settings.localization' => 'Localization',
   'dashboard.settings.select' => 'Select an option',
