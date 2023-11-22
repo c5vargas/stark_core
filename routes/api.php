@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\OneSignalController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
@@ -55,6 +56,11 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
         Route::get('', [RoleController::class, 'index']);
         Route::post('', [RoleController::class, 'create']);
         Route::post('/update', [RoleController::class, 'update']);
+    });
+
+    Route::prefix('notifications')->group(function () {
+        Route::get('', [OneSignalController::class, 'index']);
+        Route::get('/{id}', [OneSignalController::class, 'show']);
     });
 });
 

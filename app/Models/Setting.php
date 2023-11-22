@@ -29,4 +29,14 @@ class Setting extends Model
     {
         return $query->where('key', 'app_name')->first()->value;
     }
+
+    public function scopeOneSignalAppId($query)
+    {
+        return $query->where('key', 'onesignal_app_id')->first()->value;
+    }
+
+    public function scopeOneSignalApiKey($query)
+    {
+        return $query->where('key', 'onesignal_api_key')->first()->value;
+    }
 }
