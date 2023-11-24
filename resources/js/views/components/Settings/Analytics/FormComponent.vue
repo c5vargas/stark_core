@@ -1,8 +1,25 @@
 <template>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h6 class="card-title mb-0">{{ $t('dashboard.settings.google.analytics') }}</h6>
+            <p class="fw-light mb-3">{{ $t('dashboard.settings.google.analytics_desc') }}</p>
+
+            <p class="mb-4">{{ $t('dashboard.settings.google.analytics_long_desc') }}</p>
+
+            <div class="border shadow-sm bg-light">
+                <a class="gap-2 align-items-center p-2 d-flex" href="https://support.google.com/analytics/answer/9304153" target="_blank">
+                    <i class="bi bi-question-square h2 text-muted"></i>
+                    <div>
+                        <p class="mb-0 h5 fw-bold">{{ $t('dashboard.settings.one_signal.read_documentation') }}</p>
+                        <p class="mb-0 text-muted">{{ $t('dashboard.settings.one_signal.read_documentation_desc') }}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-body">
-            <h6 class="card-title mb-0">{{ $t('dashboard.settings.analytics') }}</h6>
-            <h6 class="text-muted mb-3">{{ $t('dashboard.settings.google.analytics_desc') }}</h6>
 
             <form @submit.prevent="handleSubmit">
                 <div class="mb-3">

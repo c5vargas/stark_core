@@ -21,3 +21,7 @@ export const getLastConexion = (value) => {
 
     return duration > 10 ? conexion.fromNow() : 'Online'
 }
+
+export const formatIsoDate = (value) => {
+    return moment.unix(value).format('DD/MM/Y H:mm');
+}

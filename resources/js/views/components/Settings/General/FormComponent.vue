@@ -1,8 +1,15 @@
 <template>
-    <div class="card">
+    <div class="card mb-3">
         <div class="card-body">
-            <h6 class="card-title">{{ $t('dashboard.settings.general') }}</h6>
+            <h6 class="card-title mb-0">{{ $t('dashboard.settings.general') }}</h6>
+            <p class="fw-light mb-3">{{ $t('dashboard.settings.general_desc') }}</p>
 
+            <p class="mb-0">{{ $t('dashboard.settings.general_long_desc') }}</p>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
             <form @submit.prevent="handleSubmit">
                 <div class="mb-3">
                     <label class="form-label">{{ $t('dashboard.settings.site_url') }}</label>

@@ -2,19 +2,19 @@
     <div class="card">
         <div class="card-header d-block justify-content-start d-lg-flex p-4 gap-3">
             <div class="mb-3 mb-lg-0">
-                <h5 class="card-title">{{ $t('dashboard.users.list') }}</h5>
-                <h6 class="card-subtitle text-muted">{{ $t('dashboard.users.list_desc') }}</h6>
+                <h5 class="card-title">{{ $t('dashboard.notifications.list') }}</h5>
+                <h6 class="card-subtitle text-muted">{{ $t('dashboard.notifications.list_desc') }}</h6>
             </div>
 
             <div class="d-flex justify-content-between ms-auto gap-3">
                 <router-link
-                    :to="{name:'dashboard.users.single', params: {id:'new'}}"
+                    :to="{name:'dashboard.notifications.single', params: {id:'new'}}"
                     class="btn btn-primary wd-115 d-flex justify-content-between align-items-center">
-                    New user
+                    {{ $t('dashboard.notifications.new') }}
                     <i class="ms-2 bi bi-plus-lg"></i>
                 </router-link>
                 <div class="input-group wd-150">
-                    <input type="text" v-model="usrStore.search" class="form-control" placeholder="Search...">
+                    <input type="text" v-model="notifyStore.search" class="form-control" placeholder="Search...">
                     <button class="btn btn-outline-primary">
                         <i class="bi bi-search"></i>
                     </button>
@@ -26,7 +26,7 @@
                 <table class="table table-sm">
                     <thead>
                         <tr class="d-none d-md-table-row">
-                            <th scope="col" colspan="2">{{ $t('common.name') }}</th>
+                            <th scope="col">{{ $t('common.name') }}</th>
                             <th scope="col">{{ $t('common.email') }}</th>
                             <th scope="col">{{ $t('common.created_at') }}</th>
                             <th scope="col"></th>
@@ -34,13 +34,10 @@
                     </thead>
                     <tbody>
                         <transition-group name="list">
-                            <tr v-for="user in usrStore.usersPaginated" :key="user.id">
-                                <td class="align-middle">
-                                    <img :src="`https://i.pravatar.cc/36?id=${user.id}`" class="rounded-circle" :alt="user.name">
-                                </td>
-                                <td class="align-middle">{{ user.name }}</td>
-                                <td class="align-middle d-none d-md-table-cell">{{ user.email }}</td>
-                                <td class="align-middle d-none d-md-table-cell">{{ dateFormatted(user.created_at) }}</td>
+                            <tr v-for="(item, i) in notifyStore.usersPaginated" :key="`notification-item-${i}`">
+                                <td class="align-middle">{{ item.headings.en }}</td>
+                                <td class="align-middle d-none d-md-table-cell">{{ item.contents.en }}</td>
+                                <td class="align-middle d-none d-md-table-cell">{{ formatIsoDate(item.send_after ? item.send_after : item.queued_at) }}</td>
                                 <td class="align-middle text-end">
                                     <buttons-table
                                         :canUpdate="true"
@@ -49,16 +46,16 @@
                                             name: 'dashboard.users.single',
                                             params: {id: user.id}
                                         })"
-                                        @on-delete="usrStore.destroy(user.id)" />
+                                        @on-delete="notifyStore.destroy(user.id)" />
                                 </td>
                             </tr>
                         </transition-group>
                     </tbody>
                 </table>
                 <pagination
-                    @on-change="usrStore.setPage"
-                    :itemsPerPage="usrStore.itemsPerPage"
-                    :items="usrStore.users" />
+                    @on-change="notifyStore.setPage"
+                    :itemsPerPage="notifyStore.itemsPerPage"
+                    :items="notifyStore.notifications" />
             </div>
         </div>
     </div>
@@ -66,11 +63,11 @@
 </template>
 
 <script setup>
-import { dateFormatted } from "@/plugins/moment";
+import { formatIsoDate } from "@/plugins/moment";
 import { useUserStore } from "@/stores/user";
 import ButtonsTable from "../Shared/ButtonsTable.vue";
 import Pagination from "@/views/components/Shared/Pagination.vue";
-const usrStore = useUserStore()
+const notifyStore = useUserStore()
 </script>
 
 <style scoped>

@@ -8,6 +8,7 @@ import RolesPage from '@/views/pages/Dashboard/Settings/RolesPage.vue'
 import SettingsPage from '@/views/pages/Dashboard/Settings/SettingsPage.vue'
 import SinglePage from '@/views/pages/Dashboard/Users/SinglePage.vue'
 import UsersPage from '@/views/pages/Dashboard/Users/UsersPage.vue'
+import NotificationsPage from '@/views/pages/Dashboard/Notifications/NotificationsPage.vue'
 
 const routes = [
     {
@@ -37,6 +38,25 @@ const routes = [
             permission: 'edit.users'
         },
         component: SinglePage,
+    },
+    {
+        name: "dashboard.notifications",
+        path: "/dashboard/notifications",
+        beforeEnter: [hasPermission],
+        meta: {
+            permission: 'view.notifications'
+        },
+        component: NotificationsPage,
+    },
+    {
+        name: "dashboard.notifications.single",
+        path: "/dashboard/notifications/:id",
+        props: (route) => ({ id: route.params.id }),
+        beforeEnter: [hasPermission],
+        meta: {
+            permission: 'edit.notifications'
+        },
+        component: NotificationsPage,
     },
     {
         name: "dashboard.settings",

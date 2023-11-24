@@ -12,7 +12,7 @@
 
             <transition name="fade" appear>
                 <div class="col-7 col-md-10 col-lg-9 ps-0" v-if="settingStore.settings">
-                    <form-component class="mb-3" />
+                    <form-component />
                 </div>
             </transition>
         </div>

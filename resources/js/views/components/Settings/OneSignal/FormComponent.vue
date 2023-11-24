@@ -2,11 +2,11 @@
     <div class="card mb-3">
         <div class="card-body">
             <h6 class="card-title mb-0">{{ $t('dashboard.settings.one_signal') }}</h6>
-            <h6 class="text-muted mb-3">{{ $t('dashboard.settings.one_signal_desc') }}</h6>
+            <p class="fw-light mb-3">{{ $t('dashboard.settings.one_signal_desc') }}</p>
 
             <p class="mb-4">{{ $t('dashboard.settings.one_signal_long_desc') }}</p>
 
-            <div class="border shadow-sm mb-3 bg-light">
+            <div class="border shadow-sm bg-light">
                 <a class="gap-2 align-items-center p-2 d-flex" href="https://documentation.onesignal.com/docs/web-push-custom-code-setup" target="_blank">
                     <i class="bi bi-question-square h2 text-muted"></i>
                     <div>
@@ -55,9 +55,6 @@ onMounted( async() => {
         onesignal_api_key: settingStore.settings.onesignal_api_key,
         onesignal_safari_web_id: settingStore.settings.onesignal_safari_web_id,
     }
-
-    if(form.value.onesignal_app_id)
-        enabled.value = true
 })
 
 function handleSubmit() {

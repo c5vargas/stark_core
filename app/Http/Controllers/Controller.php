@@ -55,7 +55,7 @@ class Controller extends BaseController
         return response()->json($data, $status);
     }
 
-    protected function respondWithArray(array $array, int $status = 200)
+    protected function respondWithArray($array, int $status = 200)
     {
         $data = [
             'results' => $array,

@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <h6 class="card-title mb-0">{{ $t('dashboard.settings.mail_test') }}</h6>
-            <h6 class="text-muted mb-3">{{ $t('dashboard.settings.mail_test_desc') }}</h6>
+            <p class="fw-light mb-3">{{ $t('dashboard.settings.mail_test_desc') }}</p>
 
             <form @submit.prevent="handleSubmit">
                 <div class="d-block d-md-flex gap-3 align-items-end">

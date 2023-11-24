@@ -2,7 +2,7 @@
     <div class="card mb-3">
         <div class="card-body">
             <h6 class="card-title mb-0">{{ $t('dashboard.settings.roles') }}</h6>
-            <h6 class="text-muted mb-3">{{ $t('dashboard.settings.roles_desc') }}</h6>
+            <p class="fw-light mb-3">{{ $t('dashboard.settings.roles_desc') }}</p>
 
             <p>{{ $t('dashboard.settings.roles_long_desc') }}</p>
         </div>

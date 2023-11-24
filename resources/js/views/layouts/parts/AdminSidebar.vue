@@ -75,6 +75,24 @@ const sidebar = [
         ]
     },
     {
+        name: t('dashboard.notifications'),
+        category: 'web apps',
+        route: 'notifications',
+        icon: 'bi-bell',
+        childRoutes: [
+            {
+                name: t('dashboard.notifications.list'),
+                route: 'dashboard.notifications',
+                params: null
+            },
+            // {
+            //     name: t('dashboard.notifications.create'),
+            //     route: 'dashboard.notifications.single',
+            //     params: {id: 'new'}
+            // }
+        ]
+    },
+    {
         name: t('dashboard.settings.general'),
         category: 'configuration',
         route: 'settings',
