@@ -3,12 +3,13 @@ import hasPermission from '../guards/hasPermission'
 import IndexPage from '@/views/pages/Dashboard/IndexPage.vue'
 import LocalizationPage from '@/views/pages/Dashboard/Settings/LocalizationPage.vue'
 import MailPage from '@/views/pages/Dashboard/Settings/MailPage.vue'
+import NotificationsPage from '@/views/pages/Dashboard/Notifications/NotificationsPage.vue'
+import NotificationsSinglePage from '@/views/pages/Dashboard/Notifications/SinglePage.vue'
 import OneSignalPage from '@/views/pages/Dashboard/Settings/OneSignalPage.vue'
 import RolesPage from '@/views/pages/Dashboard/Settings/RolesPage.vue'
 import SettingsPage from '@/views/pages/Dashboard/Settings/SettingsPage.vue'
 import SinglePage from '@/views/pages/Dashboard/Users/SinglePage.vue'
 import UsersPage from '@/views/pages/Dashboard/Users/UsersPage.vue'
-import NotificationsPage from '@/views/pages/Dashboard/Notifications/NotificationsPage.vue'
 
 const routes = [
     {
@@ -56,7 +57,7 @@ const routes = [
         meta: {
             permission: 'edit.notifications'
         },
-        component: NotificationsPage,
+        component: NotificationsSinglePage,
     },
     {
         name: "dashboard.settings",

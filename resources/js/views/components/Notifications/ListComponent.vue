@@ -13,6 +13,7 @@
                     {{ $t('dashboard.notifications.new') }}
                     <i class="ms-2 bi bi-plus-lg"></i>
                 </router-link>
+
                 <div class="input-group wd-150">
                     <input type="text" v-model="notifyStore.search" class="form-control" placeholder="Search...">
                     <button class="btn btn-outline-primary">
@@ -21,32 +22,53 @@
                 </div>
             </div>
         </div>
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-sm">
                     <thead>
                         <tr class="d-none d-md-table-row">
-                            <th scope="col">{{ $t('common.name') }}</th>
-                            <th scope="col">{{ $t('common.email') }}</th>
+                            <th scope="col"></th>
                             <th scope="col">{{ $t('common.created_at') }}</th>
+                            <th scope="col">{{ $t('common.stats') }}</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <transition-group name="list">
-                            <tr v-for="(item, i) in notifyStore.usersPaginated" :key="`notification-item-${i}`">
-                                <td class="align-middle">{{ item.headings.en }}</td>
-                                <td class="align-middle d-none d-md-table-cell">{{ item.contents.en }}</td>
-                                <td class="align-middle d-none d-md-table-cell">{{ formatIsoDate(item.send_after ? item.send_after : item.queued_at) }}</td>
+                            <tr v-for="item in notifyStore.notificationsPaginated" :key="`notification-${item.id}`">
+                                <td class="align-middle">
+                                    <p class="mb-0 fw-bold">{{ item.headings.en }}</p>
+                                    <p class="mb-0">{{ item.contents.en }}</p>
+                                </td>
+
+                                <td class="align-middle d-none d-md-table-cell">
+                                    {{ formatIsoDate(item.send_after ? item.send_after : item.queued_at) }}
+                                </td>
+                                <td class="align-middle d-none d-md-table-cell">
+                                    <div class="d-flex pointer">
+                                        <span class="me-2 pointer" data-toggle="tooltip" data-placement="top" :title="$t('dashboard.notifications.successful')">
+                                            <i class="bi bi-send"></i> {{ item.successful || 0 }}
+                                        </span>
+
+                                        <span class="me-2 pointer" data-toggle="tooltip" data-placement="top" :title="$t('dashboard.notifications.failed')">
+                                            <i class="bi bi-send-x"></i> {{ item.failed || 0 }}
+                                        </span>
+
+                                        <span class="pointer" data-toggle="tooltip" data-placement="top" :title="$t('dashboard.notifications.converted')">
+                                            <i class="bi bi-hand-index-thumb"></i> {{ item.converted || 0 }}
+                                        </span>
+                                    </div>
+                                </td>
                                 <td class="align-middle text-end">
                                     <buttons-table
                                         :canUpdate="true"
                                         :canDelete="true"
                                         @on-update="$router.push({
                                             name: 'dashboard.users.single',
-                                            params: {id: user.id}
+                                            params: {id: item.id}
                                         })"
-                                        @on-delete="notifyStore.destroy(user.id)" />
+                                        @on-delete="notifyStore.destroy(item.id)" />
                                 </td>
                             </tr>
                         </transition-group>
@@ -64,10 +86,11 @@
 
 <script setup>
 import { formatIsoDate } from "@/plugins/moment";
-import { useUserStore } from "@/stores/user";
+import { useNotifyStore } from "@/stores/notify";
 import ButtonsTable from "../Shared/ButtonsTable.vue";
 import Pagination from "@/views/components/Shared/Pagination.vue";
-const notifyStore = useUserStore()
+const notifyStore = useNotifyStore()
+
 </script>
 
 <style scoped>

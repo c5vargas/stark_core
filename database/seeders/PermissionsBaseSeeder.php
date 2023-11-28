@@ -38,6 +38,8 @@ class PermissionsBaseSeeder extends Seeder
         // Notifications
         Permission::create(['name' => 'create.notifications', 'descr' => 'Allows create application notifications.']);
         Permission::create(['name' => 'view.notifications', 'descr' => 'Permits viewing application notifications.']);
+        Permission::create(['name' => 'edit.notifications', 'descr' => 'Allows notification editing.']);
+        Permission::create(['name' => 'delete.notifications', 'descr' => 'Permits notification deletion.']);
 
         // Dashboard
         Permission::create(['name' => 'view.dashboard', 'descr' => 'Provides access to the application dashboard.']);
@@ -51,8 +53,10 @@ class PermissionsBaseSeeder extends Seeder
             'view.dashboard',
             'view.settings',
             'edit.settings',
-            'create.notifications',
             'view.notifications',
+            'create.notifications',
+            'edit.notifications',
+            'delete.notifications',
         ]);
 
         $editor->syncPermissions([
