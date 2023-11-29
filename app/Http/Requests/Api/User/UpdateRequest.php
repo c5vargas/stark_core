@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api\User;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\FormRequest;
 
 class UpdateRequest extends FormRequest
 {

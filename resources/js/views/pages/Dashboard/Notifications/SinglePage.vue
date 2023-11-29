@@ -59,8 +59,10 @@ async function init() {
     if(props.id === 'new') {
         return notification.value = {
             id: 'new',
-            headings: {en: ''},
-            contents: {en: ''},
+            contents: { en: '' },
+            headings: { en: '' },
+            send_after: null,
+            delivery_time_of_day: null
         }
     }
     return await notifyStore.find(props.id)
@@ -81,7 +83,7 @@ async function deleteOrCancel() {
 }
 
 async function saveData(payload) {
-    const resp = user.value.id === 'new'
+    const resp = notification.value.id === 'new'
         ? await notifyStore.create(payload)
         : await notifyStore.update(payload)
 

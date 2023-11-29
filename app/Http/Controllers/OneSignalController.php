@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Api\Notification\CreateRequest;
 use App\Http\Transformers\RoleTransformer;
-use App\Models\Setting;
-use App\Repositories\Eloquent\RoleRepository;
 use App\Services\OneSignalService;
 use Illuminate\Http\Request;
-use Berkayk\OneSignal\OneSignalFacade;
 
 class OneSignalController extends Controller
 {
@@ -31,4 +29,15 @@ class OneSignalController extends Controller
         $notifications = $oneSignalService->getNotification($id);
         return $this->respondWithArray($notifications);
     }
+
+    public function create(OneSignalService $oneSignalService, CreateRequest $request)
+    {
+        $notification = $oneSignalService->create($request->validated());
+
+        if(!$notification['id'])
+            throw new Exception(__('messages.controller.common.error_500'), 500);
+
+        return $this->respondWithMessage(__('messages.controller.onesignal.created'));
+    }
+
 }

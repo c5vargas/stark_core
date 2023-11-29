@@ -60,6 +60,7 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
 
     Route::prefix('notifications')->group(function () {
         Route::get('', [OneSignalController::class, 'index']);
+        Route::post('', [OneSignalController::class, 'create']);
         Route::get('/{id}', [OneSignalController::class, 'show']);
     });
 });

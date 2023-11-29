@@ -4,9 +4,6 @@ namespace App\Services;
 
 use App\Models\Setting;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Stream;
-use Illuminate\Http\Client\Response as ClientResponse;
 use Illuminate\Support\Facades\Http;
 
 class OneSignalService {
@@ -48,6 +45,29 @@ class OneSignalService {
     public function getNotification($id): array
     {
         $response = Http::withHeaders($this->headers)->get("{$this->url}/notifications/{$id}?app_id={$this->appId}");
+        return $response->json();
+    }
+
+
+    /**
+     * Create and schedule (optional) a new push notification
+     *
+     * @return array
+     */
+    public function create($payload): array
+    {
+        $response = Http::withHeaders($this->headers)->post("{$this->url}/notifications", [
+            'included_segments'     => ['Active Subscriptions'],
+            'target_channel'        => 'push',
+            'name'                  => 'ADMIN_GLOBAL_NOTIFICATION',
+            'app_id'                => $this->appId,
+            'contents'              => $payload['contents'],
+            'headings'              => $payload['headings'],
+            'send_after'            => $payload['send_after'],
+            'delayed_option'        => 'timezone',
+            'delivery_time_of_day'  => $payload['delivery_time_of_day'],
+        ]);
+
         return $response->json();
     }
 }

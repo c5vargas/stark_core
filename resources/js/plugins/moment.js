@@ -14,6 +14,10 @@ export const dateTimeFormatted = (value) => {
     return moment(value).format('DD/MM/Y H:mm');
 }
 
+export const timeFormatted = (value) => {
+    return moment(value).format('H:mm');
+}
+
 export const getLastConexion = (value) => {
     let now = moment(new Date())
     let conexion = moment(new Date(value))

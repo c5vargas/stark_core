@@ -63,8 +63,12 @@ export const useNotifyStore = defineStore('notifyStore', () => {
                 return false
             }
 
-            notifications.value.push(results.data)
+            if(!results.id) {
+                swalToast(message, 'error')
+            }
+
             swalToast(message)
+
             return true
         } catch(err) {
             swalToast(err.response.data.message, 'error')

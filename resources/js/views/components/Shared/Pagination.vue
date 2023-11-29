@@ -49,7 +49,7 @@ const page = ref(1)
 
 function next() {
     if(page.value === getNumbers.value)
-        return console.log("Última pagina")
+        return null
 
     page.value++
     emits('on-change', page.value)
@@ -57,7 +57,7 @@ function next() {
 
 function prev() {
     if(page.value === 1)
-        return console.log("Primera pagina")
+        return null
 
     page.value--
     emits('on-change', page.value)

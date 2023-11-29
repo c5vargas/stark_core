@@ -19,7 +19,6 @@
 const { app_logo } = window.AppConfig
 const appUrl = import.meta.env.VITE_APP_URL
 
-console.log(appUrl, app_logo)
 const props = defineProps({
     notification: {
         required: true
