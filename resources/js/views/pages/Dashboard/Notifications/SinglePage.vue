@@ -22,7 +22,7 @@
                         @on-delete="deleteOrCancel" />
                 </div>
 
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-12" v-if="notification">
                     <device-component :notification="notification" />
                 </div>
             </div>

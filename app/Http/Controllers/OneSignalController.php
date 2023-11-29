@@ -24,7 +24,7 @@ class OneSignalController extends Controller
         return $this->respondWithArray($notifications);
     }
 
-    public function show(OneSignalService $oneSignalService, int $id)
+    public function show(OneSignalService $oneSignalService, string $id)
     {
         $notifications = $oneSignalService->getNotification($id);
         return $this->respondWithArray($notifications);

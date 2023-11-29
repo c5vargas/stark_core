@@ -65,7 +65,7 @@
                                         :canUpdate="true"
                                         :canDelete="true"
                                         @on-update="$router.push({
-                                            name: 'dashboard.users.single',
+                                            name: 'dashboard.notifications.single',
                                             params: {id: item.id}
                                         })"
                                         @on-delete="notifyStore.destroy(item.id)" />

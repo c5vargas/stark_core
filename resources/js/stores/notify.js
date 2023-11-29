@@ -45,7 +45,7 @@ export const useNotifyStore = defineStore('notifyStore', () => {
             if(!status)
                 return swalToast(message, 'error')
 
-            return results.data
+            return results
         } catch(err) {
             console.log("[ERR] notify.js", err)
         }
