@@ -16,7 +16,7 @@
 
                 <div class="mb-3 datepicker">
                     <label class="form-label">{{ $t('dashboard.notifications.form.date') }}</label>
-                    <VDatePicker v-model="date" :popover="false" mode="dateTime" is24hr :time-accuracy="2" hide-time-header>
+                    <VDatePicker v-model="form.send_after" :popover="false" mode="dateTime" is24hr :time-accuracy="2" hide-time-header>
                         <template #default="{ togglePopover, inputValue, inputEvents }">
                             <div class="d-flex align-items-center rounded-lg border rounded overflow-hidden" @click="() => togglePopover()">
                                 <button
@@ -45,7 +45,6 @@
 </template>
 
 <script setup>
-import { dateFormatted, timeFormatted } from "@/plugins/moment.js"
 import { onBeforeMount, ref } from "vue";
 import ButtonsForm from "@/views/components/Shared/ButtonsForm.vue";
 
@@ -57,7 +56,6 @@ const props = defineProps({
     }
 })
 
-const date = ref(new Date())
 const form = ref({})
 
 function onUpdateValue() {
@@ -69,8 +67,6 @@ onBeforeMount( async() => {
 })
 
 function handleSubmit() {
-    form.value.delivery_time_of_day = dateFormatted(date.value)
-    form.value.send_after = timeFormatted(date.value)
     emits('on-submit', form.value)
 }
 

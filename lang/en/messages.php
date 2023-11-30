@@ -44,7 +44,7 @@
   'controller.user.deleted' => 'User successfully deleted.',
   'controller.user.updated' => 'User data has been updated correctly.',
   'controller.user.created' => 'User has been created correctly.',
-  'controller.onesignal.deleted' => 'Notification successfully deleted.',
+  'controller.onesignal.deleted' => 'The notification has been canceled.',
   'controller.onesignal.updated' => 'Notification data has been updated correctly.',
   'controller.onesignal.created' => 'The notification has been sent successfully',
   'dashboard.settings.analytics' => 'Analytics',

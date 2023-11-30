@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Setting;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
+use stdClass;
 
 class OneSignalService {
 
@@ -48,13 +49,24 @@ class OneSignalService {
         return $response->json();
     }
 
+    /**
+     * Cancel a existent Notification by ID
+     *
+     * @return array
+     */
+    public function cancel($id): stdClass
+    {
+        $response = Http::withHeaders($this->headers)->delete("{$this->url}/notifications/{$id}?app_id={$this->appId}");
+        return $response->object();
+    }
+
 
     /**
      * Create and schedule (optional) a new push notification
      *
      * @return array
      */
-    public function create($payload): array
+    public function create($payload): stdClass
     {
         $response = Http::withHeaders($this->headers)->post("{$this->url}/notifications", [
             'included_segments'     => ['Active Subscriptions'],
@@ -64,10 +76,8 @@ class OneSignalService {
             'contents'              => $payload['contents'],
             'headings'              => $payload['headings'],
             'send_after'            => $payload['send_after'],
-            'delayed_option'        => 'timezone',
-            'delivery_time_of_day'  => $payload['delivery_time_of_day'],
         ]);
 
-        return $response->json();
+        return $response->object();
     }
 }

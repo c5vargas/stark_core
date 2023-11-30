@@ -27,7 +27,6 @@ class CreateRequest extends FormRequest
             'headings.en'           => 'required|string|min:4|max:47',
             'contents.en'           => 'required|string|min:4|max:128',
             'send_after'            => 'required|string',
-            'delivery_time_of_day'  => 'required|string',
         ];
     }
 }

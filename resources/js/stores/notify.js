@@ -56,19 +56,14 @@ export const useNotifyStore = defineStore('notifyStore', () => {
 
         try {
             const { data } = await create(payload)
-            const { status, results, message } = data
+            const { status, message } = data
 
             if(!status) {
                 swalToast(message, 'error')
                 return false
             }
 
-            if(!results.id) {
-                swalToast(message, 'error')
-            }
-
             swalToast(message)
-
             return true
         } catch(err) {
             swalToast(err.response.data.message, 'error')
@@ -104,8 +99,8 @@ export const useNotifyStore = defineStore('notifyStore', () => {
             if(!status)
                 return swalToast(message, 'error')
 
-            const index = users.value.findIndex(el => el.id === id)
-            notifications.value.splice(index, 1)
+            const notification = notifications.value.find(el => el.id === id)
+            notification.canceled = true
             swalToast(message)
 
             return true
