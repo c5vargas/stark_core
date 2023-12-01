@@ -71,24 +71,6 @@ export const useNotifyStore = defineStore('notifyStore', () => {
         }
     }
 
-    const update = async(payload) => {
-        const { update } = useNotifyService()
-
-        try {
-            const { data } = await update(payload)
-            const { status, message } = data
-
-            if(!status)
-                return swalToast(message, 'error')
-
-            swalToast(message)
-            return true
-        } catch(err) {
-            swalToast(err.response.data.message, 'error')
-            return false
-        }
-    }
-
     const destroy = async(id) => {
         const { destroy } = useNotifyService()
 
@@ -129,7 +111,6 @@ export const useNotifyStore = defineStore('notifyStore', () => {
         fetch,
         setLoading,
         setPage,
-        update,
         destroy,
         find
     }

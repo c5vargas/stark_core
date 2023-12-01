@@ -62,7 +62,7 @@
                                 </td>
                                 <td class="align-middle text-end">
                                     <buttons-table
-                                        :canUpdate="true"
+                                        :canUpdate="false"
                                         :canDelete="!item.canceled && !item.completed_at"
                                         @on-update="$router.push({
                                             name: 'dashboard.notifications.single',

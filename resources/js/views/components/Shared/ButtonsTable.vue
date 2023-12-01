@@ -1,6 +1,7 @@
 <template>
-    <button class="btn btn-sm btn-link" v-if="canUpdate" @click="$emit('on-update', id)">
-        <i class="bi bi-pen"></i>
+    <button class="btn btn-sm btn-link" @click="$emit('on-update', id)">
+        <i v-if="canUpdate" class="bi bi-pen"></i>
+        <i v-else class="bi bi-eye"></i>
     </button>
 
     <button class="btn btn-sm btn-link" v-if="canDelete" @click="onDelete">

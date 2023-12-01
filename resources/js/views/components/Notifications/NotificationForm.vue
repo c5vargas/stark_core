@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="handleSubmit">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" :class="form.id === 'new' ? 'new-form' : 'view-form'">
                 <h6 class="card-title">{{ form.id === 'new' ? $t('dashboard.notifications.create') : $t('dashboard.notifications.update') }}</h6>
 
                 <div class="mb-3">
@@ -37,6 +37,7 @@
                 <buttons-form
                     :id="notification.id"
                     :canDelete="!notification.canceled && !notification.completed_at"
+                    :canSubmit="notification.id === 'new'"
                     @on-cancel="$router.push({name: 'dashboard.notifications'})"
                     @on-submit="handleSubmit"
                     @on-delete="handleDelete" />
@@ -79,5 +80,9 @@ function handleDelete() {
 <style scoped>
 .datepicker :deep(.vc-time-select-group select) {
     border: 0!important;
+}
+.view-form input,
+.view-form textarea {
+    pointer-events:none;
 }
 </style>

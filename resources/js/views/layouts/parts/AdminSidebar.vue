@@ -2,7 +2,7 @@
     <nav class="sidebar">
         <div class="sidebar-header">
             <a href="#" class="sidebar-brand">
-                Noble<span>UI</span>
+                {{appName}}<span>ADM</span>
             </a>
             <div class="sidebar-toggler not-active">
                 <span></span>
@@ -47,6 +47,7 @@
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
+const appName = window.AppConfig.app_name
 const categories = ['main', 'web apps', 'configuration']
 const sidebar = [
     {

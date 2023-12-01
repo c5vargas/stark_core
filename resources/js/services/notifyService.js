@@ -22,15 +22,6 @@ export default function notifyService() {
         })
     }
 
-    async function update(payload) {
-        notifyStore.setLoading(true)
-
-        await server.get("/sanctum/csrf-cookie");
-        return server.post('/api/notifications/update', payload).finally(() => {
-            notifyStore.setLoading(false)
-        })
-    }
-
     async function create(payload) {
         notifyStore.setLoading(true)
 
@@ -51,7 +42,6 @@ export default function notifyService() {
 
     return {
         get,
-        update,
         create,
         destroy,
         find,
