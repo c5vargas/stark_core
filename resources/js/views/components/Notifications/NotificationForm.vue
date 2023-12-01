@@ -36,6 +36,7 @@
 
                 <buttons-form
                     :id="notification.id"
+                    :canDelete="!notification.canceled && !notification.completed_at"
                     @on-cancel="$router.push({name: 'dashboard.notifications'})"
                     @on-submit="handleSubmit"
                     @on-delete="handleDelete" />

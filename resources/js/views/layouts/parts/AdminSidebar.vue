@@ -85,11 +85,11 @@ const sidebar = [
                 route: 'dashboard.notifications',
                 params: null
             },
-            // {
-            //     name: t('dashboard.notifications.create'),
-            //     route: 'dashboard.notifications.single',
-            //     params: {id: 'new'}
-            // }
+            {
+                name: t('dashboard.notifications.create'),
+                route: 'dashboard.notifications.single',
+                params: {id: 'new'}
+            }
         ]
     },
     {
