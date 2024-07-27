@@ -1,9 +1,7 @@
 <template>
     <nav class="sidebar">
         <div class="sidebar-header">
-            <a href="#" class="sidebar-brand">
-                {{appName}}<span>ADM</span>
-            </a>
+            <a href="#" class="sidebar-brand">{{appName}}</a>
             <div class="sidebar-toggler not-active">
                 <span></span>
                 <span></span>
