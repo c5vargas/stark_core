@@ -9,6 +9,6 @@
 </template>
 
 <script setup>
-import { useAuthStore } from './stores/auth';
+import useAuthStore from '@/js/contexts/auth/stores/useAuthStore';
 const authStore = useAuthStore()
 </script>
