@@ -116,6 +116,8 @@
   'dashboard.settings.mail.encryption' => 'SMTP encryption',
   'dashboard.settings.mail.username' => 'SMTP username',
   'dashboard.settings.mail.password' => 'SMTP password',
+  'dashboard.settings.mail.validation.domain.title' => 'The email domains do not match',
+  'dashboard.settings.mail.validation.domain.text' => 'The SMTP email domain and the From Address domain must be the same.',
   'dashboard.settings.roles' => 'Roles and permissions',
   'dashboard.settings.roles_desc' => 'Grant permissions to users',
   'dashboard.settings.roles_long_desc' => 'This form is used to grant permissions to users, allowing them to access specific areas of our web application. Permissions are essential for controlling who can perform particular actions within the application. Through this form, you can efficiently assign and manage user permissions. Please be sure to carefully select the appropriate permissions for each user, based on their responsibilities and needs within the application.',

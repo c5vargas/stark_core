@@ -77,8 +77,11 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import { swalToast } from "@/js/plugins/swal.js"
+import { useI18n } from "vue-i18n";
 import useSettingsStore from "@/js/contexts/admin/settings/general/stores/useSettingsStore";
 
+const {t} = useI18n()
 const settingStore = useSettingsStore()
 const form = ref({})
 
@@ -97,6 +100,12 @@ onMounted(async () => {
 })
 
 function handleSubmit() {
+  const fromDomain = form.value.mail_from_address.replace(/.*@/, "")
+  const smtpDomain = form.value.mail_username.replace(/.*@/, "")
+
+  if(fromDomain !== smtpDomain)
+    return swalToast(t('dashboard.settings.mail.validation.domain.title'), "error", 6000, t('dashboard.settings.mail.validation.domain.text'))
+
   settingStore.update(form.value)
 }
 </script>
