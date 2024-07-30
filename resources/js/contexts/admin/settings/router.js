@@ -50,6 +50,13 @@ const routes = [
 		meta: {permission: 'view.settings'},
 		component: () => import("@/js/contexts/admin/settings/notifications/pages/OneSignalPage.vue"),
 	},
+	{
+		name: "dashboard.settings.gdpr",
+		path: "/dashboard/settings/gdpr",
+		beforeEnter: [hasPermission],
+		meta: {permission: 'view.settings'},
+		component: () => import("@/js/contexts/admin/settings/gdpr/pages/GDPRPage.vue"),
+	},
 ]
 
 export default routes

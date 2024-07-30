@@ -127,6 +127,11 @@ const sidebar = [
                 route: 'dashboard.settings.onesignal',
                 params: null
             },
+            {
+                name: t('dashboard.settings.gdpr'),
+                route: 'dashboard.settings.gdpr',
+                params: null
+            },
         ]
     }
 ]
