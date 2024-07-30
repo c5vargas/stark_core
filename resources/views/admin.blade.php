@@ -26,7 +26,7 @@
             'resources/js/main.js',
         ])
 
-        @if($settings->onesignal_app_id)
+        @if($settings->onesignal_app_id && env('APP_URL', 'http://127.0.0.1:8000') !== 'http://127.0.0.1:8000')
             <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
         @endif
 
