@@ -61,9 +61,14 @@
             <input v-model="form.mail_port" type="text" class="form-control">
           </div>
 
-          <div class="mb-3">
+          <div class="mb-3 w-50">
             <label class="form-label">{{ $t('dashboard.settings.mail.encryption') }}</label>
-            <input v-model="form.mail_encryption" type="text" class="form-control">
+            <select v-model="form.mail_encryption" class="form-select">
+              <option value="">- Select -</option>
+              <option value="TLS">TLS</option>
+              <option value="SSL">SSL</option>
+              <option value="STARTTLS">STARTTLS</option>
+            </select>
           </div>
         </div>
 
