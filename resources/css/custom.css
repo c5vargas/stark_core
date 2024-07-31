@@ -47,7 +47,17 @@
 
 /* Login page */
 .main-wrapper .page-wrapper.full-page .page-content.d-flex.align-items-center {
-background-image: url('../assets/city-325185.jpg');
-background-size: cover;
-background-position: center;
+    background-image: url('../assets/city-325185.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* EditorJs */
+.ce-block__content, 
+.ce-toolbar__content { 
+    max-width:calc(100% - 80px) !important; 
+} 
+    
+.cdx-block { 
+    max-width: 100% !important; 
 }
