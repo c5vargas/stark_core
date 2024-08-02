@@ -42,6 +42,11 @@ const navigator = [
         name: 'dashboard.settings.one_signal',
         route: 'dashboard.settings.onesignal',
         icon: 'bi-app-indicator'
+    },
+    {
+        name: 'dashboard.settings.gdpr',
+        route: 'dashboard.settings.gdpr',
+        icon: 'bi-shield-check'
     }
 ]
 </script>

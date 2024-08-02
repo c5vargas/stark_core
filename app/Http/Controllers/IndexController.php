@@ -38,12 +38,12 @@ class IndexController extends Controller
         $data = [
             "name" => $settings->app_name,
             "short_name" => $settings->app_name,
-            "icons" => [
+            "icons" => [[
                 "src" => $settings->app_favicon,
                 "sizes" => "192x192",
                 "type" => "image/png"
-            ],
-            "start_url" => "/",
+            ]],
+            "start_url" => "",
             "scope" => ".",
             "display" => "standalone",
             "background_color" => "#fff",

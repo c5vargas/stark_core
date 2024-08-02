@@ -43,6 +43,9 @@ class UpdateRequest extends FormRequest
             'onesignal_app_id'          => 'nullable|string',
             'onesignal_api_key'         => 'nullable|string',
             'onesignal_safari_web_id'   => 'nullable|string',
+            'gdpr_privacy_page'         => 'nullable|string',
+            'gdpr_show_cookie_banner'   => 'boolean',
+            'gdpr_cookies_page'         => 'nullable|string',
         ];
     }
 }
