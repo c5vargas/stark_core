@@ -1,27 +1,32 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import path from 'path'
-import vue from '@vitejs/plugin-vue';
+import react from '@vitejs/plugin-react';
+import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/main.js'],
+            input: ['resources/js/main.tsx'],
             refresh: true,
+            postcss: [
+                tailwindcss(),
+                autoprefixer(),
+            ],
         }),
-        vue({
-            template: {
-                transformAssetUrls: {
-                    base: null,
-                    includeAbsolute: false,
-                },
-            },
-        }),
+        react(),
     ],
+    build: {
+        chunkSizeWarningLimit: 1800,
+        target: 'esnext'
+    },
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, './resources'),
+            '@': path.resolve(__dirname, 'resources/js'),
         },
-        extensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.mjs']
-    }
+    },
+    optimizeDeps: {
+        include: [],
+    },
 });

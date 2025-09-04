@@ -1,0 +1,159 @@
+{
+  "translation": {
+    "home": {
+      "presentation": {
+        "h1": "Explore and Enjoy in Video",
+        "p": "Discover each dish with captivating videos, complete details, and reviews. Take your menu experience to the next level and connect better with your customers.",
+        "btn_video": "Watch the video",
+        "btn_contact": "Contact us",
+        "p_partners": "Some of our partners:"
+      },
+      "banner": {
+        "h2": "Showcase Your Menu Like Never Before",
+        "p": "Highlight your signature dishes and create memorable dining experiences with interactive videos. Engage and impress your audience today!",
+        "btn_register": "Join Now"
+      },
+      "pricing": {
+        "h2": "Flat pricing, no management fees.",
+        "p": "Whether you’re one person trying to get ahead or a big firm trying to take over the world, we’ve got a plan for you.",
+        "monthly": "Monthly",
+        "anually": "Anually",
+        "starter": {
+          "h3": "Free Plan - Starter",
+          "p": "Ideal for restaurants looking to try the platform and offer their customers a simplified version of their digital menu.",
+          "price": "Free",
+          "item1": "Display up to 10 dishes per category.",
+          "item2": "Create a maximum of 3 categories.",
+          "item3": "Generate a standard QR code without logo.",
+          "item4": "Multi-language menu display.",
+          "item5": "Unlimited menu updates.",
+          "btn": "Get Started"
+        },
+        "professional": {
+          "h3": "Professional Plan",
+          "p": "Designed for restaurants that want to offer a complete digital experience with advanced customization and flexibility.",
+          "item1": "Unlimited display of dishes in carousel format.",
+          "item2": "Unlimited categories to organize your menu.",
+          "item3": "Customizable QR code with logo and brand colors.",
+          "item4": "Multi-language menu display.",
+          "item5": "Basic analytics on menu views and QR usage.",
+          "item6": "Priority technical support via email and chat.",
+          "item7": "Option to link social media accounts from the menu.",
+          "btn": "Subscribe Now"
+        },
+        "premium": {
+          "h3": "Premium Plan - Customized",
+          "p": "Perfect for restaurants or chains looking for a fully customized digital menu experience with advanced features and dedicated support.",
+          "price": "Contact Us",
+          "item1": "We take care of setting up your menu and uploading all videos and images.",
+          "item2": "We come to your location to conduct a photo and video session.",
+          "item3": "Customized QR code with logo and brand colors.",
+          "item4": "Multi-language menu display.",
+          "item5": "Advanced analytics on menu views and QR usage.",
+          "item6": "24/7 dedicated technical support with phone and video assistance.",
+          "btn": "Contact Us"
+        }
+      }
+    },
+    "auth": {
+      "login": {
+        "h4": "Log In",
+        "p": "Enter your email and password to log in",
+        "email": "Email",
+        "password": "Password",
+        "submit": "Log In",
+        "motivation": {
+          "h4": "Innovation on Every Plate",
+          "p": "Creativity in the kitchen is the key to standing out. Dare to innovate!"
+        }
+      }
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "shared": {
+        "loading": "Loading",
+        "updating": "Updating"
+      },
+      "dishes": {
+        "title": "Dishes",
+        "h4": "Dish: {{name}}",
+        "h4.new": "New dish",
+        "details": "See details",
+        "description": "These are the newly added dishes.",
+        "p": "This is the information sheet for the {{name}} dish. You can edit its details or update its image/video.",
+        "add": "Add new dish",
+        "updated": "It has been successfully updated",
+        "created": "It has been successfully created",
+        "destroy": "Are you sure you want to remove this element?",
+        "switch": "Are you sure you want to change the language? You must save the changes before setting another language.",
+        "reviews_count": "{{num}} customer reviews",
+        "reviews": {
+          "h5": "Customer reviews"
+        },
+        "image": {
+          "h5": "Featured Image",
+          "hover": "Change image",
+          "reset": "Reset image"
+        },
+        "video": {
+          "h5": "Featured Video",
+          "hover": "Change the video",
+          "p": "Select a video from your computer",
+          "helper": "Maximum file size: 8MB",
+          "success": "The video has been added.",
+          "selected": "File selected: {{name}}",
+          "instructions": "The video should be no longer than 10 seconds. These are short videos to capture the customer's interest."
+        },
+        "form": {
+          "h5": "Dish information",
+          "name": "Name",
+          "date": "Date",
+          "short_description": "Short description",
+          "long_description": "Long description",
+          "languages": "Languages",
+          "category": "Category",
+          "category.default": "- Select a category -",
+          "category.helper": "When selecting a category, this dish will appear in the corresponding section.",
+          "price": "Price",
+          "price.helper": "Enter the value in cents to get an exact price. The current value equals {{price}}",
+          "save": "Save",
+          "delete": "Remove"
+        }
+      },
+      "categories": {
+        "title": "Categories",
+        "h4": "Category: {{category}}",
+        "h4.new": "New category",
+        "p": "This is the information sheet for the {{category}} category. You can edit its details or update its image.",
+        "add": "Add new category",
+        "updated": "It has been successfully updated",
+        "created": "It has been successfully created",
+        "destroy": "Are you sure you want to remove this element?",
+        "image": {
+          "h5": "Featured image",
+          "hover": "Change image",
+          "reset": "Reset image"
+        },
+        "form": {
+          "h5": "Category information",
+          "name": "Name",
+          "date": "Date",
+          "dishes": "Dishes",
+          "descr": "Description",
+          "save": "Save",
+          "delete": "Remove"
+        }
+      }
+    },
+    "shared": {
+      "loading": "Loading...",
+      "alert": {
+        "dismiss": "Close alert",
+        "confirm": "Confirm"
+      },
+      "error": {
+        "500": "An error has occurred, please try again later."
+      }
+    }
+  }
+}

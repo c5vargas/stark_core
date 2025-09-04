@@ -1,0 +1,101 @@
+{
+  "translation": {
+    "auth": {
+      "login": {
+        "h4": "Iniciar sesión",
+        "p": "Ingrese su correo electrónico y contraseña para iniciar sesión",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "submit": "Iniciar sesión",
+        "motivation": {
+          "h4": "Innovación en cada plato",
+          "p": "La creatividad en la cocina es la clave para destacar. ¡Atrévete a innovar!"
+        }
+      }
+    },
+    "dashboard": {
+      "title": "Panel de control",
+      "shared": {
+        "loading": "Cargando",
+        "updating": "Actualizando"
+      },
+      "dishes": {
+        "title": "Platos",
+        "h4": "Plato: {{name}}",
+        "h4.new": "Nuevo plato",
+        "details": "Ver detalles",
+        "description": "Estos son los platos recién agregados.",
+        "p": "Esta es la ficha de información del plato {{name}}. Puedes editar sus detalles o actualizar su imagen/video.",
+        "add": "Agregar nuevo plato",
+        "updated": "Se ha actualizado correctamente",
+        "created": "Se ha creado correctamente",
+        "destroy": "¿Está seguro de que desea eliminar este elemento?",
+        "switch": "¿Está seguro de que desea cambiar el idioma? Debe guardar los cambios antes de configurar otro idioma.",
+        "reviews_count": "{{num}} opiniones de clientes",
+        "image": {
+          "h5": "Imagen destacada",
+          "hover": "Cambiar imagen",
+          "reset": "Restablecer imagen"
+        },
+        "video": {
+          "h5": "Video destacado",
+          "hover": "Cambiar el video",
+          "p": "Seleccione un video desde su computadora",
+          "helper": "Tamaño máximo del archivo: 8MB",
+          "success": "El video ha sido agregado.",
+          "selected": "Archivo seleccionado: {{name}}",
+          "instructions": "El video no debe durar más de 10 segundos. Estos son videos cortos para captar el interés del cliente."
+        },
+        "form": {
+          "h5": "Información del plato",
+          "name": "Nombre",
+          "date": "Fecha",
+          "short_description": "Descripción corta",
+          "long_description": "Descripción larga",
+          "languages": "Idiomas",
+          "category": "Categoría",
+          "category.default": "- Seleccione una categoría -",
+          "category.helper": "Al seleccionar una categoría, este plato aparecerá en la sección correspondiente.",
+          "price": "Precio",
+          "price.helper": "Ingrese el valor en centavos para obtener un precio exacto. El valor actual es {{price}}",
+          "save": "Guardar",
+          "delete": "Eliminar"
+        }
+      },
+      "categories": {
+        "title": "Categorías",
+        "h4": "Categoría: {{category}}",
+        "h4.new": "Nueva categoría",
+        "p": "Esta es la ficha de información de la categoría {{category}}. Puedes editar sus detalles o actualizar su imagen.",
+        "add": "Agregar nueva categoría",
+        "updated": "Se ha actualizado correctamente",
+        "created": "Se ha creado correctamente",
+        "destroy": "¿Está seguro de que desea eliminar este elemento?",
+        "image": {
+          "h5": "Imagen destacada",
+          "hover": "Cambiar imagen",
+          "reset": "Restablecer imagen"
+        },
+        "form": {
+          "h5": "Información de la categoría",
+          "name": "Nombre",
+          "date": "Fecha",
+          "dishes": "Platos",
+          "descr": "Descripción",
+          "save": "Guardar",
+          "delete": "Eliminar"
+        }
+      }
+    },
+    "shared": {
+      "loading": "Cargando...",
+      "alert": {
+        "dismiss": "Cerrar alerta",
+        "confirm": "Confirmar"
+      },
+      "error": {
+        "500": "Ha ocurrido un error, por favor intente nuevamente más tarde."
+      }
+    }
+  }
+}
