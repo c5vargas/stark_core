@@ -42,7 +42,7 @@ const GeneralSettings: React.FC = () => {
   }, [settings])
 
   return (
-    <div className="space-y-4">
+    <div className="grid grid-cols-1 space-y-4">
       <div className="rounded bg-white p-4 shadow">
         <h6 className="mb-0 text-lg font-semibold">{t('dashboard.settings.general')}</h6>
         <p className="mb-3 text-gray-500">{t('dashboard.settings.general_desc')}</p>
