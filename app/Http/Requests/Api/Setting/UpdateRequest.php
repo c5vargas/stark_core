@@ -11,7 +11,10 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return (auth()->check() && auth()->user()->can('edit.settings'));
+        /** @var \App\Models\User|null $user */
+        $user = auth()->user();
+        
+        return (auth()->check() && $user->can('edit.settings'));
     }
 
     /**

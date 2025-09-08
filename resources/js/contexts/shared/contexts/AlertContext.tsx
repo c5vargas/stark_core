@@ -103,7 +103,7 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
 
           <button type="button" onClick={hideAlert} className={`focus:ring-4 focus:outline-none ${btnColors[type]} font-medium rounded-lg text-xs px-3 py-1.5 me-2 text-center inline-flex items-center duration-300`}>
             <EyeIcon className="me-2 h-4 w-4" />
-            { t('shared.alert.dismiss') }
+            { t('alert.dismiss') }
           </button>
         </div>
       </div>

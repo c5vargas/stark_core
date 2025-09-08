@@ -58,12 +58,16 @@ class User extends Authenticatable
      *
      */
     public function getAllPermissionsAttribute() {
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
         $permissions = [];
-          foreach (Permission::all() as $permission) {
-            if (Auth::user()->can($permission->name)) {
-              $permissions[] = $permission->name;
+
+        foreach (Permission::all() as $permission) {
+            if ($user->can($permission->name)) {
+                $permissions[] = $permission->name;
             }
-          }
-          return $permissions;
+        }
+
+        return $permissions;
     }
 }

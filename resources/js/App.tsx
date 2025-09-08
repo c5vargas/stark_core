@@ -2,8 +2,11 @@ import { Suspense, useEffect } from "react";
 import { RouterProvider, useParams } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import { AlertProvider } from "@/contexts/shared/contexts/AlertContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Router from "@/router/router";
 import Loading from "@/contexts/shared/components/Loading";
+
+const queryClient = new QueryClient();
 
 const App = () => {
   const { i18n } = useTranslation();
@@ -21,11 +24,13 @@ const App = () => {
 
   return (
     <Suspense fallback={<LoadingContainer />}>
-      <AlertProvider>
-        <main className="block relative">
-          <RouterProvider router={Router} />
-        </main>
-      </AlertProvider>
+      <QueryClientProvider client={queryClient}>
+        <AlertProvider>
+          <main className="block relative">
+            <RouterProvider router={Router} />
+          </main>
+        </AlertProvider>
+      </QueryClientProvider>
     </Suspense>
   );
 }

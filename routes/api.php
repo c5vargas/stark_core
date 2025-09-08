@@ -42,7 +42,7 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
 
     Route::prefix('settings')->group(function () {
         Route::get('', [SettingController::class, 'index']);
-        Route::post('update', [SettingController::class, 'update']);
+        Route::post('', [SettingController::class, 'update']);
         Route::post('mail', [SettingController::class, 'sendTest']);
     });
 
