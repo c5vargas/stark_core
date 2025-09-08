@@ -1,14 +1,14 @@
-import client from "@/contexts/shared/libs/api/httpAxios";
-import handleHttpError from "@/contexts/shared/libs/handleHttpError";
-import { HTTPResultsResponse } from "@/contexts/shared/libs/types";
-import { Setting } from "../libs/types";
+import client from '@/contexts/shared/libs/api/httpAxios'
+import handleHttpError from '@/contexts/shared/libs/handleHttpError'
+import { HTTPResultsResponse } from '@/contexts/shared/libs/types'
+import { Setting } from '../libs/types'
 
-const getSettings = async(): Promise<Setting[]> => {
+const getSettings = async (): Promise<Setting[]> => {
   try {
-    const response = await client.get<HTTPResultsResponse<Setting[]>>('/api/settings');
+    const response = await client.get<HTTPResultsResponse<Setting[]>>('/api/settings')
     return response.results.data
-  } catch (error: any) {
-    throw new Error(handleHttpError(error));
+  } catch (error: unknown) {
+    throw new Error(handleHttpError(error))
   }
 }
 

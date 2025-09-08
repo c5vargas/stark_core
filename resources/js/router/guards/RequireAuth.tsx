@@ -1,34 +1,32 @@
-import { useAuthStore } from "@/contexts/auth/stores/authStore";
-import Loading from "@/contexts/shared/components/Loading";
-import { useEffect, useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { useAuthStore } from '@/contexts/auth/stores/authStore'
+import Loading from '@/contexts/shared/components/Loading'
+import { useEffect, useState } from 'react'
+import { Navigate, useLocation } from 'react-router-dom'
 
 function RequireAuth({ children }: { children: JSX.Element }) {
-	let location = useLocation();
-	
-	const { getAuth } = useAuthStore()
-	const [hasPermission, setHasPermission] = useState<boolean|undefined>();
+  const location = useLocation()
 
-	useEffect(() => {
-		const fetchData = async() => {
-			const isAuth = await getAuth();
-			setHasPermission(isAuth)
-		}
+  const { getAuth } = useAuthStore()
+  const [hasPermission, setHasPermission] = useState<boolean | undefined>()
 
-		fetchData()
-	}, [])
+  useEffect(() => {
+    const fetchData = async () => {
+      const isAuth = await getAuth()
+      setHasPermission(isAuth)
+    }
 
-	if (hasPermission === undefined) {
-	  return (
-			<div className="w-dvh h-dvh flex items-center justify-center">
-				<Loading />
-			</div>
-		)
-	}
+    fetchData()
+  }, [])
 
-	return hasPermission
-    ? children
-    : <Navigate to="/" state={{ from: location }} replace />;
+  if (hasPermission === undefined) {
+    return (
+      <div className="w-dvh flex h-dvh items-center justify-center">
+        <Loading />
+      </div>
+    )
+  }
+
+  return hasPermission ? children : <Navigate to="/" state={{ from: location }} replace />
 }
 
 export default RequireAuth

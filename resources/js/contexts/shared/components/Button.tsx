@@ -1,29 +1,30 @@
-import React from "react";
-import { LoadingIcon } from "./Icons";
+import React from 'react'
+import { LoadingIcon } from './Icons'
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  title: string;
-  icon?: React.ReactNode;
-  loading?: boolean;
-  variant: "primary" | "secondary";
+  title: string
+  icon?: React.ReactNode
+  loading?: boolean
+  variant: 'primary' | 'secondary'
 }
 
-const VARIANT_CLASSES: Record<BaseButtonProps["variant"], string> = {
-  primary: "bg-gradient-to-tl from-purple-700 to-pink-500 text-white shadow-soft-md",
-  secondary: "bg-transparent border border-slate-700 text-slate-700 hover:bg-slate-700 hover:text-white",
-};
+const VARIANT_CLASSES: Record<BaseButtonProps['variant'], string> = {
+  primary: 'bg-gradient-to-tl from-purple-700 to-pink-500 text-white shadow-soft-md',
+  secondary:
+    'bg-transparent border border-slate-700 text-slate-700 hover:bg-slate-700 hover:text-white',
+}
 
 export const BaseButton: React.FC<BaseButtonProps> = ({
   title,
   icon,
   loading = false,
-  type = "button",
+  type = 'button',
   onClick,
-  className = "",
-  variant = "primary",
+  className = '',
+  variant = 'primary',
   ...rest
 }) => {
-  const variantClasses = VARIANT_CLASSES[variant] ?? "";
+  const variantClasses = VARIANT_CLASSES[variant] ?? ''
 
   return (
     <button
@@ -31,10 +32,7 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
       onClick={onClick}
       disabled={loading || rest.disabled}
       aria-busy={loading}
-      className={`inline-flex items-center gap-2 px-8 py-2 text-xs font-bold uppercase rounded-lg cursor-pointer transition-all
-        leading-pro tracking-tight-soft ease-soft-in
-        hover:scale-102 active:opacity-85 disabled:opacity-25
-        ${variantClasses} ${className}`}
+      className={`leading-pro tracking-tight-soft ease-soft-in hover:scale-102 inline-flex cursor-pointer items-center gap-2 rounded-lg px-8 py-2 text-xs font-bold uppercase transition-all active:opacity-85 disabled:opacity-25 ${variantClasses} ${className}`}
       {...rest}
     >
       {loading ? (
@@ -49,5 +47,5 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
         </>
       )}
     </button>
-  );
-};
+  )
+}

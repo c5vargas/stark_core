@@ -56,7 +56,7 @@ class AuthController extends Controller
             return $this->respondWithMessage(__('messages.controller.auth.no_token'), 401);
 
         $user->getAllPermissions();
-        return $this->respondWithAuth($user, 201);
+        return $this->respondWithItem($user, 201);
     }
 
     /**

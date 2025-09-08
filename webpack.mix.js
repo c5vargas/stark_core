@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
 
 /*
  |--------------------------------------------------------------------------
@@ -11,4 +11,4 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.ts('resources/js/main.tsxx', 'public/js').react().version();
+mix.ts('resources/js/main.tsxx', 'public/js').react().version()

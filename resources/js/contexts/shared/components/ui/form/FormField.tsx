@@ -1,9 +1,9 @@
-import React from "react";
-import { Label } from "./Label";
+import React from 'react'
+import { Label } from './Label'
 
 interface FormFieldProps {
-  label: string;
-  children: React.ReactNode;
+  label: string
+  children: React.ReactNode
 }
 
 export const FormField: React.FC<FormFieldProps> = ({ label, children }) => {
@@ -12,5 +12,5 @@ export const FormField: React.FC<FormFieldProps> = ({ label, children }) => {
       <Label>{label}</Label>
       {children}
     </div>
-  );
-};
+  )
+}

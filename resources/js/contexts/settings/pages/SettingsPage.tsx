@@ -1,15 +1,15 @@
-import GeneralSettings from "../components/GeneralSettings";
+import GeneralSettings from '../components/GeneralSettings'
 
 const SettingsPage = () => {
-	return (
-    <div className="flex flex-wrap -mx-3">
-      <div className="w-full max-w-full flex-0">
-        <div className="bg-white border-0 shadow-xl rounded-2xl">
+  return (
+    <div className="-mx-3 flex flex-wrap">
+      <div className="flex-0 w-full max-w-full">
+        <div className="rounded-2xl border-0 bg-white shadow-xl">
           <GeneralSettings />
         </div>
       </div>
     </div>
-	);
+  )
 }
 
 export default SettingsPage

@@ -1,14 +1,14 @@
-import client from "@/contexts/shared/libs/api/httpAxios";
-import handleHttpError from "@/contexts/shared/libs/handleHttpError";
-import { HTTPMessageResponse } from "@/contexts/shared/libs/types";
-import { SettingsMap } from "@/contexts/settings/libs/types";
+import client from '@/contexts/shared/libs/api/httpAxios'
+import handleHttpError from '@/contexts/shared/libs/handleHttpError'
+import { HTTPMessageResponse } from '@/contexts/shared/libs/types'
+import { SettingsMap } from '@/contexts/settings/libs/types'
 
-const updateSettings = async(payload: SettingsMap): Promise<HTTPMessageResponse> => {
+const updateSettings = async (payload: SettingsMap): Promise<HTTPMessageResponse> => {
   try {
-    const response = await client.post<HTTPMessageResponse>('/api/settings', payload);
+    const response = await client.post<HTTPMessageResponse>('/api/settings', payload)
     return response
-  } catch (error: any) {
-    throw new Error(handleHttpError(error));
+  } catch (error: unknown) {
+    throw new Error(handleHttpError(error))
   }
 }
 
