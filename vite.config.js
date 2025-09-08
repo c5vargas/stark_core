@@ -2,17 +2,16 @@ import { defineConfig } from 'vite'
 import laravel from 'laravel-vite-plugin'
 import path from 'path'
 import react from '@vitejs/plugin-react'
-import tailwindcss from 'tailwindcss'
-import autoprefixer from 'autoprefixer'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [
     laravel({
       input: ['resources/js/main.tsx'],
       refresh: true,
-      postcss: [tailwindcss(), autoprefixer()],
     }),
     react(),
+    tailwindcss(),
   ],
   build: {
     chunkSizeWarningLimit: 1800,

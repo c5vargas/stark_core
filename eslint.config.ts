@@ -26,13 +26,13 @@ export default defineConfig([
     settings: {
       react: {
         version: 'detect',
-        runtime: 'automatic'
+        runtime: 'automatic',
       },
     },
     rules: {
-      "react/jsx-uses-react": "off",
-      "react/react-in-jsx-scope": "off"
-    }
+      'react/jsx-uses-react': 'off',
+      'react/react-in-jsx-scope': 'off',
+    },
   },
   tseslint.configs.recommended,
   // pluginReact.configs.flat.recommended,
