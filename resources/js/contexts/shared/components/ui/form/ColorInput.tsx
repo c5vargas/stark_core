@@ -1,10 +1,14 @@
 import React from 'react'
 
 interface ColorInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  value: string
+  value?: string
 }
 
-export const ColorInput: React.FC<ColorInputProps> = ({ value, className, ...props }) => {
+export const ColorInput: React.FC<ColorInputProps> = ({
+  value = '#000000',
+  className,
+  ...props
+}) => {
   return (
     <div className="flex w-full">
       <button

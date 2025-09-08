@@ -1,8 +1,9 @@
 import { lazy } from 'react'
-import SettingsLayout from '../layouts/SettingsLayout'
 import { Navigate } from 'react-router-dom'
+import SettingsLayout from '@/contexts/settings/layouts/SettingsLayout'
 
 const SettingsPage = lazy(() => import('@/contexts/settings/pages/SettingsPage'))
+const MailPage = lazy(() => import('@/contexts/settings/pages/MailPage'))
 
 const router = {
   path: 'settings',
@@ -15,6 +16,10 @@ const router = {
     {
       path: 'general',
       element: <SettingsPage />,
+    },
+    {
+      path: 'mail',
+      element: <MailPage />,
     },
   ],
 }

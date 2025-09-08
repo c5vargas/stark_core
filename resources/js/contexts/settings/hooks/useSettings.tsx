@@ -10,7 +10,7 @@ export const useSettings = () => {
   const { showAlert } = useAlert()
 
   const { mutateAsync: update, isPending: updating } = useMutation({
-    mutationFn: (payload: SettingsMap) => updateSettings(payload),
+    mutationFn: (payload: Partial<SettingsMap>) => updateSettings(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['settings'] })
       showAlert(t('controller.updated'), 'success')

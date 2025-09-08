@@ -8,6 +8,8 @@ import { FormField } from '@/contexts/shared/components/ui/form/FormField'
 import { InputText } from '@/contexts/shared/components/ui/form/InputText'
 import { Textarea } from '@/contexts/shared/components/ui/form/TextArea'
 import { ColorInput } from '@/contexts/shared/components/ui/form/ColorInput'
+import { InfoCard } from './InfoCard'
+import { Card } from '@/contexts/shared/components/ui/Card'
 
 const GeneralSettings: React.FC = () => {
   const { t } = useTranslation()
@@ -15,7 +17,7 @@ const GeneralSettings: React.FC = () => {
   const { update, updating } = useSettings()
 
   const appUrl = import.meta.env.VITE_APP_URL
-  const [form, setForm] = useState<SettingsMap>({
+  const [form, setForm] = useState<Partial<SettingsMap>>({
     app_name: '',
     app_descr: '',
     app_color: '',
@@ -37,19 +39,20 @@ const GeneralSettings: React.FC = () => {
     setForm({
       app_name: settings.app_name || '',
       app_descr: settings.app_descr || '',
-      app_color: settings.app_color || '#000000',
+      app_color: settings.app_color || '',
     })
   }, [settings])
 
   return (
     <div className="grid grid-cols-1 space-y-4">
-      <div className="rounded bg-white p-4 shadow">
-        <h6 className="mb-0 text-lg font-semibold">{t('dashboard.settings.general')}</h6>
-        <p className="mb-3 text-gray-500">{t('dashboard.settings.general_desc')}</p>
-        <p className="text-gray-700">{t('dashboard.settings.general_long_desc')}</p>
-      </div>
+      <InfoCard
+        title={t('dashboard.settings.general')}
+        description={t('dashboard.settings.general_desc')}
+      >
+        <p>{t('dashboard.settings.general_long_desc')}</p>
+      </InfoCard>
 
-      <div className="rounded bg-white p-4 shadow">
+      <Card>
         <form onSubmit={handleSubmit} className="space-y-4">
           <FormField label={t('dashboard.settings.site_name')}>
             <InputText
@@ -79,7 +82,7 @@ const GeneralSettings: React.FC = () => {
             type="submit"
           />
         </form>
-      </div>
+      </Card>
     </div>
   )
 }

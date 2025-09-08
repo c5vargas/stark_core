@@ -6,9 +6,9 @@ use App\Mail\TestEmail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Mail\Mailer;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Mail;
 
 class SendTestMailJob implements ShouldQueue
 {
@@ -29,6 +29,6 @@ class SendTestMailJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->toEmail)->send(new TestEmail());
+        Mailer::to($this->toEmail)->send(new TestEmail());
     }
 }

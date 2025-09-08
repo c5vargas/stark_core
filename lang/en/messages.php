@@ -1,6 +1,7 @@
 <?php return array (
   'shared.loading' => 'Loading...',
   'alert.dismiss' => 'Dismiss',
+  'alert.default.error' => 'An error has occurred, please try again later.',
   'fetch.error' => 'The results could not be available.',
   'auth.login.email' => 'Email Address',
   'auth.login.h4' => 'Log in',
