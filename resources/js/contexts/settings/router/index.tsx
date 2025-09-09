@@ -4,6 +4,7 @@ import SettingsLayout from '@/contexts/settings/layouts/SettingsLayout'
 
 const SettingsPage = lazy(() => import('@/contexts/settings/pages/SettingsPage'))
 const MailPage = lazy(() => import('@/contexts/settings/pages/MailPage'))
+const LocalizationPage = lazy(() => import('@/contexts/settings/pages/LocalizationPage'))
 
 const router = {
   path: 'settings',
@@ -20,6 +21,10 @@ const router = {
     {
       path: 'mail',
       element: <MailPage />,
+    },
+    {
+      path: 'localization',
+      element: <LocalizationPage />,
     },
   ],
 }

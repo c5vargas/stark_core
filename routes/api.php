@@ -49,7 +49,7 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
     Route::prefix('languages')->group(function () {
         Route::get('', [LanguageController::class, 'index']);
         Route::post('', [LanguageController::class, 'create']);
-        Route::post('/update', [LanguageController::class, 'update']);
+        Route::post('/{code}', [LanguageController::class, 'update']);
     });
 
     Route::prefix('roles')->group(function () {

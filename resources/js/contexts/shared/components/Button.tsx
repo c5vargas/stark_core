@@ -32,7 +32,7 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
       onClick={onClick}
       disabled={loading || rest.disabled}
       aria-busy={loading}
-      className={`leading-pro tracking-tight-soft ease-soft-in inline-flex cursor-pointer items-center gap-2 rounded-lg px-8 py-2 text-xs font-bold uppercase transition-all hover:scale-102 active:opacity-85 disabled:opacity-25 ${variantClasses} ${className}`}
+      className={`leading-pro tracking-tight-soft ease-soft-in inline-flex cursor-pointer items-center gap-2 rounded-lg px-6 py-2 text-xs font-medium transition-all hover:opacity-85 active:opacity-85 disabled:opacity-25 ${variantClasses} ${className}`}
       {...rest}
     >
       {loading ? (
@@ -42,7 +42,7 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
         </span>
       ) : (
         <>
-          {icon && <span>{icon}</span>}
+          {icon && icon}
           <span>{title}</span>
         </>
       )}

@@ -6,6 +6,11 @@ export interface Setting {
   value: string | null
 }
 
+export interface Language {
+  name: string
+  code: string
+}
+
 export interface SettingsMap {
   app_name: string
   app_descr: string
