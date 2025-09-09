@@ -42,7 +42,7 @@ export const MailSettingsForm = () => {
     if (!settings) return
 
     setForm({
-      mail_from_address: settings.app_mail_from_address || '',
+      mail_from_address: settings.mail_from_address || '',
       mail_contact_address: settings.mail_contact_address || '',
       mail_from_name: settings.mail_from_name || '',
       mail_driver: settings.mail_driver || '',

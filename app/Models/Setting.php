@@ -39,4 +39,14 @@ class Setting extends Model
     {
         return $query->where('key', 'onesignal_api_key')->first()->value;
     }
+
+    public function scopeMailFromAddress($query)
+    {
+        return $query->where('key', 'mail_from_address')->first()->value;
+    }
+
+    public function scopeMailFromName($query)
+    {
+        return $query->where('key', 'mail_from_name')->first()->value;
+    }
 }

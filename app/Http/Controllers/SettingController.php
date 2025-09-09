@@ -9,6 +9,7 @@ use App\Jobs\SendTestMailJob;
 use App\Repositories\Eloquent\SettingRepository;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SettingController extends Controller
 {
@@ -48,6 +49,7 @@ class SettingController extends Controller
             SendTestMailJob::dispatchSync($request->input('email'));
             return $this->respondWithMessage(__('messages.controller.sent'));
         } catch (\Throwable $th) {
+            Log::error($th);
             throw new Exception(__('messages.controller.common.error_500'), 500);
         }
     }
