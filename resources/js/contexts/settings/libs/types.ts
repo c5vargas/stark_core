@@ -15,6 +15,7 @@ export interface SettingsMap {
   app_name: string
   app_descr: string
   app_color: string
+  app_translations: string
   mail_from_address: string
   mail_contact_address: string
   mail_from_name: string

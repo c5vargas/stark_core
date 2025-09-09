@@ -150,3 +150,18 @@ export function LicenseDraftIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+export function PlusSignIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        d="M12 4v16m8-8H4"
+      />
+    </svg>
+  )
+}

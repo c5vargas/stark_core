@@ -5,14 +5,27 @@ import { Label } from '@/contexts/shared/components/ui/form/Label'
 import { Select } from '@/contexts/shared/components/ui/form/Select'
 import { BaseButton } from '@/contexts/shared/components/Button'
 import { InputText } from '@/contexts/shared/components/ui/form/InputText'
-import { CheckIcon } from '@/contexts/shared/components/Icons'
-import { useLocalization } from '../hooks/useLocalization'
 import { ModalLocalization } from './ModalLocalization'
+import { Language } from '@/contexts/settings/libs/types'
+import { ICreateLocale } from '@/contexts/settings/actions/createLocale'
+import { IUpdateLocalization } from '@/contexts/settings/actions/updateLocalization'
+import { PlusSignIcon } from '@/contexts/shared/components/HugeIcons'
 
-export const TranslateStrings: React.FC = () => {
+interface TranslateStringsProps {
+  languages?: Language[]
+  updating: boolean
+  onCreate: (payload: ICreateLocale) => void
+  onUpdate: (payload: IUpdateLocalization) => void
+}
+
+export const TranslateStrings: React.FC<TranslateStringsProps> = ({
+  languages,
+  updating,
+  onCreate,
+  onUpdate,
+}) => {
   const app = window.AppConfig
   const { t } = useTranslation()
-  const { languages, updating, update, create } = useLocalization()
 
   const [strings, setStrings] = useState<[string, string][]>([])
   const [selectedLocale, setSelectedLocale] = useState<string>(app.app_locale)
@@ -29,12 +42,10 @@ export const TranslateStrings: React.FC = () => {
 
   const handleUpdate = (e: FormEvent) => {
     e.preventDefault()
-    update({ strings, code: selectedLocale })
+    onUpdate({ strings, code: selectedLocale })
   }
 
-  const handleCreate = (payload: { code: string; name: string }) => {
-    create(payload)
-  }
+  const handleCreate = (payload: ICreateLocale) => onCreate(payload)
 
   const handleLocaleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const locale = e.target.value
@@ -66,13 +77,14 @@ export const TranslateStrings: React.FC = () => {
             </Select>
 
             <div className="text-end">
-              <BaseButton
+              <button
+                className="group inline-flex h-[42px] w-[42px] cursor-pointer items-center justify-center gap-2 rounded-lg border !border-slate-400 bg-transparent !text-slate-400 transition-all hover:!bg-slate-400 hover:opacity-85 active:opacity-85 disabled:opacity-25"
                 title={t('dashboard.settings.new_localization')}
-                variant="secondary"
                 type="button"
-                icon={<CheckIcon className="size-6" />}
                 onClick={() => setShowModal(true)}
-              />
+              >
+                <PlusSignIcon className="size-6 group-hover:text-white" />
+              </button>
             </div>
           </div>
           <small className="text-muted">{t('dashboard.settings.locale_list_desc')}</small>
