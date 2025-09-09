@@ -15,7 +15,12 @@ export interface SettingsMap {
   app_name: string
   app_descr: string
   app_color: string
+  app_locale: string
+  app_timezone: string
   app_translations: string
+  analytics_property_id: string
+  manager_measurement_id: string
+  maps_api_key: string
   mail_from_address: string
   mail_contact_address: string
   mail_from_name: string
