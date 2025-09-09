@@ -1,8 +1,16 @@
 import { NavLink } from 'react-router-dom'
 import { NavItem } from '../libs/types'
 import { useTranslation } from 'react-i18next'
-import { CogIcon } from '@/contexts/shared/components/Icons'
 import { Card } from '@/contexts/shared/components/ui/Card'
+import {
+  AnalyticsIcon,
+  LicenseDraftIcon,
+  MailSettingIcon,
+  MessageNotificationIcon,
+  SecurityLockIcon,
+  SettingsIcon,
+  TranslationIcon,
+} from '@/contexts/shared/components/HugeIcons'
 
 const SettingsSidebar = () => {
   const { t } = useTranslation()
@@ -11,37 +19,37 @@ const SettingsSidebar = () => {
     {
       name: 'dashboard.settings.general',
       route: '/dashboard/settings/general',
-      icon: <CogIcon className="me-2 size-4" />,
+      icon: <SettingsIcon className="me-2 size-4" />,
     },
     {
       name: 'dashboard.settings.localization',
       route: '/dashboard/settings/localization',
-      icon: <CogIcon className="me-2 size-4" />,
+      icon: <TranslationIcon className="me-2 size-4" />,
     },
     {
       name: 'dashboard.settings.analytics',
       route: '/dashboard/settings/analytics',
-      icon: <CogIcon className="me-2 size-4" />,
+      icon: <AnalyticsIcon className="me-2 size-4" />,
     },
     {
       name: 'dashboard.settings.mail',
       route: '/dashboard/settings/mail',
-      icon: <CogIcon className="me-2 size-4" />,
+      icon: <MailSettingIcon className="me-2 size-4" />,
     },
     {
       name: 'dashboard.settings.roles',
       route: '/dashboard/settings/roles',
-      icon: <CogIcon className="me-2 size-4" />,
+      icon: <SecurityLockIcon className="me-2 size-4" />,
     },
     {
       name: 'dashboard.settings.one_signal',
       route: '/dashboard/settings/onesignal',
-      icon: <CogIcon className="me-2 size-4" />,
+      icon: <MessageNotificationIcon className="me-2 size-4" />,
     },
     {
       name: 'dashboard.settings.gdpr',
       route: '/dashboard/settings/gdpr',
-      icon: <CogIcon className="me-2 size-4" />,
+      icon: <LicenseDraftIcon className="me-2 size-4" />,
     },
   ]
 

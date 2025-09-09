@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { MenuRestaurantIcon, ShopIcon } from './Icons'
+import { ShopIcon } from './Icons'
 import { Link, useLocation } from 'react-router-dom'
 
 type NavLink = {
@@ -23,13 +23,13 @@ const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
     {
       path: '/dashboard/categories',
       title: t('dashboard.categories.title'),
-      icon: <MenuRestaurantIcon />,
+      icon: <ShopIcon />,
       exact: false,
     },
     {
       path: '/dashboard/settings',
       title: t('dashboard.settings.settings'),
-      icon: <MenuRestaurantIcon />,
+      icon: <ShopIcon />,
       exact: false,
     },
   ]
@@ -41,17 +41,25 @@ const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
     return location.pathname.startsWith(link.path)
   }
 
+  const baseClasses =
+    'ease-soft-in-out py-2.7 mx-4 my-0 flex items-center rounded-lg px-4 text-sm whitespace-nowrap transition-all'
+
+  const activeClasses =
+    'active xl:shadow-soft-xl bg-white font-semibold text-slate-700 [&>div]:bg-gradient-to-tl [&>div]:from-purple-700 [&>div]:to-pink-500 [&>div>svg]:text-white'
+
+  const inactiveClasses = 'text-slate-500'
+
   return (
     showSidebar && (
-      <aside className="ease-soft-in-out z-990 ps ps--active-y fixed inset-y-0 left-0 my-4 block w-full max-w-64 -translate-x-full flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 shadow-none transition-all duration-200 xl:ml-4 xl:translate-x-0 xl:bg-transparent">
+      <aside className="ease-soft-in-out ps ps--active-y fixed inset-y-0 left-0 z-990 my-4 block w-full max-w-64 -translate-x-full flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 shadow-none transition-all duration-200 xl:ml-4 xl:translate-x-0 xl:bg-transparent">
         <div className="h-20">
           <i
-            className="fas fa-times absolute right-0 top-0 cursor-pointer p-4 text-slate-400 opacity-50 xl:hidden"
+            className="fas fa-times absolute top-0 right-0 cursor-pointer p-4 text-slate-400 opacity-50 xl:hidden"
             aria-hidden="true"
             sidenav-close-btn=""
           ></i>
           <a
-            className="m-0 block whitespace-nowrap px-8 py-6 text-sm text-slate-700"
+            className="m-0 block px-8 py-6 text-sm whitespace-nowrap text-slate-700"
             href=" https://demos.creative-tim.com/soft-ui-dashboard-pro/pages/dashboards/default.html "
             target="_blank"
           >
@@ -82,11 +90,7 @@ const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
               <li key={link.path} className="mt-0.5 w-full">
                 <Link
                   to={link.path}
-                  className={`ease-soft-in-out py-2.7 mx-4 my-0 flex items-center whitespace-nowrap rounded-lg px-4 text-sm transition-all ${
-                    isActive(link)
-                      ? 'active xl:shadow-soft-xl bg-white font-semibold text-slate-700 [&>div>svg]:text-white [&>div]:bg-gradient-to-tl [&>div]:from-purple-700 [&>div]:to-pink-500'
-                      : 'text-slate-500'
-                  }`}
+                  className={`${baseClasses} ${isActive(link) ? activeClasses : inactiveClasses}`}
                 >
                   <div className="shadow-soft-sm mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center fill-current stroke-none p-2.5 text-center text-black [&>svg]:h-[12px] [&>svg]:w-[12px]">
                     {link.icon}
