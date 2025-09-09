@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, ChangeEvent } from 'react'
+import React, { useEffect, useMemo, useState, ChangeEvent, FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Card } from '@/contexts/shared/components/ui/Card'
 import { Label } from '@/contexts/shared/components/ui/form/Label'
@@ -27,7 +27,8 @@ export const TranslateStrings: React.FC = () => {
     return strings.filter(el => el[1].toLowerCase().includes(search.toLowerCase()))
   }, [strings, search])
 
-  const handleUpdate = () => {
+  const handleUpdate = (e: FormEvent) => {
+    e.preventDefault()
     update({ strings, code: selectedLocale })
   }
 
@@ -51,12 +52,7 @@ export const TranslateStrings: React.FC = () => {
     <Card>
       <h6 className="mb-3 text-lg font-semibold">{t('dashboard.settings.translations')}</h6>
 
-      <form
-        onSubmit={e => {
-          e.preventDefault()
-          handleUpdate()
-        }}
-      >
+      <form onSubmit={handleUpdate}>
         <div className="mb-5">
           <Label>{t('dashboard.settings.selected_locale')}</Label>
           <div className="flex w-full justify-between gap-2">

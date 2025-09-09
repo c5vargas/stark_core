@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { BaseButton } from '../Button'
+import ReactDOM from 'react-dom'
 
 interface ModalProps {
   title?: string
@@ -16,9 +17,9 @@ export const Modal: React.FC<ModalProps> = ({
 }) => {
   const { t } = useTranslation()
 
-  return (
+  return ReactDOM.createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/10"
+      className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/10"
       role="dialog"
       aria-modal="true"
     >
@@ -53,6 +54,7 @@ export const Modal: React.FC<ModalProps> = ({
           />
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }

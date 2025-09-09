@@ -101,13 +101,13 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
           <span className="sr-only capitalize">{type}</span>
           <h3 className="m-0 text-lg font-medium capitalize">{type} Alert</h3>
         </div>
-        <div className="mb-4 mt-2 text-sm">{message}</div>
+        <div className="mt-2 mb-4 text-sm">{message}</div>
         <div className="flex gap-2">
           {type === 'warning' && (
             <button
               type="button"
               onClick={handleConfirm}
-              className={`border focus:outline-none focus:ring-4 ${btnColors.warning} me-2 inline-flex items-center rounded-lg px-3 py-1.5 text-center text-xs font-medium duration-300`}
+              className={`border focus:ring-4 focus:outline-none ${btnColors.warning} me-2 inline-flex items-center rounded-lg px-3 py-1.5 text-center text-xs font-medium duration-300`}
             >
               <CheckIcon className="me-2 h-5 w-5" />
               {t('shared.alert.confirm')}
@@ -117,7 +117,7 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
           <button
             type="button"
             onClick={hideAlert}
-            className={`focus:outline-none focus:ring-4 ${btnColors[type]} me-2 inline-flex items-center rounded-lg px-3 py-1.5 text-center text-xs font-medium duration-300`}
+            className={`focus:ring-4 focus:outline-none ${btnColors[type]} me-2 inline-flex items-center rounded-lg px-3 py-1.5 text-center text-xs font-medium duration-300`}
           >
             <EyeIcon className="me-2 h-4 w-4" />
             {t('alert.dismiss')}
