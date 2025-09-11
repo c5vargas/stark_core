@@ -1,14 +1,29 @@
-import clsx from 'clsx'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import clsx from 'clsx'
+
 import { InfoCard } from '@/contexts/settings/components/InfoCard'
 import { PrivacyForm } from '@/contexts/settings/components/PrivacyForm'
+import { CookieForm } from '@/contexts/settings/components/CookieForm'
+
+type TabKey = 'cookies' | 'privacy'
 
 export const GdprForm: React.FC = () => {
   const { t } = useTranslation()
-  const [activeTab, setActiveTab] = useState<'cookies' | 'privacy'>('cookies')
+  const [activeTab, setActiveTab] = useState<TabKey>('cookies')
 
-  const tabBaseClasses = 'border-b-2 px-3 py-2 text-sm font-medium whitespace-nowrap'
+  const tabs: { key: TabKey; label: string; content: React.ReactNode }[] = [
+    {
+      key: 'cookies',
+      label: t('dashboard.settings.gdpr.gdpr_cookies_page'),
+      content: <CookieForm />,
+    },
+    {
+      key: 'privacy',
+      label: t('dashboard.settings.gdpr.gdpr_privacy_page'),
+      content: <PrivacyForm />,
+    },
+  ]
 
   return (
     <div className="space-y-4">
@@ -20,37 +35,26 @@ export const GdprForm: React.FC = () => {
       </InfoCard>
 
       <div>
-        <div className="border-b border-gray-200">
-          <nav className="-mb-px flex space-x-4">
+        {/* Modern Toggle Tabs */}
+        <div className="flex w-fit gap-3 rounded-lg bg-gray-100 p-1">
+          {tabs.map(({ key, label }) => (
             <button
-              onClick={() => setActiveTab('cookies')}
+              key={key}
+              onClick={() => setActiveTab(key)}
               className={clsx(
-                tabBaseClasses,
-                activeTab === 'cookies'
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                'min-w-[260px] flex-1 rounded-md px-4 py-2 text-sm font-medium transition-colors',
+                activeTab === key
+                  ? 'shadow-soft-md bg-gradient-to-tl from-purple-700 to-pink-500 text-white'
+                  : 'text-gray-600 hover:bg-gray-200 hover:text-gray-900'
               )}
             >
-              {t('dashboard.settings.gdpr.gdpr_cookies_page')}
+              {label}
             </button>
-            <button
-              onClick={() => setActiveTab('privacy')}
-              className={clsx(
-                tabBaseClasses,
-                activeTab === 'privacy'
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-              )}
-            >
-              {t('dashboard.settings.gdpr.gdpr_privacy_page')}
-            </button>
-          </nav>
+          ))}
         </div>
 
-        <div className="mt-4">
-          {activeTab === 'cookies' && <PrivacyForm />}
-          {activeTab === 'privacy' && <PrivacyForm />}
-        </div>
+        {/* Tab Content */}
+        <div className="mt-4">{tabs.find(tab => tab.key === activeTab)?.content}</div>
       </div>
     </div>
   )

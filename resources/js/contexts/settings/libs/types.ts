@@ -30,6 +30,8 @@ export interface SettingsMap {
   mail_encryption: string
   mail_username: string
   mail_password: string
+  gdpr_cookies_page: string
+  gdpr_privacy_page: string
   [key: string]: string | null
 }
 

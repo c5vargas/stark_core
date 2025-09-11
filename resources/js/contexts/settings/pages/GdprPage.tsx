@@ -1,4 +1,4 @@
-import { GdprForm } from '@/contexts/settings/components/GDPRForm'
+import { GdprForm } from '@/contexts/settings/components/GdprForm'
 
 const GdprPage: React.FC = () => {
   return (

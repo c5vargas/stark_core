@@ -185,3 +185,35 @@ export function HelpSquareIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+export function ArrowMoveDownRightIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      >
+        <path d="M4 3v2.077c0 2 0 3.001.145 3.838c.8 4.609 4.762 8.223 9.812 8.952C14.875 18 16.807 18 19 18" />
+        <path d="M17 21c.607-.59 3-2.16 3-3s-2.393-2.41-3-3" />
+      </g>
+    </svg>
+  )
+}
+
+export function ArrowRightIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        d="M20 12H4m11 5s5-3.682 5-5s-5-5-5-5"
+      />
+    </svg>
+  )
+}

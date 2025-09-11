@@ -9,7 +9,7 @@ import { BaseButton } from '@/contexts/shared/components/Button'
 import { ArrowRightIcon } from '@/contexts/shared/components/HugeIcons'
 import Loading from '@/contexts/shared/components/Loading'
 
-export const PrivacyForm: React.FC = () => {
+export const CookieForm: React.FC = () => {
   const { t } = useTranslation()
   const { settings } = useOutletContext<{ settings: SettingsMap }>()
   const { update } = useSettings()
@@ -18,8 +18,8 @@ export const PrivacyForm: React.FC = () => {
 
   useEffect(() => {
     try {
-      if (settings?.gdpr_privacy_page) {
-        setInitialData(JSON.parse(settings.gdpr_privacy_page))
+      if (settings?.gdpr_cookies_page) {
+        setInitialData(JSON.parse(settings.gdpr_cookies_page))
       }
     } catch {
       setInitialData(undefined)
@@ -34,7 +34,7 @@ export const PrivacyForm: React.FC = () => {
     e.preventDefault()
 
     update({
-      gdpr_privacy_page: JSON.stringify(initialData),
+      gdpr_cookies_page: JSON.stringify(initialData),
     })
   }
 
@@ -43,7 +43,7 @@ export const PrivacyForm: React.FC = () => {
   return (
     <div className="rounded bg-white p-4 shadow">
       <h6 className="mb-4 text-lg font-semibold">
-        {t('dashboard.settings.gdpr.gdpr_privacy_page')}
+        {t('dashboard.settings.gdpr.gdpr_cookies_page')}
       </h6>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -58,7 +58,7 @@ export const PrivacyForm: React.FC = () => {
           />
 
           <a
-            href="/privacy-policy"
+            href="/cookies"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-sm text-blue-600 hover:underline"
