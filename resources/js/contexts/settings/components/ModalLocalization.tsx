@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Select } from '@/contexts/shared/components/ui/form/Select'
 import { Modal } from '@/contexts/shared/components/ui/Modal'
 import { InputText } from '@/contexts/shared/components/ui/form/InputText'
 import { FormField } from '@/contexts/shared/components/ui/form/FormField'
-import isoLangs from '../libs/isoLangs'
+import isoLangs from '@/contexts/settings/libs/isoLangs'
 
 interface ModalLocalizationProps {
   onClose: () => void

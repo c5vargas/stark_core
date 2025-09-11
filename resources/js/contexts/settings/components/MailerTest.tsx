@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import sendMailerTest from '@/contexts/settings/actions/sendTest'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import sendMailerTest from '../actions/sendTest'
 import { isErrorWithMessage } from '@/contexts/shared/libs/isErrorWithMessage'
 import { useAlert } from '@/contexts/shared/contexts/AlertContext'
 import { Card } from '@/contexts/shared/components/ui/Card'

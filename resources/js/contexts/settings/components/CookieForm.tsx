@@ -41,33 +41,27 @@ export const CookieForm: React.FC = () => {
   if (!initialData) return <Loading />
 
   return (
-    <div className="rounded bg-white p-4 shadow">
-      <h6 className="mb-4 text-lg font-semibold">
-        {t('dashboard.settings.gdpr.gdpr_cookies_page')}
-      </h6>
+    <form onSubmit={handleSubmit} className="space-y-4 py-4">
+      <Editor data={initialData} onChange={handleChange} />
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <Editor data={initialData} onChange={handleChange} />
+      <div className="flex items-center gap-4">
+        <BaseButton
+          title={t('dashboard.settings.update')}
+          variant="primary"
+          type="submit"
+          className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+        />
 
-        <div className="flex items-center gap-4">
-          <BaseButton
-            title={t('dashboard.settings.update')}
-            variant="primary"
-            type="submit"
-            className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-          />
-
-          <a
-            href="/cookies"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-sm text-blue-600 hover:underline"
-          >
-            {t('dashboard.settings.gdpr.gdpr_anchor')}
-            <ArrowRightIcon />
-          </a>
-        </div>
-      </form>
-    </div>
+        <a
+          href="/cookies"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1 text-sm text-blue-600 hover:underline"
+        >
+          {t('dashboard.settings.gdpr.gdpr_anchor')}
+          <ArrowRightIcon />
+        </a>
+      </div>
+    </form>
   )
 }

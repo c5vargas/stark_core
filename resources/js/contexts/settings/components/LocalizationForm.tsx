@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import phpTimezone from '@/contexts/settings/libs/phpTimezone'
 import { useTranslation } from 'react-i18next'
 import { FormField } from '@/contexts/shared/components/ui/form/FormField'
 import { InfoCard } from '@/contexts/settings/components/InfoCard'
 import { Select } from '@/contexts/shared/components/ui/form/Select'
 import { BaseButton } from '@/contexts/shared/components/Button'
 import { Language, SettingsMap } from '@/contexts/settings/libs/types'
-import phpTimezone from '@/contexts/settings/libs/phpTimezone'
 import { Checkbox } from '@/contexts/shared/components/ui/form/Checkbox'
 
 interface LocalizationFormProps {

@@ -51,5 +51,5 @@ export const Editor: React.FC<EditorProps> = ({ data, minHeight = 200, onChange 
     }
   }, [])
 
-  return <div ref={holderRef} className="editor-container rounded border bg-white p-2 shadow-sm" />
+  return <div ref={holderRef} className="editor-container bg-white p-2" />
 }

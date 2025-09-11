@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { NavItem } from '../libs/types'
+import { NavItem } from '@/contexts/settings/libs/types'
 import { useTranslation } from 'react-i18next'
 import { Card } from '@/contexts/shared/components/ui/Card'
 import {
@@ -43,7 +43,7 @@ const SettingsSidebar = () => {
     },
     {
       name: 'dashboard.settings.one_signal',
-      route: '/dashboard/settings/onesignal',
+      route: '/dashboard/settings/push',
       icon: <MessageNotificationIcon className="me-2 size-4" />,
     },
     {

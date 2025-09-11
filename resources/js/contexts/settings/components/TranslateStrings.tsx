@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, ChangeEvent, FormEvent } from 'react'
+import { useEffect, useMemo, useState, ChangeEvent, FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Card } from '@/contexts/shared/components/ui/Card'
 import { Label } from '@/contexts/shared/components/ui/form/Label'
