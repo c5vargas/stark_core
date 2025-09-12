@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
 
-interface InputFileProps {
+interface InputFileProps extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   accept?: string
   className?: string
 }
 
-export const InputFile: React.FC<InputFileProps> = ({ name, onChange, accept, className }) => {
+export const InputFile: React.FC<InputFileProps> = ({
+  name,
+  onChange,
+  accept,
+  className,
+  ...props
+}) => {
   const [fileName, setFileName] = useState<string>('')
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +40,7 @@ export const InputFile: React.FC<InputFileProps> = ({ name, onChange, accept, cl
         accept={accept}
         onChange={handleFileChange}
         className="hidden"
+        {...props}
       />
     </div>
   )

@@ -23,6 +23,12 @@ class MediaController extends Controller
         $this->repository = $repository;
     }
 
+    public function index() 
+    {
+        $items = $this->repository->all();
+        return $this->respondWithCollection($items);
+    }
+
     public function store(StoreRequest $request)
     {
         $file = $request->file('file');

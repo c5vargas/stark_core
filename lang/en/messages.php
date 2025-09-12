@@ -152,6 +152,8 @@
   'dashboard.notifications.converted' => 'Actioned',
   'dashboard.notifications.default' => 'Default message',
   'dashboard.notifications.form.date' => 'Schedule notification for a date (optional)',
+  'dashboard.media.upload' => 'Upload a new file',
+  'dashboard.media.select' => 'Select a file from your media library',
   'form.placeholder.search' => 'Search something...',
   'notice.title.app_name' => 'Application name',
   'notice.message.app_name' => 'You must configure a different name for your application',

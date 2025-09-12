@@ -47,7 +47,10 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
         Route::post('mail', [SettingController::class, 'sendTest']);
     });
 
-    Route::post('/media', [MediaController::class, 'store']);
+    Route::prefix('media')->group(function () {
+        Route::get('', [MediaController::class, 'index']);
+        Route::post('', [MediaController::class, 'store']);
+    });
 
     Route::prefix('languages')->group(function () {
         Route::get('', [LanguageController::class, 'index']);

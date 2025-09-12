@@ -5,8 +5,9 @@ import { SettingsMap } from '@/contexts/settings/libs/types'
 import { useSettings } from '@/contexts/settings/hooks/useSettings'
 import { FormField } from '@/contexts/shared/components/ui/form/FormField'
 import { Card } from '@/contexts/shared/components/ui/Card'
-import { useUploadMedia } from '@/contexts/shared/hooks/useUploadMedia'
-import { InputFile } from '@/contexts/shared/components/ui/form/InputFile'
+import { BaseButton } from '@/contexts/shared/components/Button'
+import { MediaSelectorModal } from '@/contexts/shared/components/MediaSelectorModal'
+import { Media } from '@/contexts/shared/libs/types'
 
 interface FilePreview {
   file: File | null
@@ -17,24 +18,18 @@ const BrandSettings: React.FC = () => {
   const { t } = useTranslation()
   const { settings } = useOutletContext<{ settings: SettingsMap }>()
   const { update } = useSettings()
-  const { upload } = useUploadMedia()
 
   const [logo, setLogo] = useState<FilePreview>({ file: null, previewUrl: null })
   const [favicon, setFavicon] = useState<FilePreview>({ file: null, previewUrl: null })
 
-  const handleFileChange = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: 'logo' | 'favicon'
-  ) => {
-    const file = e.target.files?.[0] || null
-    if (!file) return
+  const [logoModalOpen, setLogoModalOpen] = useState(false)
+  const [faviconModalOpen, setFaviconModalOpen] = useState(false)
 
-    const uploadedFile = await upload(file)
-
+  const handleFileChange = async (media: Media, type: 'logo' | 'favicon') => {
     if (type === 'logo') {
-      update({ app_logo: uploadedFile.url })
+      update({ app_logo: media.url })
     } else {
-      update({ app_favicon: uploadedFile.url })
+      update({ app_favicon: media.url })
     }
   }
 
@@ -60,10 +55,10 @@ const BrandSettings: React.FC = () => {
               className="h-16 w-auto rounded border bg-gray-50 object-contain"
             />
           )}
-          <InputFile
-            name="site_logo"
-            accept="image/*"
-            onChange={e => handleFileChange(e, 'logo')}
+          <BaseButton
+            variant="secondary"
+            title={t('dashboard.media.select')}
+            onClick={() => setLogoModalOpen(true)}
           />
         </div>
       </FormField>
@@ -77,13 +72,25 @@ const BrandSettings: React.FC = () => {
               className="aspect-square size-16 rounded border bg-gray-50 object-contain object-cover"
             />
           )}
-          <InputFile
-            name="site_favicon"
-            accept="image/x-icon,image/png"
-            onChange={e => handleFileChange(e, 'favicon')}
+          <BaseButton
+            variant="secondary"
+            title={t('dashboard.media.select')}
+            onClick={() => setFaviconModalOpen(true)}
           />
         </div>
       </FormField>
+
+      <MediaSelectorModal
+        isOpen={logoModalOpen}
+        onCancel={() => setLogoModalOpen(false)}
+        onSelect={media => handleFileChange(media, 'logo')}
+      />
+
+      <MediaSelectorModal
+        isOpen={faviconModalOpen}
+        onCancel={() => setFaviconModalOpen(false)}
+        onSelect={media => handleFileChange(media, 'favicon')}
+      />
     </Card>
   )
 }
