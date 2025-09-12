@@ -8,7 +8,6 @@ import { FormField } from '@/contexts/shared/components/ui/form/FormField'
 import { InputText } from '@/contexts/shared/components/ui/form/InputText'
 import { Textarea } from '@/contexts/shared/components/ui/form/TextArea'
 import { ColorInput } from '@/contexts/shared/components/ui/form/ColorInput'
-import { InfoCard } from './InfoCard'
 import { Card } from '@/contexts/shared/components/ui/Card'
 
 const GeneralSettings: React.FC = () => {
@@ -44,46 +43,37 @@ const GeneralSettings: React.FC = () => {
   }, [settings])
 
   return (
-    <div className="grid grid-cols-1 space-y-4">
-      <InfoCard
-        title={t('dashboard.settings.general')}
-        description={t('dashboard.settings.general_desc')}
-      >
-        <p>{t('dashboard.settings.general_long_desc')}</p>
-      </InfoCard>
-
-      <Card>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <FormField label={t('dashboard.settings.site_name')}>
-            <InputText
-              name="app_name"
-              value={form.app_name}
-              onChange={handleChange}
-              placeholder={t('dashboard.settings.site_name')}
-            />
-          </FormField>
-
-          <FormField label={t('dashboard.settings.site_url')}>
-            <InputText value={appUrl} readOnly disabled />
-          </FormField>
-
-          <FormField label={t('dashboard.settings.site_descr')}>
-            <Textarea name="app_descr" value={form.app_descr} onChange={handleChange} />
-          </FormField>
-
-          <FormField label={t('dashboard.settings.site_color')}>
-            <ColorInput name="app_color" value={form.app_color} onChange={handleChange} />
-          </FormField>
-
-          <BaseButton
-            title={t('dashboard.settings.update')}
-            variant="primary"
-            loading={updating}
-            type="submit"
+    <Card>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <FormField label={t('dashboard.settings.site_name')}>
+          <InputText
+            name="app_name"
+            value={form.app_name}
+            onChange={handleChange}
+            placeholder={t('dashboard.settings.site_name')}
           />
-        </form>
-      </Card>
-    </div>
+        </FormField>
+
+        <FormField label={t('dashboard.settings.site_url')}>
+          <InputText value={appUrl} readOnly disabled />
+        </FormField>
+
+        <FormField label={t('dashboard.settings.site_descr')}>
+          <Textarea name="app_descr" value={form.app_descr} onChange={handleChange} />
+        </FormField>
+
+        <FormField label={t('dashboard.settings.site_color')}>
+          <ColorInput name="app_color" value={form.app_color} onChange={handleChange} />
+        </FormField>
+
+        <BaseButton
+          title={t('dashboard.settings.update')}
+          variant="primary"
+          loading={updating}
+          type="submit"
+        />
+      </form>
+    </Card>
   )
 }
 

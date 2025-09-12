@@ -27,6 +27,8 @@ class UpdateRequest extends FormRequest
         return [
             'app_name'                  => 'string|min:4|max:100',
             'app_descr'                 => 'string|max:150',
+            'app_logo'                  => 'string',
+            'app_favicon'               => 'string',
             'app_color'                 => 'string|max:100',
             'app_locale'                => 'string',
             'app_timezone'              => 'string',

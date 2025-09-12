@@ -6,6 +6,15 @@ export interface ValidationErrorResponse {
   }
 }
 
+export interface Media {
+  id: number
+  uuid: string
+  filename: string
+  url: string
+  mime: string
+  size: number
+}
+
 export interface HTTPResultsResponse<T> {
   results: { data: T }
   status: number

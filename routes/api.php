@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OneSignalController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
@@ -45,6 +46,8 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
         Route::post('', [SettingController::class, 'update']);
         Route::post('mail', [SettingController::class, 'sendTest']);
     });
+
+    Route::post('/media', [MediaController::class, 'store']);
 
     Route::prefix('languages')->group(function () {
         Route::get('', [LanguageController::class, 'index']);

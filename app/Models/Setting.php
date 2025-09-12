@@ -25,6 +25,11 @@ class Setting extends Model
         return $query->where('key', 'app_logo')->first()->value;
     }
 
+        public function scopeFavicon($query)
+    {
+        return $query->where('key', 'app_favicon')->first()->value;
+    }
+
     public function scopeName($query)
     {
         return $query->where('key', 'app_name')->first()->value;

@@ -36,6 +36,8 @@ export interface SettingsMap {
   app_locale: string
   app_timezone: string
   app_translations: string
+  app_logo: string
+  app_favicon: string
   analytics_property_id: string
   manager_measurement_id: string
   maps_api_key: string
