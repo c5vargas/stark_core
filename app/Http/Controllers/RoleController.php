@@ -28,7 +28,10 @@ class RoleController extends Controller
     public function index()
     {
         $items = $this->repository->getRolesAndPermissions();
-        return $this->respondWithArray($items);
+        
+        return $this->respondWithArray([
+            "data" => $items
+        ]);
     }
 
     public function create(CreateRequest $request)

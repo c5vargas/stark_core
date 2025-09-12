@@ -8,6 +8,7 @@ const LocalizationPage = lazy(() => import('@/contexts/settings/pages/Localizati
 const AnalyticsPage = lazy(() => import('@/contexts/settings/pages/AnalyticsPage'))
 const NotificationsPage = lazy(() => import('@/contexts/settings/pages/NotificationsPage'))
 const GdprPage = lazy(() => import('@/contexts/settings/pages/GdprPage'))
+const PermissionsPage = lazy(() => import('@/contexts/settings/pages/PermissionsPage'))
 
 const router = {
   path: 'settings',
@@ -32,6 +33,10 @@ const router = {
     {
       path: 'mail',
       element: <MailPage />,
+    },
+    {
+      path: 'roles',
+      element: <PermissionsPage />,
     },
     {
       path: 'push',
