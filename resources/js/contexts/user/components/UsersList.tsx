@@ -14,7 +14,14 @@ const UsersList = ({ elements = [], loading }: UsersListProps) => {
 
   return (
     <TableComponent loading={loading}>
-      <TableHead values={[t('dashboard.user.form.name')]} />
+      <TableHead
+        values={[
+          t('dashboard.users.form.name'),
+          t('dashboard.users.form.email'),
+          t('dashboard.users.form.status'),
+          t('dashboard.users.form.created_at'),
+        ]}
+      />
 
       <tbody>
         {elements.map(item => (

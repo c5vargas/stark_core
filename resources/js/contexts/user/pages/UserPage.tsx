@@ -13,13 +13,15 @@ const UserPage = () => {
 
   return (
     user && (
-      <Layout pageTitle={t('dashboard.user.title')}>
+      <Layout pageTitle={t('dashboard.users.title')}>
         <div className="-mx-3 flex flex-wrap">
           <div className="w-full max-w-full shrink-0 px-3 lg:w-6/12 lg:flex-0">
             <h4>
-              {user.id ? t('dashboard.user.h4', { user: user?.name }) : t('dashboard.user.h4.new')}
+              {user.id
+                ? t('dashboard.users.h4', { user: user?.name })
+                : t('dashboard.users.h4.new')}
             </h4>
-            <p>{t('dashboard.user.p', { user: user?.name })}</p>
+            <p>{t('dashboard.users.p', { user: user?.name })}</p>
           </div>
         </div>
 

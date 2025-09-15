@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\UserStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,11 +19,12 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'name'              => fake()->name(),
+            'email'             => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => 'Ye4oKoEa3Ro9llC', // password
-            'remember_token' => Str::random(10),
+            'password'          => bcrypt('password'),
+            'remember_token'    => Str::random(10),
+            'status'            => fake()->randomElement(UserStatus::values()),
         ];
     }
 
@@ -34,5 +36,28 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    /**
+     * Estados específicos con helpers
+     */
+    public function active(): static
+    {
+        return $this->state(fn () => ['status' => UserStatus::ACTIVE->value]);
+    }
+
+    public function inactive(): static
+    {
+        return $this->state(fn () => ['status' => UserStatus::INACTIVE->value]);
+    }
+
+    public function pending(): static
+    {
+        return $this->state(fn () => ['status' => UserStatus::PENDING->value]);
+    }
+
+    public function blocked(): static
+    {
+        return $this->state(fn () => ['status' => UserStatus::BLOCKED->value]);
     }
 }
