@@ -2,7 +2,7 @@ import { lazy } from 'react'
 import { createBrowserRouter, Outlet } from 'react-router-dom'
 import RequireAuth from './guards/RequireAuth'
 
-import categoriesRouter from '@/contexts/categories/router'
+import usersRouter from '@/contexts/user/router'
 import settingsRouter from '@/contexts/settings/router'
 
 const DashboardPage = lazy(() => import('@/contexts/dashboard/pages/DashboardPage'))
@@ -39,7 +39,7 @@ const Router = createBrowserRouter([
         index: true,
         element: <DashboardPage />,
       },
-      { ...categoriesRouter },
+      { ...usersRouter },
       { ...settingsRouter },
     ],
   },

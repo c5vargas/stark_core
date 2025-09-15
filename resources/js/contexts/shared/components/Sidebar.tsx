@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { ShopIcon } from './Icons'
+import { ShopIcon, UserIcon } from './Icons'
 import { Link, useLocation } from 'react-router-dom'
 
 type NavLink = {
@@ -21,9 +21,9 @@ const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
       exact: true,
     },
     {
-      path: '/dashboard/categories',
-      title: t('dashboard.categories.title'),
-      icon: <ShopIcon />,
+      path: '/dashboard/users',
+      title: t('dashboard.users.title'),
+      icon: <UserIcon />,
       exact: false,
     },
     {

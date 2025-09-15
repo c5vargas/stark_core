@@ -1,18 +1,19 @@
 import Layout from '@/contexts/shared/components/Layout'
 import TableOutsideActions from '@/contexts/shared/components/table/TableOutsideActions'
-import CategoryList from '@/contexts/categories/components/CategoryList'
-import useCategories from '@/contexts/categories/hooks/useCategories'
+import List from '@/contexts/user/components/UsersList'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { getLng } from '@/i18n'
+import { useUsersPage } from '@/contexts/user/hooks/useUsersPage'
 
 const CategoriesPage = () => {
-  const { categories, fetchCategories, setQuery, loading } = useCategories()
   const { t } = useTranslation()
+  const { users, isLoading, error, handleSearch } = useUsersPage()
   const navigate = useNavigate()
 
-  const onCreate = () => {
-    navigate(`/dashboard/categories/new`)
+  const onCreate = () => navigate(`/dashboard/users/create`)
+
+  if (error) {
+    return <div>Error...</div>
   }
 
   return (
@@ -20,15 +21,13 @@ const CategoriesPage = () => {
       <TableOutsideActions
         onCreate={onCreate}
         addBtnLabel={t('dashboard.users.create')}
-        onSearch={setQuery}
+        onSearch={handleSearch}
       />
 
-      <p>{getLng()}</p>
-
       <div className="-mx-3 flex flex-wrap">
-        <div className="flex-0 w-full max-w-full">
+        <div className="w-full max-w-full flex-0">
           <div className="rounded-2xl border-0 bg-white shadow-xl">
-            <CategoryList elements={categories} loading={loading} onUpdate={fetchCategories} />
+            <List elements={users} loading={isLoading} />
           </div>
         </div>
       </div>
