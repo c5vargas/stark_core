@@ -1,24 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
-import getUserById from '../actions/getUserById'
-import { useParams } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom'
+import { User } from '@/contexts/user/libs/types'
 
 export const useUserPage = () => {
-  const { id } = useParams()
-  const userId = id ? parseInt(id) : undefined
-
-  const {
-    data: user,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ['user', userId],
-    queryFn: () => getUserById({ userId }),
-    enabled: !!userId,
-  })
+  const { user } = useOutletContext<{ user: User }>()
 
   return {
     user,
-    isLoading,
-    error,
   }
 }

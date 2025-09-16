@@ -11,6 +11,7 @@ import {
   SettingsIcon,
   TranslationIcon,
 } from '@/contexts/shared/components/HugeIcons'
+import clsx from 'clsx'
 
 const SettingsSidebar = () => {
   const { t } = useTranslation()
@@ -61,12 +62,10 @@ const SettingsSidebar = () => {
             key={item.route}
             to={item.route}
             className={({ isActive }) =>
-              [
-                'flex items-center rounded px-4 py-3 transition',
-                isActive
-                  ? 'bg-gray-200 font-medium text-gray-900'
-                  : 'text-gray-700 hover:bg-gray-100',
-              ].join(' ')
+              clsx('flex items-center rounded-lg px-4 py-3 transition', {
+                'bg-gray-200 font-medium text-gray-900': isActive,
+                'text-gray-700 hover:bg-gray-100': !isActive,
+              })
             }
           >
             {item.icon}

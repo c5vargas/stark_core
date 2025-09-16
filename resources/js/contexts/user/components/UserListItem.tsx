@@ -21,7 +21,7 @@ export const UserListItem = ({ user }: { user: User }) => {
         onClick={() => handleEdit(user)}
       >
         <td className="border-slate-200">
-          <div className="flex items-center">
+          <div className="flex items-center gap-1">
             <span className="text-sm font-medium text-gray-800 capitalize">{user.name}</span>
             {online && (
               <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" title="Online" />
