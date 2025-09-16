@@ -4,10 +4,11 @@ import List from '@/contexts/user/components/UsersList'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useUsersPage } from '@/contexts/user/hooks/useUsersPage'
+import TableFooter from '@/contexts/shared/components/table/TableFooter'
 
 const CategoriesPage = () => {
   const { t } = useTranslation()
-  const { users, isLoading, error, handleSearch } = useUsersPage()
+  const { users, isLoading, error, page, perPage, handleSearch, handlePagination } = useUsersPage()
   const navigate = useNavigate()
 
   const onCreate = () => navigate(`/dashboard/users/create`)
@@ -31,6 +32,12 @@ const CategoriesPage = () => {
           </div>
         </div>
       </div>
+
+      <TableFooter
+        page={page}
+        onPageChange={handlePagination}
+        hasNextPage={users?.length === perPage}
+      />
     </Layout>
   )
 }

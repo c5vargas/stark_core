@@ -20,14 +20,13 @@ export const UserListItem = ({ user }: { user: User }) => {
         className="h-14 cursor-pointer duration-300 hover:bg-gray-100 [&>td]:min-w-[120px] [&>td]:px-6"
         onClick={() => handleEdit(user)}
       >
-        <td className="flex w-full border-collapse items-center gap-2 border-y border-slate-200">
-          {user.avatar && (
-            <img src={user.avatar} alt={user.name} className="h-8 w-8 rounded-full object-cover" />
-          )}
-          <span className="text-sm font-medium text-gray-800 capitalize">{user.name}</span>
-          {online && (
-            <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" title="Online" />
-          )}
+        <td className="border-slate-200">
+          <div className="flex items-center">
+            <span className="text-sm font-medium text-gray-800 capitalize">{user.name}</span>
+            {online && (
+              <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" title="Online" />
+            )}
+          </div>
         </td>
         <td className="border-y border-slate-200">
           <span className="text-sm text-gray-600">{user.email}</span>

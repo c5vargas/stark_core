@@ -1,34 +1,29 @@
-import { useQuery } from '@tanstack/react-query'
 import getUsers from '@/contexts/user/actions/getUsers'
-import { useMemo, useState } from 'react'
+import { usePaginatedSearch } from '@/contexts/shared/hooks/usePaginatedQuery'
+import { User } from '@/contexts/user/libs/types'
 
 export const useUsersPage = () => {
-  const [query, setQuery] = useState<string>('')
-
   const {
     data: users,
     isLoading,
     error,
-    refetch,
-  } = useQuery({
-    queryKey: ['users'],
-    queryFn: getUsers,
+    page,
+    perPage,
+    handleSearch,
+    handlePagination,
+  } = usePaginatedSearch<User>({
+    queryKeyString: 'users',
+    queryFn: ({ page, perPage, query }) => getUsers({ page, perPage, query }),
+    perPage: 15,
   })
 
-  const handleSearch = (val: string) => {
-    setQuery(val)
-  }
-
-  const filtered = useMemo(
-    () => users?.filter(usr => usr.name.toLowerCase().includes(query.toLowerCase())),
-    [users, query]
-  )
-
   return {
-    users: filtered,
+    users,
     isLoading,
     error,
-    refetch,
+    page,
+    perPage,
+    handlePagination,
     handleSearch,
   }
 }
