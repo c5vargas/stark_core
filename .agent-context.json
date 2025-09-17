@@ -1,0 +1,54 @@
+{
+  "stack": ["Laravel", "Tailwind", "Vite", "React", "TypeScript"],
+  "style": ["PSR-12", "Prettier", "ESLint"],
+  "tests": ["PHPUnit", "Jest", "React Testing Library", "Vitest"],
+  "ci_cd": ["GitHub Actions", "Docker"],
+  "dependencies_critical": [
+    "laravel/framework",
+    "react",
+    "react-dom",
+    "react-router-dom",
+    "@tanstack/react-query",
+    "zustand",
+    "i18next"
+  ],
+  "backend_structure": {
+    "controllers": "app/Http/Controllers",
+    "models": "app/Models",
+    "repositories": "app/Repositories",
+    "services": "app/Services",
+    "requests": "app/Http/Requests"
+  },
+  "backend_flow": {
+    "route": "Define el endpoint y método HTTP",
+    "controller": "Recibe la petición y coordina el flujo",
+    "request": "Valida los datos de entrada",
+    "repository": "Maneja la lógica de acceso a datos",
+    "response": "Devuelve una respuesta formateada"
+  },
+  "frontend_structure": {
+    "main": "resources/js/main.tsx",
+    "app": "resources/js/App.tsx",
+    "contexts": "resources/js/contexts",
+    "context_structure": {
+      "actions": "Funciones para llamadas a API y operaciones asíncronas",
+      "components": "Componentes React específicos del contexto",
+      "hooks": "Custom hooks para lógica reutilizable",
+      "layouts": "Componentes de layout para este contexto",
+      "libs": "Utilidades, tipos y constantes",
+      "pages": "Componentes de página completa",
+      "router": "Configuración de rutas del contexto",
+      "stores": "Estado global con Zustand"
+    },
+    "i18n": "resources/js/i18n",
+    "router": "resources/js/router"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "concurrently con backend y frontend",
+    "lint": "eslint resources/js",
+    "format": "prettier resources/js"
+  },
+  "notes": "Evitar refactorizaciones agresivas sin aprobación. Usar componentes funcionales con TypeScript."
+}
