@@ -1,6 +1,6 @@
-import { useAuthStore } from '@/contexts/auth/stores/authStore'
-import { BellIcon, CogIcon, MenuIcon, SearchIcon, ShopIcon, UserIcon } from './Icons'
-import { Link } from 'react-router-dom'
+import { ArrowRightIcon } from './HugeIcons'
+import { MenuIcon, ShopIcon } from './Icons'
+import UserDropdown from './UserDropdown'
 
 interface NavbarProps {
   pageTitle: string
@@ -8,137 +8,56 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ pageTitle, onHandleSidebar }) => {
-  const { user } = useAuthStore()
-
   return (
-    <nav
-      navbar-main=""
-      className="ease-soft-in relative mx-6 mt-6 flex flex-wrap items-center justify-between rounded-2xl px-0 py-2 shadow-none transition-all duration-250 lg:flex-nowrap lg:justify-start"
-      navbar-scroll="true"
-    >
-      <div className="flex-wrap-inherit mx-auto flex w-full items-center justify-between px-4 py-1">
-        <nav>
-          <ol className="mr-12 flex flex-wrap rounded-lg bg-transparent pt-1 sm:mr-16">
-            <li className="breadcrumb-item text-sm leading-normal">
-              <a className="text-slate-700 opacity-30" href="#">
-                <ShopIcon className="mb-1 h-[12px] w-[12px]" />
-              </a>
-            </li>
-            <li className="pl-2 text-sm leading-normal before:float-left before:pr-2 before:text-gray-600 before:content-['/']">
-              <a className="text-slate-700 opacity-50" href="#">
-                Pages
-              </a>
-            </li>
-            <li
-              className="pl-2 text-sm leading-normal text-slate-700 capitalize before:float-left before:pr-2 before:text-gray-600 before:content-['/']"
-              aria-current="page"
+    <nav className="w-full transition-all duration-200">
+      <div className="px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={onHandleSidebar}
+              className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 focus:ring-2 focus:ring-violet-500 focus:outline-none lg:hidden"
+              aria-label="Abrir menú"
             >
-              {pageTitle}
-            </li>
-          </ol>
-          <h6 className="mb-0 font-bold capitalize">{pageTitle}</h6>
-        </nav>
+              <MenuIcon className="h-6 w-6" />
+            </button>
 
-        <div className="flex items-center">
-          <button
-            onClick={onHandleSidebar}
-            className="ease-nav-brand hidden p-0 text-sm text-slate-500 transition-all xl:block"
-          >
-            <div className="w-4.5 overflow-hidden">
-              <i className="ease-soft relative mb-0.75 block h-0.5 translate-x-[5px] rounded-sm bg-slate-500 transition-all"></i>
-              <i className="ease-soft relative mb-0.75 block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
-              <i className="ease-soft relative block h-0.5 translate-x-[5px] rounded-sm bg-slate-500 transition-all"></i>
-            </div>
-          </button>
-        </div>
-
-        <div
-          className="mt-2 flex grow items-center sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto"
-          id="navbar"
-        >
-          <div className="flex items-center md:ml-auto md:pr-4">
-            <div className="ease-soft relative flex w-full flex-wrap items-stretch rounded-lg transition-all">
-              <span className="ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent px-2.5 py-2 text-center text-sm font-normal whitespace-nowrap text-slate-500 transition-all">
-                <SearchIcon className="h-4 w-4" />
-              </span>
-              <input
-                type="text"
-                className="focus:shadow-soft-primary-outline ease-soft leading-5.6 relative -ml-px block w-1/100 min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 pl-9 text-sm text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:transition-shadow focus:outline-none"
-                placeholder="Type here..."
-              />
-            </div>
+            <nav className="hidden sm:flex" aria-label="Breadcrumb">
+              <ol className="flex items-center gap-1">
+                <li className="flex items-center">
+                  <ShopIcon className="h-4 w-4 text-slate-400" />
+                </li>
+                <li className="flex items-center">
+                  <ArrowRightIcon className="h-4 w-6 text-slate-400" />
+                  <span className="text-sm text-slate-500">Panel</span>
+                </li>
+                <li className="flex items-center">
+                  <ArrowRightIcon className="h-4 w-6 text-slate-400" />
+                  <span
+                    className="text-sm font-medium text-slate-900 capitalize"
+                    aria-current="page"
+                  >
+                    {pageTitle}
+                  </span>
+                </li>
+              </ol>
+            </nav>
           </div>
 
-          <ul className="md-max:w-full mb-0 flex list-none flex-row items-center justify-end pl-0">
-            <li className="flex h-12 items-center p-0">
-              <Link
-                to="/dashboard/profile"
-                className="ease-nav-brand block flex items-center p-0 text-sm font-semibold text-slate-500 transition-all"
-              >
-                <UserIcon className="h-5 w-5 md:mr-1" />
-                <span className="hidden sm:inline">{user?.name}</span>
-              </Link>
-            </li>
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={onHandleSidebar}
+              className="hidden rounded-lg p-2 text-slate-600 hover:bg-slate-100 focus:ring-2 focus:ring-violet-500 focus:outline-none lg:block xl:hidden"
+              aria-label="Toggle sidebar"
+            >
+              <MenuIcon className="h-5 w-5" />
+            </button>
 
-            <li className="flex h-12 items-center pl-3 md:pl-4 xl:hidden">
-              <a
-                sidenav-trigger=""
-                className="ease-nav-brand block p-0 text-sm text-slate-500 transition-all"
-                href="#"
-                aria-expanded="false"
-              >
-                <MenuIcon className="h-5 w-5" />
-              </a>
-            </li>
+            <UserDropdown />
+          </div>
+        </div>
 
-            <li className="flex h-12 items-center px-3 md:px-4">
-              <a href="#" className="ease-nav-brand p-0 text-sm text-slate-500 transition-all">
-                <CogIcon className="h-4 w-4" />
-              </a>
-            </li>
-
-            <li className="relative flex h-12 items-center pr-2">
-              <p className="transform-dropdown-show hidden"></p>
-              <a
-                dropdown-trigger=""
-                href="#"
-                className="ease-nav-brand block p-0 text-sm text-slate-500 transition-all"
-                aria-expanded="false"
-              >
-                <BellIcon className="h-3.5 w-3.5" />
-              </a>
-
-              <ul
-                dropdown-menu=""
-                className="transform-dropdown before:font-awesome before:leading-default before:ease-soft lg:shadow-soft-3xl before:text-5.5 pointer-events-none absolute top-0 right-0 z-50 min-w-44 origin-top list-none rounded-lg border-0 border-solid border-transparent bg-white bg-clip-padding px-2 py-4 text-left text-sm text-slate-500 opacity-0 transition-all duration-250 before:absolute before:top-0 before:right-2 before:left-auto before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:duration-350 before:content-['\f0d8'] sm:-mr-6 before:sm:right-7 lg:absolute lg:right-0 lg:left-auto lg:mt-2 lg:block lg:cursor-pointer"
-              >
-                <li className="relative mb-2">
-                  <a
-                    className="ease-soft py-1.2 group clear-both block w-full rounded-lg bg-transparent px-4 whitespace-nowrap duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors"
-                    href="#"
-                  >
-                    <div className="flex py-1">
-                      <div className="my-auto">
-                        <img
-                          src="../../assets/img/team-2.jpg"
-                          className="mr-4 inline-flex h-9 w-9 max-w-none items-center justify-center rounded-xl text-sm text-white"
-                        />
-                      </div>
-                      <div className="flex flex-col justify-center">
-                        <h6 className="mb-1 text-sm leading-normal font-normal group-hover:text-slate-700">
-                          <span className="font-semibold">New message</span> from Laur
-                        </h6>
-                        <p className="mb-0 text-xs leading-tight text-slate-400 group-hover:text-slate-700">
-                          <i className="fa fa-clock mr-1" aria-hidden="true"></i>
-                          13 minutes ago
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+        <div className="pb-4 lg:hidden">
+          <h1 className="text-lg font-semibold text-slate-900 capitalize">{pageTitle}</h1>
         </div>
       </div>
     </nav>

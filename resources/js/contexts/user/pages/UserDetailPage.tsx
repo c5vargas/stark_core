@@ -54,9 +54,7 @@ const UserDetailPage = () => {
           }
           description={t('dashboard.users.p', { user: user?.name })}
         >
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eius minus voluptates rerum
-          facilis eaque soluta, officia consequuntur facere, id fuga quod recusandae? Facere
-          laudantium doloremque suscipit! Ipsum vero sed veritatis.
+          {t('dashboard.users.descr')}
         </InfoCard>
 
         <Card>

@@ -152,6 +152,7 @@
   'dashboard.users.h4' => 'User: {{user}}',
   'dashboard.users.h4.new' => 'New user',
   'dashboard.users.p' => 'Manage user information for {{user}}',
+  'dashboard.users.descr' => 'View and edit user details, including personal information, contact details, and account settings.',
   'dashboard.users.status.active' => 'Active',
   'dashboard.users.status.inactive' => 'Inactive',
   'dashboard.users.status.pending' => 'Pending',
