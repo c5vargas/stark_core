@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom'
 
 const UsersListPage = lazy(() => import('@/contexts/user/pages/UsersListPage'))
 const UserDetailPage = lazy(() => import('@/contexts/user/pages/UserDetailPage'))
+const UserDetailSecurity = lazy(() => import('@/contexts/user/pages/UserDetailSecurity'))
 const UserDetailRemovePage = lazy(() => import('@/contexts/user/pages/UserDetailRemovePage'))
 
 const router = {
@@ -24,6 +25,10 @@ const router = {
         {
           path: 'general',
           element: <UserDetailPage />,
+        },
+        {
+          path: 'security',
+          element: <UserDetailSecurity />,
         },
         {
           path: 'remove',

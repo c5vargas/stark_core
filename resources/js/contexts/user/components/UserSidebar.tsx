@@ -2,9 +2,9 @@ import { NavLink } from 'react-router-dom'
 import { NavItem } from '@/contexts/settings/libs/types'
 import { useTranslation } from 'react-i18next'
 import { Card } from '@/contexts/shared/components/ui/Card'
-import { SettingsIcon } from '@/contexts/shared/components/HugeIcons'
-import clsx from 'clsx'
+import { SecurityLockIcon, SettingsIcon } from '@/contexts/shared/components/HugeIcons'
 import { TrashIcon } from '@/contexts/shared/components/Icons'
+import clsx from 'clsx'
 
 interface UserSidebarProps {
   userId?: string
@@ -18,6 +18,11 @@ export const UserSidebar = ({ userId }: UserSidebarProps) => {
       name: 'dashboard.users.general',
       route: `/dashboard/users/${userId}/general`,
       icon: <SettingsIcon className="me-2 size-4" />,
+    },
+    {
+      name: 'dashboard.users.security',
+      route: `/dashboard/users/${userId}/security`,
+      icon: <SecurityLockIcon className="me-2 size-4" />,
     },
     {
       name: 'dashboard.users.remove',

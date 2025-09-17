@@ -37,7 +37,7 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
         Route::get('', [UserController::class, 'index']);
         Route::get('/{id}', [UserController::class, 'show']);
         Route::post('', [UserController::class, 'create']);
-        Route::post('/update', [UserController::class, 'update']);
+        Route::post('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'delete']);
     });
 
