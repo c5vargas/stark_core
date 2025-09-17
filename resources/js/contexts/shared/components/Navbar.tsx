@@ -13,7 +13,7 @@ const Navbar: React.FC<NavbarProps> = ({ pageTitle, onHandleSidebar }) => {
   return (
     <nav
       navbar-main=""
-      className="duration-250 ease-soft-in relative mx-6 mt-6 flex flex-wrap items-center justify-between rounded-2xl px-0 py-2 shadow-none transition-all lg:flex-nowrap lg:justify-start"
+      className="ease-soft-in relative mx-6 mt-6 flex flex-wrap items-center justify-between rounded-2xl px-0 py-2 shadow-none transition-all duration-250 lg:flex-nowrap lg:justify-start"
       navbar-scroll="true"
     >
       <div className="flex-wrap-inherit mx-auto flex w-full items-center justify-between px-4 py-1">
@@ -30,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ pageTitle, onHandleSidebar }) => {
               </a>
             </li>
             <li
-              className="pl-2 text-sm capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']"
+              className="pl-2 text-sm leading-normal text-slate-700 capitalize before:float-left before:pr-2 before:text-gray-600 before:content-['/']"
               aria-current="page"
             >
               {pageTitle}
@@ -45,25 +45,25 @@ const Navbar: React.FC<NavbarProps> = ({ pageTitle, onHandleSidebar }) => {
             className="ease-nav-brand hidden p-0 text-sm text-slate-500 transition-all xl:block"
           >
             <div className="w-4.5 overflow-hidden">
-              <i className="ease-soft mb-0.75 relative block h-0.5 translate-x-[5px] rounded-sm bg-slate-500 transition-all"></i>
-              <i className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
+              <i className="ease-soft relative mb-0.75 block h-0.5 translate-x-[5px] rounded-sm bg-slate-500 transition-all"></i>
+              <i className="ease-soft relative mb-0.75 block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
               <i className="ease-soft relative block h-0.5 translate-x-[5px] rounded-sm bg-slate-500 transition-all"></i>
             </div>
           </button>
         </div>
 
         <div
-          className="mt-2 flex grow items-center sm:mr-6 sm:mt-0 md:mr-0 lg:flex lg:basis-auto"
+          className="mt-2 flex grow items-center sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto"
           id="navbar"
         >
           <div className="flex items-center md:ml-auto md:pr-4">
             <div className="ease-soft relative flex w-full flex-wrap items-stretch rounded-lg transition-all">
-              <span className="ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-br-none rounded-tr-none border border-r-0 border-transparent bg-transparent px-2.5 py-2 text-center text-sm font-normal text-slate-500 transition-all">
+              <span className="ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent px-2.5 py-2 text-center text-sm font-normal whitespace-nowrap text-slate-500 transition-all">
                 <SearchIcon className="h-4 w-4" />
               </span>
               <input
                 type="text"
-                className="focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pl-9 pr-3 text-sm text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                className="focus:shadow-soft-primary-outline ease-soft leading-5.6 relative -ml-px block w-1/100 min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 pl-9 text-sm text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:transition-shadow focus:outline-none"
                 placeholder="Type here..."
               />
             </div>
@@ -110,11 +110,11 @@ const Navbar: React.FC<NavbarProps> = ({ pageTitle, onHandleSidebar }) => {
 
               <ul
                 dropdown-menu=""
-                className="transform-dropdown before:font-awesome before:leading-default before:duration-350 before:ease-soft lg:shadow-soft-3xl duration-250 before:text-5.5 pointer-events-none absolute right-0 top-0 z-50 min-w-44 origin-top list-none rounded-lg border-0 border-solid border-transparent bg-white bg-clip-padding px-2 py-4 text-left text-sm text-slate-500 opacity-0 transition-all before:absolute before:left-auto before:right-2 before:top-0 before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:content-['\f0d8'] sm:-mr-6 before:sm:right-7 lg:absolute lg:left-auto lg:right-0 lg:mt-2 lg:block lg:cursor-pointer"
+                className="transform-dropdown before:font-awesome before:leading-default before:ease-soft lg:shadow-soft-3xl before:text-5.5 pointer-events-none absolute top-0 right-0 z-50 min-w-44 origin-top list-none rounded-lg border-0 border-solid border-transparent bg-white bg-clip-padding px-2 py-4 text-left text-sm text-slate-500 opacity-0 transition-all duration-250 before:absolute before:top-0 before:right-2 before:left-auto before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:duration-350 before:content-['\f0d8'] sm:-mr-6 before:sm:right-7 lg:absolute lg:right-0 lg:left-auto lg:mt-2 lg:block lg:cursor-pointer"
               >
                 <li className="relative mb-2">
                   <a
-                    className="ease-soft py-1.2 group clear-both block w-full whitespace-nowrap rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors"
+                    className="ease-soft py-1.2 group clear-both block w-full rounded-lg bg-transparent px-4 whitespace-nowrap duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors"
                     href="#"
                   >
                     <div className="flex py-1">
@@ -125,7 +125,7 @@ const Navbar: React.FC<NavbarProps> = ({ pageTitle, onHandleSidebar }) => {
                         />
                       </div>
                       <div className="flex flex-col justify-center">
-                        <h6 className="mb-1 text-sm font-normal leading-normal group-hover:text-slate-700">
+                        <h6 className="mb-1 text-sm leading-normal font-normal group-hover:text-slate-700">
                           <span className="font-semibold">New message</span> from Laur
                         </h6>
                         <p className="mb-0 text-xs leading-tight text-slate-400 group-hover:text-slate-700">

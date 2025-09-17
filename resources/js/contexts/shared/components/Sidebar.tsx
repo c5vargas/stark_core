@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { ShopIcon, UserIcon } from './Icons'
 import { Link, useLocation } from 'react-router-dom'
+import { useSettings } from '@/contexts/settings/hooks/useSettings'
 
 type NavLink = {
   path: string
@@ -11,6 +12,7 @@ type NavLink = {
 
 const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
   const { t } = useTranslation()
+  const { settings } = useSettings()
   const location = useLocation()
 
   const navLinks: NavLink[] = [
@@ -52,31 +54,19 @@ const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
   return (
     showSidebar && (
       <aside className="ease-soft-in-out ps ps--active-y fixed inset-y-0 left-0 z-990 my-4 block w-full max-w-64 -translate-x-full flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 shadow-none transition-all duration-200 xl:ml-4 xl:translate-x-0 xl:bg-transparent">
-        <div className="h-20">
+        <div className="h-auto">
           <i
             className="fas fa-times absolute top-0 right-0 cursor-pointer p-4 text-slate-400 opacity-50 xl:hidden"
             aria-hidden="true"
             sidenav-close-btn=""
           ></i>
-          <a
-            className="m-0 block px-8 py-6 text-sm whitespace-nowrap text-slate-700"
-            href=" https://demos.creative-tim.com/soft-ui-dashboard-pro/pages/dashboards/default.html "
-            target="_blank"
-          >
+          <div className="m-0 block px-8 py-6 text-sm whitespace-nowrap text-slate-700">
             <img
-              src="https://demos.creative-tim.com/soft-ui-dashboard-pro-tailwind/assets/img/logo-ct-dark.png"
-              className="ease-soft-in-out inline-block h-full max-h-8 max-w-full transition-all duration-200"
+              src={settings?.app_logo || ''}
+              className="ease-soft-in-out inline-block h-full max-h-16 max-w-full transition-all duration-200"
               alt="main_logo"
             />
-            <img
-              src="https://demos.creative-tim.com/soft-ui-dashboard-pro-tailwind/assets/img/logo-ct.png"
-              className="ease-soft-in-out hidden h-full max-h-8 max-w-full transition-all duration-200"
-              alt="main_logo"
-            />
-            <span className="ease-soft-in-out ml-1 font-semibold transition-all duration-200">
-              Soft UI Dashboard PRO
-            </span>
-          </a>
+          </div>
         </div>
 
         <hr className="mt-0 h-px bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent"></hr>

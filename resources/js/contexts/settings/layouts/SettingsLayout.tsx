@@ -1,14 +1,14 @@
 import Layout from '@/contexts/shared/components/Layout'
-import { useTranslation } from 'react-i18next'
-import { useSettingsLayout } from '@/contexts/settings/hooks/useSettingsLayout'
-import { Outlet } from 'react-router-dom'
 import Loading from '@/contexts/shared/components/Loading'
 import SettingsSidebar from '@/contexts/settings/components/SettingsSidebar'
+import { useTranslation } from 'react-i18next'
+import { Outlet } from 'react-router-dom'
 import { Alert } from '@/contexts/shared/components/ui/Alert'
+import { useSettings } from '@/contexts/settings/hooks/useSettings'
 
 const SettingsLayout = () => {
   const { t } = useTranslation()
-  const { settings, loading, error } = useSettingsLayout()
+  const { settings, loading, error } = useSettings()
 
   if (loading) {
     return (
