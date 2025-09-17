@@ -2,15 +2,16 @@ import { lazy } from 'react'
 import UserLayout from '../layouts/UserLayout'
 import { Navigate } from 'react-router-dom'
 
-const UsersPage = lazy(() => import('@/contexts/user/pages/UsersPage'))
-const UserPage = lazy(() => import('@/contexts/user/pages/UserPage'))
+const UsersListPage = lazy(() => import('@/contexts/user/pages/UsersListPage'))
+const UserDetailPage = lazy(() => import('@/contexts/user/pages/UserDetailPage'))
+const UserDetailRemovePage = lazy(() => import('@/contexts/user/pages/UserDetailRemovePage'))
 
 const router = {
   path: 'users',
   children: [
     {
       index: true,
-      element: <UsersPage />,
+      element: <UsersListPage />,
     },
     {
       path: ':id',
@@ -22,7 +23,11 @@ const router = {
         },
         {
           path: 'general',
-          element: <UserPage />,
+          element: <UserDetailPage />,
+        },
+        {
+          path: 'remove',
+          element: <UserDetailRemovePage />,
         },
       ],
     },

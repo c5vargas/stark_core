@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Card } from '@/contexts/shared/components/ui/Card'
 import { SettingsIcon } from '@/contexts/shared/components/HugeIcons'
 import clsx from 'clsx'
+import { TrashIcon } from '@/contexts/shared/components/Icons'
 
 interface UserSidebarProps {
   userId?: string
@@ -17,6 +18,11 @@ export const UserSidebar = ({ userId }: UserSidebarProps) => {
       name: 'dashboard.users.general',
       route: `/dashboard/users/${userId}/general`,
       icon: <SettingsIcon className="me-2 size-4" />,
+    },
+    {
+      name: 'dashboard.users.remove',
+      route: `/dashboard/users/${userId}/remove`,
+      icon: <TrashIcon className="me-2 size-4" />,
     },
   ]
 

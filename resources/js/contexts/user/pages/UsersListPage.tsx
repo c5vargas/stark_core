@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useUsersPage } from '@/contexts/user/hooks/useUsersPage'
 import TableFooter from '@/contexts/shared/components/table/TableFooter'
 
-const CategoriesPage = () => {
+const UsersListPage = () => {
   const { t } = useTranslation()
   const { users, isLoading, error, page, perPage, handleSearch, handlePagination } = useUsersPage()
   const navigate = useNavigate()
@@ -42,4 +42,4 @@ const CategoriesPage = () => {
   )
 }
 
-export default CategoriesPage
+export default UsersListPage
