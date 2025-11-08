@@ -62,11 +62,26 @@ const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
           sidenav-close-btn=""
         ></i>
         <div className="m-0 block px-8 py-6 text-sm whitespace-nowrap text-slate-700">
-          <img
-            src={settings?.app_logo || ''}
-            className="ease-soft-in-out inline-block h-full max-h-16 max-w-full transition-all duration-200"
-            alt="main_logo"
-          />
+          {settings?.app_logo ? (
+            <img
+              src={settings.app_logo}
+              className="ease-soft-in-out inline-block h-full max-h-16 max-w-full transition-all duration-200"
+              alt="main_logo"
+            />
+          ) : (
+            <div className="flex h-16 items-center justify-center">
+              <div className="flex h-full w-full items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 text-lg font-bold text-white shadow-lg">
+                {settings?.app_name ? (
+                  <span className="truncate px-2">
+                    {settings.app_name.charAt(0).toUpperCase()}
+                    {settings.app_name.split(' ')[1]?.charAt(0).toUpperCase() || ''}
+                  </span>
+                ) : (
+                  <span className="text-2xl">S</span>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
