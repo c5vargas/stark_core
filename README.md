@@ -1,68 +1,215 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Stark Core Documentation
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Welcome to the Stark Core project documentation. This comprehensive guide will help developers and AI assistants understand the project architecture, implement new features, and maintain code quality standards.
 
-## About Laravel
+## 📚 Documentation Structure
 
-https://github.com/gdarko/laravel-vue-starter
+This documentation is organized into the following sections:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Core Documentation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **[Architecture Overview](./ARCHITECTURE.md)** - High-level system architecture and design patterns
+- **[Backend Guide](./BACKEND.md)** - Complete Laravel backend documentation
+- **[Frontend Guide](./FRONTEND.md)** - Complete React frontend documentation
+- **[Workflow Guide](./WORKFLOW.md)** - Development workflows and processes
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Implementation Guides
 
-## Learning Laravel
+- **[New Feature Guide](./NEW_FEATURE_GUIDE.md)** - Step-by-step guide for implementing new features
+- **[API Standards](./API_STANDARDS.md)** - API design and implementation standards
+- **[Testing Guide](./TESTING.md)** - Testing strategies and best practices
+- **[Deployment Guide](./DEPLOYMENT.md)** - Deployment and production setup
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🚀 Quick Start
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Technology Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Backend:**
 
-## Laravel Sponsors
+- Laravel 12.x (PHP 8.3+)
+- MySQL/PostgreSQL
+- Laravel Sanctum (Authentication)
+- Spatie Permissions (Authorization)
+- League Fractal (API Transformations)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+**Frontend:**
 
-### Premium Partners
+- React 19 + TypeScript
+- Vite (Build tool)
+- Tailwind CSS (Styling)
+- Zustand (State management)
+- React Query (Data fetching)
+- React Router DOM v7 (Routing)
+- i18next (Internationalization)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Essential Commands
 
-## Contributing
+```bash
+# Installation
+composer install && npm install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Development
+npm run start         # Start Laravel server + Vite
+npm run dev           # Frontend only (Vite)
 
-## Code of Conduct
+# Production
+npm run build         # Production build
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Code Quality
+npm run lint          # ESLint for JS/TS/TSX
+npm run format:write  # Format code with Prettier
+npm run format:check  # Check code format
 
-## Security Vulnerabilities
+# Testing
+php artisan test      # Backend tests
+npm run test          # Frontend tests
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🏗️ Project Structure
 
-## License
+```
+stark_core/
+├── app/                    # Laravel backend
+│   ├── Http/
+│   │   ├── Controllers/    # API Controllers
+│   │   ├── Middleware/     # Custom middleware
+│   │   ├── Requests/       # Validation classes
+│   │   └── Transformers/   # Fractal transformers
+│   ├── Models/             # Eloquent models
+│   ├── Repositories/       # Repository pattern
+│   └── Services/           # Business logic services
+├── resources/js/           # React frontend
+│   ├── contexts/           # Feature modules (see below)
+│   ├── router/             # Routing configuration
+│   └── i18n/               # Translations
+├── routes/                 # API and web routes
+├── database/               # Migrations and seeders
+└── DOCS/                   # This documentation
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Frontend Context Structure
+
+Each feature is organized as a self-contained context:
+
+```
+contexts/[feature-name]/
+├── actions/      # API calls and async operations
+├── components/   # React components specific to this feature
+├── hooks/        # Custom React hooks
+├── layouts/      # Layout components
+├── libs/         # Types, utilities, and constants
+├── pages/        # Full page components
+├── router/       # Feature routing configuration
+└── stores/       # Zustand state stores
+```
+
+**Available Contexts:**
+
+- `auth` - Authentication and authorization
+- `dashboard` - Main dashboard
+- `settings` - System configuration
+- `user` - User management
+- `shared` - Shared components and utilities
+
+## 🎯 Key Concepts
+
+### Backend Architecture
+
+The backend follows a **Repository Pattern** with clean separation of concerns:
+
+1. **Routes** → Define API endpoints
+2. **Controllers** → Coordinate request/response flow
+3. **Request Validation** → Validate and authorize incoming data
+4. **Repositories** → Handle data access and persistence
+5. **Transformers** → Format API responses
+6. **Services** → Encapsulate complex business logic
+
+### Frontend Architecture
+
+The frontend uses a **modular context-based architecture**:
+
+1. **Pages** → Full page components with routing
+2. **Hooks** → Encapsulate reusable logic and data fetching
+3. **Actions** → API communication layer
+4. **Stores** → Global state management with Zustand
+5. **Components** → Reusable UI components
+
+### Data Flow
+
+```
+Frontend Request
+    ↓
+React Query (usePaginatedSearch/useQuery)
+    ↓
+Action (API call via httpAxios)
+    ↓
+Backend Route
+    ↓
+Middleware (auth, locale)
+    ↓
+Controller Method
+    ↓
+Request Validation (authorize + rules)
+    ↓
+Repository Method
+    ↓
+Model/Database
+    ↓
+Transformer (format response)
+    ↓
+Controller Response
+    ↓
+Frontend State Update
+```
+
+## 📋 Development Guidelines
+
+### Code Standards
+
+- **PHP**: PSR-12, Laravel Pint for formatting
+- **TypeScript**: Strict mode enabled
+- **React**: Functional components with hooks
+- **CSS**: Tailwind utility classes (avoid custom CSS)
+- **Git**: Conventional commits, pre-commit hooks with Husky
+
+### Best Practices
+
+1. **Always use TypeScript** - No plain JavaScript files
+2. **Follow the Repository Pattern** - Don't query models directly in controllers
+3. **Validate all inputs** - Use FormRequest classes
+4. **Transform all responses** - Use Fractal transformers
+5. **Modular architecture** - Keep features in separate contexts
+6. **Reusable hooks** - Extract logic into custom hooks
+7. **Global state wisely** - Use Zustand for shared state only
+8. **Internationalization** - Use i18next for all user-facing text
+
+## 🔍 Where to Go Next
+
+- **New to the project?** → Start with [Architecture Overview](./ARCHITECTURE.md)
+- **Building a new feature?** → Read [New Feature Guide](./NEW_FEATURE_GUIDE.md)
+- **Working on the backend?** → Check [Backend Guide](./BACKEND.md)
+- **Working on the frontend?** → Check [Frontend Guide](./FRONTEND.md)
+- **Need API specifications?** → See [API Standards](./API_STANDARDS.md)
+
+## 🤝 Contributing
+
+When implementing new features or making changes:
+
+1. Follow the established patterns and conventions
+2. Write comprehensive tests
+3. Update documentation if needed
+4. Run linters and formatters before committing
+5. Use conventional commit messages
+
+## 📞 Support
+
+For questions or issues:
+
+- Check the relevant documentation section
+- Review existing code examples
+- Consult the team leads
+
+---
+
+**Last Updated**: November 2025
+**Version**: 1.0.0
