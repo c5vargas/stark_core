@@ -63,12 +63,12 @@ const HelpPage = () => {
         <div className="mb-4 flex items-center justify-between">
           <h3 className="text-lg font-semibold">{t('dashboard.settings.help.health_status')}</h3>
           <div className="flex gap-2">
-            <Button onClick={copyHealthInfo} className="bg-blue-500 hover:bg-blue-600">
+            <Button variant="ghost" onClick={copyHealthInfo}>
               {copied
                 ? t('dashboard.settings.help.copied')
                 : t('dashboard.settings.help.copy_health')}
             </Button>
-            <Button onClick={openSupportTicket} className="bg-purple-500 hover:bg-purple-600">
+            <Button variant="ghost" onClick={openSupportTicket}>
               {t('dashboard.settings.help.open_ticket')}
             </Button>
           </div>
