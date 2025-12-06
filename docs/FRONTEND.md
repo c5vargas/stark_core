@@ -94,22 +94,23 @@ contexts/[feature-name]/
 
 ### Context Responsibilities
 
-| Folder | Purpose | Example |
-|--------|---------|---------|
-| `pages/` | Route-level components | `UsersListPage.tsx` |
-| `components/` | Reusable UI components | `UserCard.tsx` |
-| `hooks/` | Business logic & data fetching | `useUsers()` |
-| `actions/` | API communication | `getUsers()` |
-| `stores/` | Global state (Zustand) | `useUserStore` |
-| `layouts/` | Page layouts | `UserLayout.tsx` |
-| `libs/` | Types & utilities | `types.ts` |
-| `router/` | Route configuration | `index.tsx` |
+| Folder        | Purpose                        | Example             |
+| ------------- | ------------------------------ | ------------------- |
+| `pages/`      | Route-level components         | `UsersListPage.tsx` |
+| `components/` | Reusable UI components         | `UserCard.tsx`      |
+| `hooks/`      | Business logic & data fetching | `useUsers()`        |
+| `actions/`    | API communication              | `getUsers()`        |
+| `stores/`     | Global state (Zustand)         | `useUserStore`      |
+| `layouts/`    | Page layouts                   | `UserLayout.tsx`    |
+| `libs/`       | Types & utilities              | `types.ts`          |
+| `router/`     | Route configuration            | `index.tsx`         |
 
 ## Components
 
 ### Component Types
 
 #### 1. Page Components
+
 Full-page components that are route entry points.
 
 **File**: `contexts/user/pages/UsersListPage.tsx`
@@ -138,6 +139,7 @@ export default UsersListPage
 ```
 
 #### 2. Feature Components
+
 Components specific to a feature context.
 
 **File**: `contexts/user/components/UserCard.tsx`
@@ -152,16 +154,16 @@ interface UserCardProps {
   onDelete: (id: number) => void
 }
 
-export const UserCard: React.FC<UserCardProps> = ({ 
-  user, 
-  onEdit, 
-  onDelete 
+export const UserCard: React.FC<UserCardProps> = ({
+  user,
+  onEdit,
+  onDelete
 }) => {
   return (
     <div className="rounded-lg border bg-white p-4 shadow-sm">
       <div className="flex items-center gap-4">
-        <img 
-          src={user.avatar} 
+        <img
+          src={user.avatar}
           alt={user.name}
           className="h-12 w-12 rounded-full"
         />
@@ -181,6 +183,7 @@ export const UserCard: React.FC<UserCardProps> = ({
 ```
 
 #### 3. Shared Components
+
 Reusable components in `contexts/shared/components/`.
 
 **File**: `contexts/shared/components/Button.tsx`
@@ -206,13 +209,13 @@ export const Button: React.FC<ButtonProps> = ({
   type = 'button',
 }) => {
   const baseClasses = 'rounded font-medium transition-colors'
-  
+
   const variantClasses = {
     primary: 'bg-blue-600 text-white hover:bg-blue-700',
     secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
     danger: 'bg-red-600 text-white hover:bg-red-700',
   }
-  
+
   const sizeClasses = {
     sm: 'px-3 py-1.5 text-sm',
     md: 'px-4 py-2 text-base',
@@ -240,6 +243,7 @@ export const Button: React.FC<ButtonProps> = ({
 ### Component Best Practices
 
 ✅ **DO**:
+
 - Use TypeScript interfaces for props
 - Keep components focused (single responsibility)
 - Use `clsx` for conditional classes
@@ -248,6 +252,7 @@ export const Button: React.FC<ButtonProps> = ({
 - Destructure props in component signature
 
 ❌ **DON'T**:
+
 - Fetch data directly in components (use hooks)
 - Put business logic in components
 - Use inline styles (use Tailwind)
@@ -333,7 +338,7 @@ export const useForm = <T extends Record<string, any>>({
 
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
-    
+
     // Validate if validation function provided
     if (validate) {
       const validationErrors = validate(values)
@@ -496,6 +501,7 @@ export default getUsers
 ### CRUD Action Examples
 
 **Create:**
+
 ```tsx
 const createUser = async (data: CreateUserPayload): Promise<User> => {
   try {
@@ -511,6 +517,7 @@ const createUser = async (data: CreateUserPayload): Promise<User> => {
 ```
 
 **Update:**
+
 ```tsx
 const updateUserById = async (
   id: number,
@@ -528,6 +535,7 @@ const updateUserById = async (
 ```
 
 **Delete:**
+
 ```tsx
 const destroyUserById = async (id: number): Promise<void> => {
   try {
@@ -701,7 +709,7 @@ import settingsRouter from '@/contexts/settings/router'
 
 const DashboardPage = lazy(() => import('@/contexts/dashboard/pages/DashboardPage'))
 const LoginPage = lazy(() => import('@/contexts/auth/pages/LoginPage'))
-const HomePage = lazy(() => import('@/contexts/landing/pages/HomePage'))
+const HomePage = lazy(() => import('@/contexts/public/pages/HomePage'))
 
 const Router = createBrowserRouter([
   {
@@ -805,11 +813,11 @@ export default RequireAuth
 
 ### When to Use Each Solution
 
-| Solution | Use Case | Example |
-|----------|----------|---------|
-| **Component State** | UI state, form inputs | Toggle, modal open/close |
-| **React Query** | Server state, caching | API data, paginated lists |
-| **Zustand** | Global client state | Auth, theme, sidebar state |
+| Solution            | Use Case              | Example                    |
+| ------------------- | --------------------- | -------------------------- |
+| **Component State** | UI state, form inputs | Toggle, modal open/close   |
+| **React Query**     | Server state, caching | API data, paginated lists  |
+| **Zustand**         | Global client state   | Auth, theme, sidebar state |
 
 ### React Query (TanStack Query)
 
@@ -850,7 +858,7 @@ interface FormValues {
 }
 
 export const UserForm: React.FC = () => {
-  const { values, errors, isSubmitting, handleChange, handleSubmit } = 
+  const { values, errors, isSubmitting, handleChange, handleSubmit } =
     useForm<FormValues>({
       initialValues: {
         name: '',
@@ -1053,4 +1061,3 @@ import { Button } from '../../../shared/components/Button'
 ---
 
 **Next**: Learn how to implement new features in the [New Feature Guide](./NEW_FEATURE_GUIDE.md).
-

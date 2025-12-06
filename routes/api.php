@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OneSignalController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
@@ -20,6 +21,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+// Public routes (no authentication required)
+Route::middleware(['apply_locale'])->group(function () {
+    Route::get('public/settings', [PublicController::class, 'getPublicSettings'])->name('public.settings');
+});
+
 Route::prefix('auth')->middleware(['apply_locale'])->group(function () {
     Route::middleware(['auth:sanctum'])->group( function() {
         Route::get('', [AuthController::class, 'get'])->name('auth.get');
