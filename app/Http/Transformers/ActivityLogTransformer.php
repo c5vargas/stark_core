@@ -7,7 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class ActivityLogTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
         'user',
     ];
 

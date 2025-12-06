@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ActivityLogController extends Controller
 {
     /**
-     * @property ActivityLogRepository
+     * @var ActivityLogRepository
      */
     private $repository;
 
@@ -25,9 +25,9 @@ class ActivityLogController extends Controller
     /**
      * Get paginated activity logs.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $logs = $this->repository->paginate($this->request->all());
+        $logs = $this->repository->paginate($request->all());
         return $this->respondWithCollection($logs);
     }
 

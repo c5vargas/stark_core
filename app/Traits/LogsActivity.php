@@ -19,12 +19,45 @@ trait LogsActivity
         });
 
         static::updated(function (Model $model) {
+            // Check if only ignored fields changed
+            if (static::shouldIgnoreUpdate($model)) {
+                return;
+            }
             static::logActivity($model, 'updated');
         });
 
         static::deleted(function (Model $model) {
             static::logActivity($model, 'deleted');
         });
+    }
+
+    /**
+     * Get the list of fields that should be ignored when logging updates.
+     * Models can override this method to customize ignored fields.
+     * 
+     * @return array
+     */
+    protected static function getIgnoredActivityFields(): array
+    {
+        return ['last_login_at', 'updated_at'];
+    }
+
+    /**
+     * Check if the update should be ignored.
+     */
+    protected static function shouldIgnoreUpdate(Model $model): bool
+    {
+        if (!$model->wasChanged()) {
+            return true;
+        }
+
+        $changedFields = array_keys($model->getChanges());
+        $ignoredFields = static::getIgnoredActivityFields();
+
+        // If only ignored fields changed, ignore the update
+        $nonIgnoredChanges = array_diff($changedFields, $ignoredFields);
+        
+        return empty($nonIgnoredChanges);
     }
 
     /**
