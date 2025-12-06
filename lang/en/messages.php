@@ -52,6 +52,8 @@
   'controller.onesignal.updated' => 'Notification data has been updated correctly.',
   'controller.onesignal.created' => 'The notification has been sent successfully',
 
+  'dashboard.title' => 'Dashboard',
+
   'dashboard.settings.analytics' => 'Analytics',
   'dashboard.settings.default_locale' => 'Default locale',
   'dashboard.settings.default_timezone' => 'Timezone',
