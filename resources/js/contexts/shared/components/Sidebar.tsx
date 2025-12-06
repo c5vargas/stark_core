@@ -2,18 +2,22 @@ import { useTranslation } from 'react-i18next'
 import { ShopIcon, UserIcon } from './Icons'
 import { Link, useLocation } from 'react-router-dom'
 import { useSettings } from '@/contexts/settings/hooks/useSettings'
+import { useAuthStore } from '@/contexts/auth/stores/authStore'
+import { JSX } from 'react'
 
 type NavLink = {
   path: string
   title: string
   icon: JSX.Element
   exact: boolean
+  permission?: string
 }
 
 const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
   const { t } = useTranslation()
   const { settings } = useSettings()
   const location = useLocation()
+  const hasPermission = useAuthStore(state => state.hasPermission)
 
   const navLinks: NavLink[] = [
     {
@@ -21,20 +25,29 @@ const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
       title: t('dashboard.title'),
       icon: <ShopIcon />,
       exact: true,
+      permission: 'view.dashboard',
     },
     {
       path: '/dashboard/users',
       title: t('dashboard.users.title'),
       icon: <UserIcon />,
       exact: false,
+      permission: 'view.users',
     },
     {
       path: '/dashboard/settings',
       title: t('dashboard.settings.settings'),
       icon: <ShopIcon />,
       exact: false,
+      permission: 'view.settings',
     },
   ]
+
+  // Filter nav links based on user permissions
+  const filteredNavLinks = navLinks.filter(link => {
+    if (!link.permission) return true
+    return hasPermission(link.permission)
+  })
 
   const isActive = (link: NavLink) => {
     if (link.exact) {
@@ -89,7 +102,7 @@ const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
 
       <div className="block h-auto w-full grow basis-full items-center" id="sidenav-collapse-main">
         <ul className="mb-0 flex list-none flex-col pl-0">
-          {navLinks.map(link => (
+          {filteredNavLinks.map(link => (
             <li key={link.path} className="mt-0.5 w-full">
               <Link
                 to={link.path}

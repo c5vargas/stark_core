@@ -19,6 +19,7 @@ class UserTransformer extends TransformerAbstract
             'status'        => $user->status instanceof \BackedEnum ? $user->status->value : $user->status,
             'locale'        => $user->locale,
             'metadata'      => $user->metadata ?? [],
+            'permissions'   => $user->getAllPermissions()->pluck('name')->toArray(),
 
             'last_login_at' => $user->last_login_at,
             'created_at'    => $user->created_at,

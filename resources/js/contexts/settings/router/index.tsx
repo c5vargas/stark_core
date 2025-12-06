@@ -1,6 +1,7 @@
 import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'
 import SettingsLayout from '@/contexts/settings/layouts/SettingsLayout'
+import RequirePermission from '@/router/guards/RequirePermission'
 
 const SettingsPage = lazy(() => import('@/contexts/settings/pages/SettingsPage'))
 const MailPage = lazy(() => import('@/contexts/settings/pages/MailPage'))
@@ -12,7 +13,11 @@ const PermissionsPage = lazy(() => import('@/contexts/settings/pages/Permissions
 
 const router = {
   path: 'settings',
-  element: <SettingsLayout />,
+  element: (
+    <RequirePermission permission="view.settings">
+      <SettingsLayout />
+    </RequirePermission>
+  ),
   children: [
     {
       index: true,

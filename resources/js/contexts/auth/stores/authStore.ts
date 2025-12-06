@@ -15,6 +15,7 @@ interface AuthState {
   login: (credentials: CredentialsType) => Promise<boolean>
   logout: () => void
   getAuth: () => Promise<boolean>
+  hasPermission: (permission: string) => boolean
 }
 
 export const useAuthStore = create<AuthState>(set => ({
@@ -35,6 +36,11 @@ export const useAuthStore = create<AuthState>(set => ({
       }
 
       if (token) window.localStorage.setItem('__auth__', token)
+
+      // Ensure permissions array exists
+      if (!user.permissions) {
+        user.permissions = []
+      }
 
       set({ user, token, isAuthenticated: true, loading: false })
 
@@ -62,6 +68,11 @@ export const useAuthStore = create<AuthState>(set => ({
 
       if (status !== 201) throw new Error('No token received')
 
+      // Ensure permissions array exists
+      if (!user.permissions) {
+        user.permissions = []
+      }
+
       set({ user, isAuthenticated: true, loading: false })
       return true
     } catch (error: unknown) {
@@ -72,5 +83,13 @@ export const useAuthStore = create<AuthState>(set => ({
       }
     }
     return false
+  },
+
+  hasPermission: (permission: string): boolean => {
+    const state = useAuthStore.getState()
+    if (!state.user || !state.user.permissions) {
+      return false
+    }
+    return state.user.permissions.includes(permission)
   },
 }))

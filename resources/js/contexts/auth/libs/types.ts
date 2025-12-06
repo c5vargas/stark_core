@@ -3,6 +3,7 @@ export interface Auth {
   name: string
   email: string
   role: string
+  permissions: string[]
 }
 
 export interface CredentialsType {
