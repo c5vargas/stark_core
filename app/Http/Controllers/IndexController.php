@@ -23,7 +23,7 @@ class IndexController extends Controller
             $settings->$propiety = $item->value;
         }
 
-        return view('index', compact('settings', 'languages'));
+        return view('app', compact('settings', 'languages'));
     }
 
     public function generateManifest() {

@@ -2,6 +2,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository extends BaseRepository
 {
@@ -15,6 +16,22 @@ class UserRepository extends BaseRepository
     public function __construct(User $user)
     {
         $this->model = $user;
+    }
+
+    public function paginate(array $params): Collection
+    {
+        $query = $this->model->query();
+
+        if (array_key_exists('query', $params)) {
+            $query = $query->where('name', 'LIKE', '%' . $params['query'] . '%');
+            $query = $query->orWhere('email', 'LIKE', '%' . $params['query'] . '%');
+        }
+
+        if (array_key_exists('page', $params)) {
+            $query = $query->skip(($params['page'] - 1) * $params['perPage'])->take($params['perPage']);
+        }
+
+        return $query->get();
     }
 
     /**

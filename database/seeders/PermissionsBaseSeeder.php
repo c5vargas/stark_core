@@ -67,13 +67,13 @@ class PermissionsBaseSeeder extends Seeder
             'view.dashboard',
         ]);
 
-        $userRoot = User::factory()->createQuietly([
+        $userRoot = User::factory()->active()->createQuietly([
             'name' => 'John Doe',
             'email' => 'admin@admin.com',
             'password' => 'admin'
         ]);
 
-        $userEditor = User::factory()->createQuietly([
+        $userEditor = User::factory()->active()->createQuietly([
             'name' => 'Stiven Or',
             'email' => 'editor@editor.com',
             'password' => 'editor'

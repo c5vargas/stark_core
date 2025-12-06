@@ -1,33 +1,64 @@
 {
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "start:dev": "concurrently  \"php artisan config:cache\" \"php artisan serve --host 127.0.0.1 --port 8000\" \"npm run dev -- --host 127.0.0.1 \" \" npm run lint \"  "
-    },
-    "devDependencies": {
-        "axios": "^1.11.0",
-        "concurrently": "^9.2.1",
-        "laravel-vite-plugin": "^2.0.1",
-        "vite": "^7.1.4",
-        "vue": "^3.5.21"
-    },
-    "dependencies": {
-        "@editorjs/editorjs": "^2.30.8",
-        "@editorjs/header": "^2.8.8",
-        "@editorjs/raw": "^2.5.1",
-        "@editorjs/table": "^2.4.5",
-        "@melloware/coloris": "^0.25.0",
-        "@popperjs/core": "^2.11.8",
-        "@vitejs/plugin-vue": "^6.0.1",
-        "@vueuse/core": "^13.9.0",
-        "bootstrap-icons": "^1.13.1",
-        "moment": "^2.30.1",
-        "pinia": "^3.0.3",
-        "sweetalert2": "^11.22.5",
-        "v-calendar": "^3.1.2",
-        "vue-i18n": "^11.1.11",
-        "vue-router": "^4.5.1"
-    }
+  "private": true,
+  "type": "module",
+  "lint-staged": {
+    "resources/js/**/*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "resources/js/**/*.css": "prettier --write"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "concurrently  \"php artisan config:cache\" \"php artisan serve --host 127.0.0.1 --port 8000\" \"npm run dev \"  ",
+    "lint": "eslint resources/js --ext .js,.ts,.tsx",
+    "format:write": "prettier resources/js --write",
+    "format:check": "prettier resources/js --check",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@popperjs/core": "^2.11.8",
+    "@tailwindcss/vite": "^4.1.17",
+    "@tanstack/eslint-plugin-query": "^5.91.2",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^5.1.0",
+    "autoprefixer": "^10.4.21",
+    "axios": "^1.13.2",
+    "bootstrap": "^5.3.8",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "jiti": "^2.6.1",
+    "laravel-vite-plugin": "^2.0.1",
+    "lint-staged": "^16.2.6",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.7.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.3",
+    "vite": "^7.2.2"
+  },
+  "dependencies": {
+    "@editorjs/editorjs": "^2.31.0",
+    "@editorjs/header": "^2.8.8",
+    "@editorjs/raw": "^2.5.1",
+    "@editorjs/table": "^2.4.5",
+    "@formkit/tempo": "^0.1.2",
+    "@tanstack/react-query": "^5.90.7",
+    "clsx": "^2.1.1",
+    "i18next": "^25.6.1",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "react-i18next": "^16.2.4",
+    "react-router-dom": "^7.9.5",
+    "zustand": "^5.0.8"
+  }
 }

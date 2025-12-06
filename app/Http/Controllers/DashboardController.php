@@ -22,6 +22,6 @@ class DashboardController extends Controller
             $settings->$propiety = $item->value;
         }
 
-        return view('admin', compact('settings', 'languages'));
+        return view('app', compact('settings', 'languages'));
     }
 }

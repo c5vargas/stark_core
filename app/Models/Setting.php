@@ -25,6 +25,11 @@ class Setting extends Model
         return $query->where('key', 'app_logo')->first()->value;
     }
 
+        public function scopeFavicon($query)
+    {
+        return $query->where('key', 'app_favicon')->first()->value;
+    }
+
     public function scopeName($query)
     {
         return $query->where('key', 'app_name')->first()->value;
@@ -38,5 +43,20 @@ class Setting extends Model
     public function scopeOneSignalApiKey($query)
     {
         return $query->where('key', 'onesignal_api_key')->first()->value;
+    }
+
+    public function scopeMailFromAddress($query)
+    {
+        return $query->where('key', 'mail_from_address')->first()->value;
+    }
+
+    public function scopeMailFromName($query)
+    {
+        return $query->where('key', 'mail_from_name')->first()->value;
+    }
+
+    public function scopeColor($query)
+    {
+        return $query->where('key', 'app_color')->first()?->value ?? '#ff2919';
     }
 }

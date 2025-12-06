@@ -9,6 +9,7 @@ use App\Http\Requests\Api\Authentication\RegisterRequest;
 use App\Http\Requests\Api\Authentication\ResetPasswordRequest;
 use App\Http\Requests\Api\Authentication\UpdateUserRequest;
 use App\Http\Transformers\UserTransformer;
+use App\Models\ActivityLog;
 use App\Repositories\Eloquent\AuthRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -31,13 +32,6 @@ class AuthController extends Controller
         $this->repository = $repository;
     }
 
-    /**
-     * This PHP function registers a user and returns a response with the user's information.
-     *
-     * @param RegisterRequest $request
-     *
-     * @return Response
-     */
     public function register(RegisterRequest $request)
     {
         $user = $this->repository->create($request->validated());
@@ -48,25 +42,18 @@ class AuthController extends Controller
         return $this->respondWithItem($user, 201);
     }
 
+
     public function get(Request $request)
     {
-        $user = $request->user();
+        $user = $this->repository->getAuth($request);
+        
 
         if(!$user)
             return $this->respondWithMessage(__('messages.controller.auth.no_token'), 401);
 
-        $user->getAllPermissions();
-        return $this->respondWithAuth($user, 201);
+        return $this->respondWithItem($user, 201);
     }
 
-    /**
-     * This function handles user login attempts, checks for too many failed attempts, and responds
-     * with a token if successful.
-     *
-     * @param LoginRequest $request
-     *
-     * @return Response
-     */
     public function login(LoginRequest $request)
     {
         $this->checkTooManyFailedAttempts();
@@ -79,32 +66,44 @@ class AuthController extends Controller
         }
 
         RateLimiter::clear($this->throttleKey());
+        
+        // Log login activity
+        if ($result['user']) {
+            ActivityLog::create([
+                'user_id' => $result['user']->id,
+                'action' => 'login',
+                'model_type' => get_class($result['user']),
+                'model_id' => $result['user']->id,
+                'description' => "User logged in",
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+            ]);
+        }
+        
         return $this->respondWithArray($result);
     }
 
-    /**
-     * This function logs out a user by revoking their token and returns a message.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function logout(Request $request)
     {
         $user = $request->user();
-        if($user) $user->token()->revoke();
+        if($user) {
+            $user->token()->revoke();
+            
+            // Log logout activity
+            ActivityLog::create([
+                'user_id' => $user->id,
+                'action' => 'logout',
+                'model_type' => get_class($user),
+                'model_id' => $user->id,
+                'description' => "User logged out",
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+            ]);
+        }
 
         return $this->respondWithMessage( __('messages.controller.auth.logout'));
     }
 
-    /**
-     * This function updates a user's profile and returns a success message or throws an exception if
-     * the update fails.
-     *
-     * @param UpdateUserRequest $request
-     *
-     * @return Response
-     */
     public function updateUserProfile(UpdateUserRequest $request)
     {
         $updated = $this->repository->updateUserProfile($request->validated());
@@ -115,14 +114,6 @@ class AuthController extends Controller
         return $this->respondWithMessage( __('messages.controller.auth.profile_success'));
     }
 
-    /**
-     * This function resets a user's password and returns a success message or throws an exception if the
-     * email or token is invalid.
-     *
-     * @param ResetPasswordRequest $request
-     *
-     * @return Response
-     */
     public function resetPassword(ResetPasswordRequest $request)
     {
         $status = $this->repository->resetPassword($request);
@@ -137,7 +128,6 @@ class AuthController extends Controller
      * This function handles the forget password request and dispatches an event to reset the password.
      *
      * @param ForgetPasswordRequest $request
-     *
      * @return Response
      */
     public function forgetPassword(ForgetPasswordRequest $request)

@@ -12,7 +12,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // Daily database backup at 2 AM
+        $schedule->command('backup:database --compress')
+            ->dailyAt('02:00')
+            ->onFailure(function () {
+                \Log::error('Database backup failed');
+            });
+
+        // Daily files backup at 3 AM
+        $schedule->command('backup:files --path=storage')
+            ->dailyAt('03:00')
+            ->onFailure(function () {
+                \Log::error('Files backup failed');
+            });
     }
 
     /**

@@ -24,6 +24,23 @@ class AuthRepository extends BaseRepository
         $this->model = $user;
     }
 
+    public function getAuth(Request $request)
+    {
+        $user = $request->user();
+
+        if(!$user) {
+            return false;
+        }
+
+        $user->update([
+            'last_login_at' => Carbon::now(),
+        ]);
+
+        $user->getAllPermissions();
+        
+        return $user;
+    }
+
     public function login(String $email, String $password)
     {
         $user = $this->model->where('email', $email)->first();
@@ -32,10 +49,19 @@ class AuthRepository extends BaseRepository
             return false;
         }
 
+        if (in_array($user->status->value ?? $user->status, ['inactive', 'blocked'])) {
+            return false;
+        }
+
         Auth::login($user);
+
         $token = $user->createToken($user->email)->plainTextToken;
 
         $user->getAllPermissions();
+
+        $user->update([
+            'last_login_at' => Carbon::now(),
+        ]);
 
         return ['user' => $user, 'token' => $token];
     }
@@ -48,7 +74,11 @@ class AuthRepository extends BaseRepository
 
     public function resetPassword(Request $request): Bool
     {
-        $isValid = DB::table('password_resets')->where(['email' => $request->email, 'token' => $request->token])->first();
+        $isValid = DB::table('password_reset_tokens')
+            ->where(['email' => $request->email, 'token' => $request->token])
+            ->where('created_at', '>=', Carbon::now()->subMinutes(60))
+            ->first();
+
         $user = $this->model->where('email', $request->email)->first();
 
         if(!$isValid || !$user)
@@ -58,7 +88,7 @@ class AuthRepository extends BaseRepository
         $saved = $user->save();
 
         if($saved)
-            DB::table('password_resets')->where(['email'=> $request->email])->delete();
+            DB::table('password_reset_tokens')->where(['email'=> $request->email])->delete();
 
         return $saved;
     }
@@ -67,7 +97,10 @@ class AuthRepository extends BaseRepository
     {
         $token = Str::random(64);
 
-        DB::table('password_resets')->insert([
+        // Delete existing token if exists (since email is primary key)
+        DB::table('password_reset_tokens')->where('email', $data['email'])->delete();
+
+        DB::table('password_reset_tokens')->insert([
             'email' => $data['email'],
             'token' => $token,
             'created_at' => Carbon::now()

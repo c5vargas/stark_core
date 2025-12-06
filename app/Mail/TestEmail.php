@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-
+use Illuminate\Mail\Mailables\Address;
 class TestEmail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -17,6 +17,9 @@ class TestEmail extends Mailable
     public $actualDate;
     public $appLogo;
     public $appName;
+    public $mailFromAddress;
+    public $mailFromName;
+    public $appColor;
 
     /**
      * Create a new message instance.
@@ -25,7 +28,10 @@ class TestEmail extends Mailable
     {
         $this->actualDate = Carbon::now()->toFormattedDateString();
         $this->appName =  Setting::name();
+        $this->mailFromAddress =  Setting::mailFromAddress();
+        $this->mailFromName =  Setting::mailFromName();
         $this->appLogo = Setting::logo();
+        $this->appColor = Setting::color();
     }
 
     /**
@@ -34,6 +40,7 @@ class TestEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            from: new Address("{$this->mailFromAddress}", "{$this->mailFromName}"),
             subject: "{$this->appName}: Test Email",
         );
     }

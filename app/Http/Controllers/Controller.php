@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller as BaseController;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
@@ -90,6 +91,19 @@ class Controller extends BaseController
     {
         $collection = new Collection($item, $this->transformer);
         $collectionTransformed = $this->fractal->createData($collection)->toArray();
+
+        // Si es un LengthAwarePaginator, agregar metadata de paginación
+        if ($item instanceof LengthAwarePaginator) {
+            $collectionTransformed['meta'] = [
+                'pagination' => [
+                    'total' => $item->total(),
+                    'count' => $item->count(),
+                    'per_page' => $item->perPage(),
+                    'current_page' => $item->currentPage(),
+                    'total_pages' => $item->lastPage(),
+                ],
+            ];
+        }
 
         $data = [
             'results' => $collectionTransformed,

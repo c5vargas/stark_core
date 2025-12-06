@@ -11,7 +11,10 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return (auth()->check() && auth()->user()->can('edit.settings'));
+        /** @var \App\Models\User|null $user */
+        $user = auth()->user();
+        
+        return (auth()->check() && $user->can('edit.settings'));
     }
 
     /**
@@ -24,12 +27,15 @@ class UpdateRequest extends FormRequest
         return [
             'app_name'                  => 'string|min:4|max:100',
             'app_descr'                 => 'string|max:150',
+            'app_logo'                  => 'string',
+            'app_favicon'               => 'string',
             'app_color'                 => 'string|max:100',
             'app_locale'                => 'string',
             'app_timezone'              => 'string',
             'app_translations'          => 'boolean',
             'analytics_property_id'     => 'nullable|string',
             'manager_measurement_id'    => 'nullable|string',
+            'account_key'                => 'nullable|file|mimes:json|max:2048',
             'maps_api_key'              => 'nullable|string',
             'mail_from_address'         => 'nullable|email',
             'mail_contact_address'      => 'nullable|email',

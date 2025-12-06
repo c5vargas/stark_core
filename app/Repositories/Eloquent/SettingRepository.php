@@ -20,12 +20,17 @@ class SettingRepository extends BaseRepository
 
     public function updateKey(array $data): bool
     {
-        $errored = false;
+        try {
+            foreach($data as $key => $value) {
+                $this->model->updateOrCreate(
+                    ['key' => $key],
+                    ['value' => $value]
+                );
+            }
 
-        foreach($data as $key => $value) {
-            $this->model->where('key', $key)->first()->update(['value' => $value]);
+            return true;
+        } catch (\Exception $e) {
+            return false;
         }
-
-        return !$errored;
     }
 }

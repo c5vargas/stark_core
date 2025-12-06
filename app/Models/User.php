@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\UserStatus;
+use App\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,10 +12,11 @@ use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasRoles;
+Use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -22,8 +25,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
+        'avatar',
+        'status',
+        'last_login_at',
+        'locale',
+        'metadata',
     ];
 
     /**
@@ -42,8 +51,11 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'status'            => UserStatus::class,
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'last_login_at'     => 'datetime',
+        'password'          => 'hashed',
+        'metadata'          => 'array',
     ];
 
     /**
@@ -54,16 +66,36 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is active.
+     */
+    public function isActive(): bool
+    {
+        return $this->status === UserStatus::ACTIVE;
+    }
+
+    /**
+     * Scope to filter only active users.
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    /**
      * The function retrieves all permissions that the currently authenticated user has.
      *
      */
     public function getAllPermissionsAttribute() {
+        /** @var \App\Models\User|null $user */
+        $user = Auth::user();
         $permissions = [];
-          foreach (Permission::all() as $permission) {
-            if (Auth::user()->can($permission->name)) {
-              $permissions[] = $permission->name;
+
+        foreach (Permission::all() as $permission) {
+            if ($user->can($permission->name)) {
+                $permissions[] = $permission->name;
             }
-          }
-          return $permissions;
+        }
+
+        return $permissions;
     }
 }

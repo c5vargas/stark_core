@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Api\User;
 
+use App\Enums\UserStatus;
 use App\Http\Requests\Api\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class CreateRequest extends FormRequest
 {
@@ -22,9 +24,14 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'      => 'string|min:4|max:100',
-            'email'     => 'required|email|unique:users',
-            'password'  => 'required|string|min:4',
+            'name'      => 'required|string|min:4|max:100',
+            'username'  => 'nullable|string|min:3|max:50|unique:users,username',
+            'email'     => 'required|email|unique:users,email',
+            'password'  => 'required|string|min:6',
+            'avatar'    => 'nullable|url|max:255',
+            'status'    => ['sometimes', new Enum(UserStatus::class)],
+            'locale'    => 'nullable|string|size:2',
+            'metadata'  => 'nullable|array',
         ];
     }
 }
