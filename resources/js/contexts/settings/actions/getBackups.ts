@@ -14,9 +14,7 @@ const getBackups = async (type: 'all' | 'database' | 'files' = 'all'): Promise<B
   try {
     const response = await client.get<{ results: { data: Backup[] }; status: number }>(
       '/api/backups',
-      {
-        params: { type },
-      }
+      { type }
     )
     return response.results.data
   } catch (error: unknown) {
