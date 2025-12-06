@@ -32,7 +32,7 @@ const TableFooter = ({
           <ArrowLeftIcon className="h-4 w-4" />
         </button>
 
-        <span className="inline-flex min-h-[2.5rem] min-w-[2.5rem] items-center justify-center rounded-full bg-violet-500 px-3 py-1 text-sm font-medium text-white">
+        <span className="inline-flex min-h-10 min-w-10 items-center justify-center rounded-full bg-violet-500 px-3 py-1 text-sm font-medium text-white">
           {page}
         </span>
 

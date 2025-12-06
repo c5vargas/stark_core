@@ -117,7 +117,7 @@ export const FilterIcon: React.FC<FilterIconProps> = ({ filter, value, onChange,
         ReactDOM.createPortal(
           <div
             ref={popoverRef}
-            className="fixed z-[1000] w-64 rounded-lg border border-gray-200 bg-white p-4 shadow-lg"
+            className="fixed z-1000 w-64 rounded-lg border border-gray-200 bg-white p-4 shadow-lg"
             style={{
               top: `${position.top}px`,
               left: `${position.left}px`,
