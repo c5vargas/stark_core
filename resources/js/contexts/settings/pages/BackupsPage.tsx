@@ -3,12 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Card } from '@/contexts/shared/components/ui/Card'
 import { Button } from '@/contexts/shared/components/Button'
+import { Badge } from '@/contexts/shared/components/ui/Badge'
+import { Tabs } from '@/contexts/shared/components/ui/Tabs'
+import { EmptyState } from '@/contexts/shared/components/ui/EmptyState'
+import TableComponent from '@/contexts/shared/components/table/TableComponent'
 import { InfoCard } from '../components/InfoCard'
 import getBackups, { Backup } from '../actions/getBackups'
 import createBackup from '../actions/createBackup'
 import deleteBackup from '../actions/deleteBackup'
 import { useAlert } from '@/contexts/shared/contexts/AlertContext'
-import Loading from '@/contexts/shared/components/Loading'
 
 const BackupsPage = () => {
   const { t } = useTranslation()
@@ -83,6 +86,16 @@ const BackupsPage = () => {
     }
   }
 
+  const tabs = [
+    { value: 'all', label: t('dashboard.settings.backups.all') },
+    { value: 'database', label: t('dashboard.settings.backups.database') },
+    { value: 'files', label: t('dashboard.settings.backups.files') },
+  ]
+
+  const handleTabChange = (value: string) => {
+    setBackupType(value as 'all' | 'database' | 'files')
+  }
+
   return (
     <div className="space-y-4">
       <InfoCard
@@ -94,32 +107,7 @@ const BackupsPage = () => {
 
       <Card>
         <div className="mb-4 flex items-center justify-between">
-          <div className="flex gap-2">
-            <button
-              onClick={() => setBackupType('all')}
-              className={`rounded px-4 py-2 ${
-                backupType === 'all' ? 'bg-gray-200 font-medium' : 'bg-gray-100'
-              }`}
-            >
-              {t('dashboard.settings.backups.all')}
-            </button>
-            <button
-              onClick={() => setBackupType('database')}
-              className={`rounded px-4 py-2 ${
-                backupType === 'database' ? 'bg-gray-200 font-medium' : 'bg-gray-100'
-              }`}
-            >
-              {t('dashboard.settings.backups.database')}
-            </button>
-            <button
-              onClick={() => setBackupType('files')}
-              className={`rounded px-4 py-2 ${
-                backupType === 'files' ? 'bg-gray-200 font-medium' : 'bg-gray-100'
-              }`}
-            >
-              {t('dashboard.settings.backups.files')}
-            </button>
-          </div>
+          <Tabs tabs={tabs} activeTab={backupType} onChange={handleTabChange} />
           <div className="flex gap-2">
             <Button
               onClick={() => handleCreateBackup('database')}
@@ -143,14 +131,18 @@ const BackupsPage = () => {
         </div>
 
         {isLoading ? (
-          <Loading />
+          <TableComponent loading={isLoading}>
+            <thead>
+              <tr>
+                <th></th>
+              </tr>
+            </thead>
+          </TableComponent>
         ) : backups.length === 0 ? (
-          <p className="py-8 text-center text-gray-500">
-            {t('dashboard.settings.backups.not_found')}
-          </p>
+          <EmptyState title={t('dashboard.settings.backups.not_found')} />
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <TableComponent loading={false}>
               <thead>
                 <tr className="border-b">
                   <th className="px-4 py-3 text-left">{t('dashboard.settings.backups.type')}</th>
@@ -168,9 +160,7 @@ const BackupsPage = () => {
                 {backups.map(backup => (
                   <tr key={`${backup.type}-${backup.filename}`} className="border-b">
                     <td className="px-4 py-3">
-                      <span className="rounded bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800">
-                        {backup.type}
-                      </span>
+                      <Badge variant="info">{backup.type}</Badge>
                     </td>
                     <td className="px-4 py-3 font-mono text-sm">{backup.filename}</td>
                     <td className="px-4 py-3">{backup.size}</td>
@@ -195,7 +185,7 @@ const BackupsPage = () => {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </TableComponent>
           </div>
         )}
       </Card>

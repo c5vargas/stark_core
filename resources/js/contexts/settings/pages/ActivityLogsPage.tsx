@@ -2,11 +2,15 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { Card } from '@/contexts/shared/components/ui/Card'
-import { InfoCard } from '../components/InfoCard'
-import getActivityLogs, { ActivityLog } from '../actions/getActivityLogs'
-import Loading from '@/contexts/shared/components/Loading'
+import { Badge, BadgeVariant } from '@/contexts/shared/components/ui/Badge'
+import { EmptyState } from '@/contexts/shared/components/ui/EmptyState'
+import { Label } from '@/contexts/shared/components/ui/form/Label'
 import { InputText } from '@/contexts/shared/components/ui/form/InputText'
 import { Select } from '@/contexts/shared/components/ui/form/Select'
+import TableComponent from '@/contexts/shared/components/table/TableComponent'
+import TableFooter from '@/contexts/shared/components/table/TableFooter'
+import { InfoCard } from '../components/InfoCard'
+import getActivityLogs, { ActivityLog } from '../actions/getActivityLogs'
 
 const ActivityLogsPage = () => {
   const { t } = useTranslation()
@@ -28,13 +32,16 @@ const ActivityLogsPage = () => {
       }),
   })
 
-  const getStatusColor = (action: string) => {
-    if (action === 'created') return 'bg-green-100 text-green-800'
-    if (action === 'updated') return 'bg-blue-100 text-blue-800'
-    if (action === 'deleted') return 'bg-red-100 text-red-800'
-    if (action === 'login') return 'bg-purple-100 text-purple-800'
-    if (action === 'logout') return 'bg-gray-100 text-gray-800'
-    return 'bg-gray-100 text-gray-800'
+  const getActionVariant = (action: string): BadgeVariant => {
+    if (action === 'created') return 'success'
+    if (action === 'updated') return 'info'
+    if (action === 'deleted') return 'error'
+    if (action === 'login' || action === 'logout') return 'default'
+    return 'default'
+  }
+
+  const handlePagination = (delta: number) => {
+    setPage(p => Math.max(1, p + delta))
   }
 
   return (
@@ -49,9 +56,7 @@ const ActivityLogsPage = () => {
       <Card>
         <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
           <div>
-            <label className="mb-1 block text-sm font-medium">
-              {t('dashboard.settings.activity_logs.search')}
-            </label>
+            <Label>{t('dashboard.settings.activity_logs.search')}</Label>
             <InputText
               type="text"
               placeholder={t('dashboard.settings.activity_logs.search_placeholder')}
@@ -60,9 +65,7 @@ const ActivityLogsPage = () => {
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium">
-              {t('dashboard.settings.activity_logs.action')}
-            </label>
+            <Label>{t('dashboard.settings.activity_logs.action')}</Label>
             <Select value={action} onChange={e => setAction(e.target.value)}>
               <option value="">{t('dashboard.settings.activity_logs.all_actions')}</option>
               <option value="created">
@@ -79,9 +82,7 @@ const ActivityLogsPage = () => {
             </Select>
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium">
-              {t('dashboard.settings.activity_logs.user_id')}
-            </label>
+            <Label>{t('dashboard.settings.activity_logs.user_id')}</Label>
             <InputText
               type="number"
               placeholder={t('dashboard.settings.activity_logs.user_filter')}
@@ -90,9 +91,7 @@ const ActivityLogsPage = () => {
             />
           </div>
           <div>
-            <label className="mb-1 block text-sm font-medium">
-              {t('dashboard.settings.activity_logs.per_page')}
-            </label>
+            <Label>{t('dashboard.settings.activity_logs.per_page')}</Label>
             <Select value={perPage} onChange={e => setPerPage(parseInt(e.target.value))}>
               <option value="10">10</option>
               <option value="15">15</option>
@@ -103,115 +102,96 @@ const ActivityLogsPage = () => {
         </div>
 
         {isLoading ? (
-          <Loading />
+          <TableComponent loading={isLoading}>
+            <thead>
+              <tr>
+                <th></th>
+              </tr>
+            </thead>
+          </TableComponent>
         ) : logs.length === 0 ? (
-          <p className="py-8 text-center text-gray-500">
-            {t('dashboard.settings.activity_logs.not_found')}
-          </p>
+          <EmptyState title={t('dashboard.settings.activity_logs.not_found')} />
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b">
-                  <th className="px-4 py-3 text-left">
-                    {t('dashboard.settings.activity_logs.id')}
-                  </th>
-                  <th className="px-4 py-3 text-left">
-                    {t('dashboard.settings.activity_logs.user')}
-                  </th>
-                  <th className="px-4 py-3 text-left">
-                    {t('dashboard.settings.activity_logs.action')}
-                  </th>
-                  <th className="px-4 py-3 text-left">
-                    {t('dashboard.settings.activity_logs.description')}
-                  </th>
-                  <th className="px-4 py-3 text-left">
-                    {t('dashboard.settings.activity_logs.model')}
-                  </th>
-                  <th className="px-4 py-3 text-left">
-                    {t('dashboard.settings.activity_logs.ip_address')}
-                  </th>
-                  <th className="px-4 py-3 text-left">
-                    {t('dashboard.settings.activity_logs.date')}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {logs.map((log: ActivityLog) => (
-                  <tr key={log.id} className="border-b">
-                    <td className="px-4 py-3">#{log.id}</td>
-                    <td className="px-4 py-3">
-                      {log.user ? (
-                        <div>
-                          <div className="font-medium">{log.user.name}</div>
-                          <div className="text-xs text-gray-500">{log.user.email}</div>
-                        </div>
-                      ) : (
-                        <span className="text-gray-400">
-                          {t('dashboard.settings.activity_logs.system')}
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`rounded px-2 py-1 text-xs font-medium ${getStatusColor(log.action)}`}
-                      >
-                        {log.action}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3">{log.description}</td>
-                    <td className="px-4 py-3">
-                      {log.model_type ? (
-                        <div>
-                          <div className="text-sm font-medium">
-                            {log.model_type.split('\\').pop()}
-                          </div>
-                          {log.model_id && (
-                            <div className="text-xs text-gray-500">ID: {log.model_id}</div>
-                          )}
-                        </div>
-                      ) : (
-                        <span className="text-gray-400">-</span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3 font-mono text-xs">{log.ip_address || '-'}</td>
-                    <td className="px-4 py-3 text-sm">
-                      {new Date(log.created_at).toLocaleString()}
-                    </td>
+          <>
+            <div className="overflow-x-auto">
+              <TableComponent loading={false}>
+                <thead>
+                  <tr className="border-b">
+                    <th className="px-4 py-3 text-left">
+                      {t('dashboard.settings.activity_logs.id')}
+                    </th>
+                    <th className="px-4 py-3 text-left">
+                      {t('dashboard.settings.activity_logs.user')}
+                    </th>
+                    <th className="px-4 py-3 text-left">
+                      {t('dashboard.settings.activity_logs.action')}
+                    </th>
+                    <th className="px-4 py-3 text-left">
+                      {t('dashboard.settings.activity_logs.description')}
+                    </th>
+                    <th className="px-4 py-3 text-left">
+                      {t('dashboard.settings.activity_logs.model')}
+                    </th>
+                    <th className="px-4 py-3 text-left">
+                      {t('dashboard.settings.activity_logs.ip_address')}
+                    </th>
+                    <th className="px-4 py-3 text-left">
+                      {t('dashboard.settings.activity_logs.date')}
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {logs.map((log: ActivityLog) => (
+                    <tr key={log.id} className="border-b">
+                      <td className="px-4 py-3">#{log.id}</td>
+                      <td className="px-4 py-3">
+                        {log.user ? (
+                          <div>
+                            <div className="font-medium">{log.user.name}</div>
+                            <div className="text-xs text-gray-500">{log.user.email}</div>
+                          </div>
+                        ) : (
+                          <span className="text-gray-400">
+                            {t('dashboard.settings.activity_logs.system')}
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3">
+                        <Badge variant={getActionVariant(log.action)}>{log.action}</Badge>
+                      </td>
+                      <td className="px-4 py-3">{log.description}</td>
+                      <td className="px-4 py-3">
+                        {log.model_type ? (
+                          <div>
+                            <div className="text-sm font-medium">
+                              {log.model_type.split('\\').pop()}
+                            </div>
+                            {log.model_id && (
+                              <div className="text-xs text-gray-500">ID: {log.model_id}</div>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-gray-400">-</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 font-mono text-xs">{log.ip_address || '-'}</td>
+                      <td className="px-4 py-3 text-sm">
+                        {new Date(log.created_at).toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </TableComponent>
+            </div>
+            <TableFooter
+              page={page}
+              onPageChange={handlePagination}
+              hasNextPage={logs.length >= perPage}
+              total={logs.length}
+              showing={logs.length}
+            />
+          </>
         )}
-
-        <div className="mt-4 flex items-center justify-between">
-          <div className="text-sm text-gray-600">
-            {t('dashboard.settings.activity_logs.showing', {
-              count: logs.length,
-              total: logs.length,
-            })}
-          </div>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setPage(p => Math.max(1, p - 1))}
-              disabled={page === 1}
-              className="rounded bg-gray-200 px-4 py-2 disabled:opacity-50"
-            >
-              {t('dashboard.settings.activity_logs.previous')}
-            </button>
-            <span className="flex items-center px-4">
-              {t('dashboard.settings.activity_logs.page')} {page}
-            </span>
-            <button
-              onClick={() => setPage(p => p + 1)}
-              disabled={logs.length < perPage}
-              className="rounded bg-gray-200 px-4 py-2 disabled:opacity-50"
-            >
-              {t('dashboard.settings.activity_logs.next')}
-            </button>
-          </div>
-        </div>
       </Card>
     </div>
   )

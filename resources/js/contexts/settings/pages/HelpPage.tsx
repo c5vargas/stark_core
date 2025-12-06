@@ -3,9 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { Card } from '@/contexts/shared/components/ui/Card'
 import { Button } from '@/contexts/shared/components/Button'
+import { Badge, BadgeVariant } from '@/contexts/shared/components/ui/Badge'
+import { ProgressBar } from '@/contexts/shared/components/ui/ProgressBar'
+import { EmptyState } from '@/contexts/shared/components/ui/EmptyState'
+import Loading from '@/contexts/shared/components/Loading'
 import { InfoCard } from '../components/InfoCard'
 import getHealth from '../actions/getHealth'
-import Loading from '@/contexts/shared/components/Loading'
 
 const HelpPage = () => {
   const { t } = useTranslation()
@@ -17,11 +20,11 @@ const HelpPage = () => {
     refetchInterval: 30000, // Refetch every 30 seconds
   })
 
-  const getStatusColor = (status: string) => {
-    if (status === 'healthy') return 'bg-green-100 text-green-800'
-    if (status === 'warning') return 'bg-yellow-100 text-yellow-800'
-    if (status === 'unhealthy') return 'bg-red-100 text-red-800'
-    return 'bg-gray-100 text-gray-800'
+  const getStatusVariant = (status: string): BadgeVariant => {
+    if (status === 'healthy') return 'success'
+    if (status === 'warning') return 'warning'
+    if (status === 'unhealthy') return 'error'
+    return 'default'
   }
 
   const getStatusIcon = (status: string) => {
@@ -72,17 +75,17 @@ const HelpPage = () => {
         </div>
 
         {isLoading ? (
-          <Loading />
+          <div className="flex min-h-[300px] items-center justify-center">
+            <Loading />
+          </div>
         ) : health ? (
           <div className="space-y-4">
             <div className="rounded-lg border p-4">
               <div className="mb-2 flex items-center justify-between">
                 <span className="font-medium">{t('dashboard.settings.help.overall_status')}</span>
-                <span
-                  className={`rounded px-3 py-1 text-sm font-medium ${getStatusColor(health.status)}`}
-                >
+                <Badge variant={getStatusVariant(health.status)} className="px-3 py-1 text-sm">
                   {getStatusIcon(health.status)} {health.status.toUpperCase()}
-                </span>
+                </Badge>
               </div>
               <div className="text-sm text-gray-600">
                 {t('dashboard.settings.help.last_checked')}{' '}
@@ -95,36 +98,21 @@ const HelpPage = () => {
                 <div key={key} className="rounded-lg border p-4">
                   <div className="mb-2 flex items-center justify-between">
                     <span className="font-medium capitalize">{key.replace('_', ' ')}</span>
-                    <span
-                      className={`rounded px-2 py-1 text-xs font-medium ${getStatusColor(check.status)}`}
-                    >
+                    <Badge variant={getStatusVariant(check.status)}>
                       {getStatusIcon(check.status)} {check.status}
-                    </span>
+                    </Badge>
                   </div>
                   <p className="text-sm text-gray-600">{check.message}</p>
                   {check.usage_percent !== undefined && (
-                    <div className="mt-2">
-                      <div className="mb-1 flex justify-between text-xs">
-                        <span>
-                          {t('dashboard.settings.help.usage')} {check.usage_percent.toFixed(2)}%
-                        </span>
-                        <span>
-                          {check.used} / {check.total}
-                        </span>
-                      </div>
-                      <div className="h-2 w-full rounded-full bg-gray-200">
-                        <div
-                          className={`h-2 rounded-full ${
-                            check.usage_percent > 90
-                              ? 'bg-red-500'
-                              : check.usage_percent > 70
-                                ? 'bg-yellow-500'
-                                : 'bg-green-500'
-                          }`}
-                          style={{ width: `${check.usage_percent}%` }}
-                        />
-                      </div>
-                    </div>
+                    <ProgressBar
+                      value={check.usage_percent}
+                      max={100}
+                      label={t('dashboard.settings.help.usage')}
+                      showValues={true}
+                      used={check.used}
+                      total={check.total}
+                      className="mt-2"
+                    />
                   )}
                 </div>
               ))}
@@ -163,9 +151,7 @@ const HelpPage = () => {
             </div>
           </div>
         ) : (
-          <p className="py-8 text-center text-gray-500">
-            {t('dashboard.settings.help.unable_to_load')}
-          </p>
+          <EmptyState title={t('dashboard.settings.help.unable_to_load')} />
         )}
       </Card>
     </div>
