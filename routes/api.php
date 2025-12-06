@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HealthController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OneSignalController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\RoleController;
@@ -24,6 +27,7 @@ use Illuminate\Support\Facades\Route;
 // Public routes (no authentication required)
 Route::middleware(['apply_locale'])->group(function () {
     Route::get('public/settings', [PublicController::class, 'getPublicSettings'])->name('public.settings');
+    Route::get('health', [HealthController::class, 'index'])->name('health');
 });
 
 Route::prefix('auth')->middleware(['apply_locale'])->group(function () {
@@ -82,6 +86,20 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
         Route::get('/overview', [AnalyticsController::class, 'overview']);
         Route::get('/traffic', [AnalyticsController::class, 'traffic']);
         Route::get('/top-pages', [AnalyticsController::class, 'topPages']);
+    });
+
+    Route::prefix('activity-logs')->group(function () {
+        Route::get('', [ActivityLogController::class, 'index']);
+        Route::get('/{id}', [ActivityLogController::class, 'show']);
+    });
+
+    Route::prefix('in-app-notifications')->group(function () {
+        Route::get('', [NotificationController::class, 'index']);
+        Route::get('/unread-count', [NotificationController::class, 'unreadCount']);
+        Route::post('/{id}/read', [NotificationController::class, 'markAsRead']);
+        Route::post('/read-all', [NotificationController::class, 'markAllAsRead']);
+        Route::delete('/{id}', [NotificationController::class, 'delete']);
+        Route::delete('', [NotificationController::class, 'deleteAll']);
     });
 });
 

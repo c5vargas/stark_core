@@ -9,6 +9,7 @@ use App\Http\Requests\Api\Authentication\RegisterRequest;
 use App\Http\Requests\Api\Authentication\ResetPasswordRequest;
 use App\Http\Requests\Api\Authentication\UpdateUserRequest;
 use App\Http\Transformers\UserTransformer;
+use App\Models\ActivityLog;
 use App\Repositories\Eloquent\AuthRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -65,13 +66,40 @@ class AuthController extends Controller
         }
 
         RateLimiter::clear($this->throttleKey());
+        
+        // Log login activity
+        if ($result['user']) {
+            ActivityLog::create([
+                'user_id' => $result['user']->id,
+                'action' => 'login',
+                'model_type' => get_class($result['user']),
+                'model_id' => $result['user']->id,
+                'description' => "User logged in",
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+            ]);
+        }
+        
         return $this->respondWithArray($result);
     }
 
     public function logout(Request $request)
     {
         $user = $request->user();
-        if($user) $user->token()->revoke();
+        if($user) {
+            $user->token()->revoke();
+            
+            // Log logout activity
+            ActivityLog::create([
+                'user_id' => $user->id,
+                'action' => 'logout',
+                'model_type' => get_class($user),
+                'model_id' => $user->id,
+                'description' => "User logged out",
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+            ]);
+        }
 
         return $this->respondWithMessage( __('messages.controller.auth.logout'));
     }
