@@ -48,6 +48,11 @@ const getActivityLogs = async (
       })
     }
 
+    // Agregar búsqueda semántica
+    if (params.query) {
+      queryParams.query = params.query
+    }
+
     const response = await client.get<HTTPPaginatedResponse<ActivityLog>>(
       '/api/activity-logs',
       queryParams

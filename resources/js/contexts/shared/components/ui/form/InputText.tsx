@@ -1,3 +1,5 @@
+import clsx from 'clsx'
+
 type InputTextProps = React.InputHTMLAttributes<HTMLInputElement>
 
 export const InputText: React.FC<InputTextProps> = props => {
@@ -7,7 +9,7 @@ export const InputText: React.FC<InputTextProps> = props => {
     <input
       {...props}
       value={normalizedValue}
-      className={`h-[42px] w-full rounded border px-3 ${props.className ?? ''}`}
+      className={clsx('h-[42px] w-full rounded border px-3', props.className)}
     />
   )
 }

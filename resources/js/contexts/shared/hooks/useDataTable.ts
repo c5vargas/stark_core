@@ -1,10 +1,11 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import {
   DataTableConfig,
   DataTableParams,
   DataTableResponse,
 } from '@/contexts/shared/libs/dataTable/types'
+import useDebounce from '@/contexts/shared/hooks/useDebounce'
 
 export const useDataTable = <T>(config: DataTableConfig<T>) => {
   const [page, setPage] = useState(1)
@@ -12,26 +13,33 @@ export const useDataTable = <T>(config: DataTableConfig<T>) => {
   const [filters, setFilters] = useState<Record<string, string | number | null>>({})
   const [sortBy, setSortBy] = useState<string | undefined>(config.defaultSortBy)
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>(config.defaultSortOrder ?? 'desc')
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const debouncedQuery = useDebounce(searchQuery, 400)
 
-  const params: DataTableParams = {
-    page,
-    perPage,
-    sortBy,
-    sortOrder,
-    filters: Object.keys(filters).reduce(
-      (acc, key) => {
-        if (filters[key] !== null && filters[key] !== '') {
-          acc[key] = filters[key]
-        }
-        return acc
-      },
-      {} as Record<string, string | number>
-    ),
-  }
+  const params: DataTableParams = useMemo(
+    () => ({
+      page,
+      perPage,
+      sortBy,
+      sortOrder,
+      filters: Object.keys(filters).reduce(
+        (acc, key) => {
+          if (filters[key] !== null && filters[key] !== '') {
+            acc[key] = filters[key]
+          }
+          return acc
+        },
+        {} as Record<string, string | number>
+      ),
+      query: debouncedQuery || undefined,
+    }),
+    [page, perPage, sortBy, sortOrder, filters, debouncedQuery]
+  )
 
-  const { data, isLoading, error, refetch } = useQuery<DataTableResponse<T>>({
-    queryKey: [config.endpoint, page, perPage, sortBy, sortOrder, filters, params],
+  const { data, isLoading, isFetching, error, refetch } = useQuery<DataTableResponse<T>>({
+    queryKey: [config.endpoint, params],
     queryFn: () => config.queryFn(params),
+    placeholderData: previousData => previousData, // Mantener datos anteriores mientras se carga para evitar parpadeo
   })
 
   const handlePageChange = useCallback((delta: number) => {
@@ -65,8 +73,14 @@ export const useDataTable = <T>(config: DataTableConfig<T>) => {
     [sortBy]
   )
 
+  const handleSearch = useCallback((query: string) => {
+    setSearchQuery(query)
+    setPage(1) // Reset a la primera página cuando se cambia la búsqueda
+  }, [])
+
   const resetFilters = useCallback(() => {
     setFilters({})
+    setSearchQuery('')
     setPage(1)
   }, [])
 
@@ -75,6 +89,7 @@ export const useDataTable = <T>(config: DataTableConfig<T>) => {
   return {
     data: data?.data ?? [],
     isLoading,
+    isFetching,
     error,
     pagination: pagination
       ? {
@@ -90,10 +105,12 @@ export const useDataTable = <T>(config: DataTableConfig<T>) => {
     page,
     perPage,
     filters,
+    searchQuery,
     sortBy,
     sortOrder,
     handlePageChange,
     handleFilterChange,
+    handleSearch,
     handleSort,
     resetFilters,
     refetch,

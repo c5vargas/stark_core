@@ -37,6 +37,7 @@ export interface DataTableParams {
   sortBy?: string
   sortOrder?: 'asc' | 'desc'
   filters?: Record<string, string | number | null>
+  query?: string // Búsqueda semántica
 }
 
 export interface PaginationMeta {

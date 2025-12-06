@@ -5,6 +5,8 @@ import TableComponent from './TableComponent'
 import TableFooter from './TableFooter'
 import { EmptyState } from '@/contexts/shared/components/ui/EmptyState'
 import { ArrowUpIcon, ArrowDownIcon } from '../HugeIcons'
+import { InputText } from '@/contexts/shared/components/ui/form/InputText'
+import { SearchIcon } from '@/contexts/shared/components/Icons'
 
 interface DataTableProps<T> {
   config: DataTableConfig<T>
@@ -13,13 +15,15 @@ interface DataTableProps<T> {
 export const DataTable = <T,>({ config }: DataTableProps<T>) => {
   const {
     data,
-    isLoading,
+    isFetching,
     pagination,
     filters,
+    searchQuery,
     sortBy,
     sortOrder,
     handlePageChange,
     handleFilterChange,
+    handleSearch,
     handleSort,
   } = useDataTable<T>(config)
 
@@ -46,22 +50,23 @@ export const DataTable = <T,>({ config }: DataTableProps<T>) => {
     )
   }
 
-  if (isLoading) {
-    return (
-      <TableComponent loading={isLoading}>
-        <thead>
-          <tr>
-            <th></th>
-          </tr>
-        </thead>
-      </TableComponent>
-    )
-  }
-
   return (
     <>
+      <div className="mb-4">
+        <div className="relative max-w-[200px]">
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+            <SearchIcon className="h-5 w-5 text-gray-400" />
+          </div>
+          <InputText
+            type="text"
+            value={searchQuery}
+            onChange={e => handleSearch(e.target.value)}
+            placeholder="Buscar..."
+          />
+        </div>
+      </div>
       <div className="overflow-x-auto">
-        <TableComponent loading={false}>
+        <TableComponent loading={isFetching}>
           <thead>
             <tr className="border-b">
               {config.columns.map(column => (
@@ -100,7 +105,7 @@ export const DataTable = <T,>({ config }: DataTableProps<T>) => {
                 </td>
               </tr>
             ) : (
-              data.map((item, index) => (
+              data.map((item: T, index: number) => (
                 <tr key={index} className="border-b">
                   {config.columns.map(column => (
                     <td key={column.key} className={`px-4 py-3 ${column.className ?? ''}`}>
