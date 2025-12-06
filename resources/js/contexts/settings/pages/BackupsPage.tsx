@@ -151,39 +151,40 @@ const BackupsPage = () => {
       </InfoCard>
 
       <Card>
-        <div className="mb-4 flex items-center justify-end">
-          <div className="flex gap-2">
-            <Button
-              variant="ghost"
-              onClick={() => handleCreateBackup('database')}
-              disabled={createMutation.isPending}
-            >
-              {createMutation.isPending
-                ? t('dashboard.settings.backups.creating')
-                : t('dashboard.settings.backups.create_database')}
-            </Button>
-            <Button
-              variant="ghost"
-              onClick={() => handleCreateBackup('files')}
-              disabled={createMutation.isPending}
-            >
-              {createMutation.isPending
-                ? t('dashboard.settings.backups.creating')
-                : t('dashboard.settings.backups.create_files')}
-            </Button>
-            <Button
-              variant="ghost"
-              onClick={() => handleCreateBackup('both')}
-              disabled={createMutation.isPending}
-            >
-              {createMutation.isPending
-                ? t('dashboard.settings.backups.creating')
-                : t('dashboard.settings.backups.create_both')}
-            </Button>
-          </div>
-        </div>
-
-        <DataTable config={config} />
+        <DataTable
+          config={config}
+          headerActions={
+            <>
+              <Button
+                variant="ghost"
+                onClick={() => handleCreateBackup('database')}
+                disabled={createMutation.isPending}
+              >
+                {createMutation.isPending
+                  ? t('dashboard.settings.backups.creating')
+                  : t('dashboard.settings.backups.create_database')}
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => handleCreateBackup('files')}
+                disabled={createMutation.isPending}
+              >
+                {createMutation.isPending
+                  ? t('dashboard.settings.backups.creating')
+                  : t('dashboard.settings.backups.create_files')}
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => handleCreateBackup('both')}
+                disabled={createMutation.isPending}
+              >
+                {createMutation.isPending
+                  ? t('dashboard.settings.backups.creating')
+                  : t('dashboard.settings.backups.create_both')}
+              </Button>
+            </>
+          }
+        />
       </Card>
     </div>
   )

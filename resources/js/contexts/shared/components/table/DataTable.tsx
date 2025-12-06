@@ -10,9 +10,10 @@ import { SearchIcon } from '@/contexts/shared/components/Icons'
 
 interface DataTableProps<T> {
   config: DataTableConfig<T>
+  headerActions?: React.ReactNode
 }
 
-export const DataTable = <T,>({ config }: DataTableProps<T>) => {
+export const DataTable = <T,>({ config, headerActions }: DataTableProps<T>) => {
   const {
     data,
     isFetching,
@@ -52,7 +53,7 @@ export const DataTable = <T,>({ config }: DataTableProps<T>) => {
 
   return (
     <>
-      <div className="mb-4">
+      <div className="mb-4 flex items-center justify-between gap-4">
         <div className="relative max-w-[200px]">
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
             <SearchIcon className="h-5 w-5 text-gray-400" />
@@ -64,6 +65,7 @@ export const DataTable = <T,>({ config }: DataTableProps<T>) => {
             placeholder="Buscar..."
           />
         </div>
+        {headerActions && <div className="flex items-center gap-2">{headerActions}</div>}
       </div>
       <div className="overflow-x-auto">
         <TableComponent loading={isFetching}>
