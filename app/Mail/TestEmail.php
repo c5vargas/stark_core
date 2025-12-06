@@ -19,6 +19,7 @@ class TestEmail extends Mailable
     public $appName;
     public $mailFromAddress;
     public $mailFromName;
+    public $appColor;
 
     /**
      * Create a new message instance.
@@ -29,8 +30,8 @@ class TestEmail extends Mailable
         $this->appName =  Setting::name();
         $this->mailFromAddress =  Setting::mailFromAddress();
         $this->mailFromName =  Setting::mailFromName();
-        $this->appName =  Setting::name();
         $this->appLogo = Setting::logo();
+        $this->appColor = Setting::color();
     }
 
     /**

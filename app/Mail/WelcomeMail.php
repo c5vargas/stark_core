@@ -19,6 +19,7 @@ class WelcomeMail extends Mailable
     public $appLogo;
     public $appUrl;
     public $actualDate;
+    public $appColor;
 
     public $password;
     public $fromUser;
@@ -33,6 +34,7 @@ class WelcomeMail extends Mailable
         $this->appUrl = config('app.url');
         $this->toUser = $user;
         $this->actualDate = Carbon::now()->toFormattedDateString();
+        $this->appColor = Setting::color();
     }
 
     /**

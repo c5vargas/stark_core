@@ -20,6 +20,7 @@ class ResetPasswordMail extends Mailable
     public $appUrl;
     public $actualDate;
     public $token;
+    public $appColor;
 
     /**
      * Create a new message instance.
@@ -32,6 +33,7 @@ class ResetPasswordMail extends Mailable
         $this->toUser = $user;
         $this->actualDate = Carbon::now()->toFormattedDateString();
         $this->token = $token;
+        $this->appColor = Setting::color();
     }
 
     /**

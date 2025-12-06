@@ -54,4 +54,9 @@ class Setting extends Model
     {
         return $query->where('key', 'mail_from_name')->first()->value;
     }
+
+    public function scopeColor($query)
+    {
+        return $query->where('key', 'app_color')->first()?->value ?? '#ff2919';
+    }
 }
