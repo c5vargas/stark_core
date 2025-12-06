@@ -3,7 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\ActivityLog;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ActivityLogRepository extends BaseRepository
 {
@@ -22,7 +22,7 @@ class ActivityLogRepository extends BaseRepository
     /**
      * Paginate activity logs with filters.
      */
-    public function paginate(array $params): Collection
+    public function paginate(array $params): LengthAwarePaginator
     {
         $query = $this->model->query()->with('user');
 
@@ -57,12 +57,10 @@ class ActivityLogRepository extends BaseRepository
         $query->orderBy($sortBy, $sortOrder);
 
         // Pagination
-        if (isset($params['page']) && isset($params['perPage'])) {
-            $perPage = $params['perPage'] ?? 15;
-            $query->skip(($params['page'] - 1) * $perPage)->take($perPage);
-        }
+        $perPage = $params['perPage'] ?? 15;
+        $page = $params['page'] ?? 1;
 
-        return $query->get();
+        return $query->paginate($perPage, ['*'], 'page', $page);
     }
 }
 

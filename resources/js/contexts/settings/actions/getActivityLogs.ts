@@ -1,6 +1,7 @@
 import client from '@/contexts/shared/libs/api/httpAxios'
 import handleHttpError from '@/contexts/shared/libs/handleHttpError'
-import { HTTPResultsResponse } from '@/contexts/shared/libs/types'
+import { HTTPPaginatedResponse } from '@/contexts/shared/libs/types'
+import { DataTableResponse, DataTableParams } from '@/contexts/shared/libs/dataTable/types'
 
 export interface ActivityLog {
   id: number
@@ -20,23 +21,42 @@ export interface ActivityLog {
   }
 }
 
-interface GetActivityLogsParams {
-  page?: number
-  perPage?: number
-  user_id?: number
-  action?: string
-  model_type?: string
-  query?: string
-  start_date?: string
-  end_date?: string
-}
-
-const getActivityLogs = async (params: GetActivityLogsParams = {}): Promise<ActivityLog[]> => {
+const getActivityLogs = async (
+  params: DataTableParams
+): Promise<DataTableResponse<ActivityLog>> => {
   try {
-    const response = await client.get<HTTPResultsResponse<ActivityLog[]>>('/api/activity-logs', {
-      params,
-    })
-    return response.results.data
+    // Construir query params para el backend
+    const queryParams: Record<string, unknown> = {
+      page: params.page,
+      perPage: params.perPage,
+    }
+
+    if (params.sortBy) {
+      queryParams.sortBy = params.sortBy
+    }
+
+    if (params.sortOrder) {
+      queryParams.sortOrder = params.sortOrder
+    }
+
+    // Agregar filtros
+    if (params.filters) {
+      Object.keys(params.filters).forEach(key => {
+        if (params.filters![key] !== null && params.filters![key] !== '') {
+          queryParams[key] = params.filters![key]
+        }
+      })
+    }
+
+    const response = await client.get<HTTPPaginatedResponse<ActivityLog>>(
+      '/api/activity-logs',
+      queryParams
+    )
+
+    return {
+      data: response.results.data,
+      meta: response.results.meta,
+    }
   } catch (error: unknown) {
     throw new Error(handleHttpError(error))
   }

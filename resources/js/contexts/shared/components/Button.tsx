@@ -147,7 +147,7 @@ export const Button: React.FC<
   const widthClass = fullWidth ? 'w-full justify-center' : ''
 
   const baseClasses =
-    'inline-flex items-center gap-2 font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed'
+    'inline-flex justify-center items-center gap-2 font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed'
 
   return (
     <button

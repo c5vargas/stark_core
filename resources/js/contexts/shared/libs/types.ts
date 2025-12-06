@@ -20,6 +20,24 @@ export interface HTTPResultsResponse<T> {
   status: number
 }
 
+export interface PaginationMeta {
+  total: number
+  count: number
+  per_page: number
+  current_page: number
+  total_pages: number
+}
+
+export interface HTTPPaginatedResponse<T> {
+  results: {
+    data: T[]
+    meta: {
+      pagination: PaginationMeta
+    }
+  }
+  status: number
+}
+
 export interface HTTPArrayResponse<T> {
   results: T
   status: number
