@@ -3,9 +3,10 @@ import React from 'react'
 type AlertVariant = 'error' | 'warning' | 'info' | 'success'
 
 interface AlertProps {
-  message: string
+  message?: string
   variant?: AlertVariant
   className?: string
+  children?: React.ReactNode
 }
 
 const VARIANT_CLASSES: Record<AlertVariant, string> = {
@@ -15,10 +16,15 @@ const VARIANT_CLASSES: Record<AlertVariant, string> = {
   success: 'bg-green-100 text-green-700 border border-green-300',
 }
 
-export const Alert: React.FC<AlertProps> = ({ message, variant = 'error', className = '' }) => {
+export const Alert: React.FC<AlertProps> = ({
+  message,
+  variant = 'error',
+  className = '',
+  children,
+}) => {
   return (
-    <div role="alert" className={`rounded-md p-3 text-sm ${VARIANT_CLASSES[variant]} ${className}`}>
-      {message}
+    <div role="alert" className={`rounded-md p-4 text-sm ${VARIANT_CLASSES[variant]} ${className}`}>
+      {children || message}
     </div>
   )
 }

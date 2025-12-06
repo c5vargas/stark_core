@@ -35,6 +35,7 @@ class UpdateRequest extends FormRequest
             'app_translations'          => 'boolean',
             'analytics_property_id'     => 'nullable|string',
             'manager_measurement_id'    => 'nullable|string',
+            'account_key'                => 'nullable|file|mimes:json|max:2048',
             'maps_api_key'              => 'nullable|string',
             'mail_from_address'         => 'nullable|email',
             'mail_contact_address'      => 'nullable|email',

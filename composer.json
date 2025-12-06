@@ -9,6 +9,7 @@
   "license": "MIT",
   "require": {
     "php": "^8.2",
+    "google/analytics-data": "^0.23.1",
     "guzzlehttp/guzzle": "^7.10.0",
     "laravel/framework": "^12.37.0",
     "laravel/sanctum": "^4.2.0",

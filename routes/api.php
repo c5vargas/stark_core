@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MediaController;
@@ -69,6 +70,12 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
         Route::post('', [OneSignalController::class, 'create']);
         Route::get('/{id}', [OneSignalController::class, 'show']);
         Route::delete('/{id}', [OneSignalController::class, 'delete']);
+    });
+
+    Route::prefix('analytics')->group(function () {
+        Route::get('/overview', [AnalyticsController::class, 'overview']);
+        Route::get('/traffic', [AnalyticsController::class, 'traffic']);
+        Route::get('/top-pages', [AnalyticsController::class, 'topPages']);
     });
 });
 

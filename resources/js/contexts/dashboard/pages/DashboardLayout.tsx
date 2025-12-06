@@ -1,4 +1,5 @@
 import { useAuthStore } from '@/contexts/auth/stores/authStore'
+import { AnalyticsTracker } from '@/contexts/shared/components/AnalyticsTracker'
 
 type Props = {
   children: React.ReactNode
@@ -10,8 +11,9 @@ const DashboardLayout = ({ children }: Props) => {
 
   return (
     <main>
+      <AnalyticsTracker />
       <div
-        className="min-h-75 relative flex items-center overflow-hidden rounded-2xl bg-cover bg-center p-0"
+        className="relative flex min-h-75 items-center overflow-hidden rounded-2xl bg-cover bg-center p-0"
         style={{
           backgroundImage: `url(${bgImage})`,
         }}
@@ -19,11 +21,11 @@ const DashboardLayout = ({ children }: Props) => {
         <span className="absolute inset-y-0 h-full w-full bg-gradient-to-tl from-purple-700 to-pink-500 bg-cover bg-center opacity-60"></span>
       </div>
 
-      <div className="shadow-blur relative mx-6 -mt-16 flex min-w-0 flex-auto flex-col overflow-hidden break-words rounded-2xl border-0 bg-white/80 bg-clip-border p-4 backdrop-blur-2xl backdrop-saturate-200">
+      <div className="shadow-blur relative mx-6 -mt-16 flex min-w-0 flex-auto flex-col overflow-hidden rounded-2xl border-0 bg-white/80 bg-clip-border p-4 break-words backdrop-blur-2xl backdrop-saturate-200">
         <div className="-mx-3 flex flex-wrap">
           <div className="w-auto max-w-full flex-none px-3">
-            <div className="ease-soft-in-out h-19 w-19 relative inline-flex items-center justify-center rounded-xl text-base text-white transition-all duration-200">
-              <span className="h-19 w-19 shadow-soft-sm flex w-full items-center justify-center rounded-xl bg-white bg-opacity-75 text-4xl font-bold uppercase text-gray-900">
+            <div className="ease-soft-in-out relative inline-flex h-19 w-19 items-center justify-center rounded-xl text-base text-white transition-all duration-200">
+              <span className="shadow-soft-sm bg-opacity-75 flex h-19 w-19 w-full items-center justify-center rounded-xl bg-white text-4xl font-bold text-gray-900 uppercase">
                 {user?.name.slice(0, 2)}
               </span>
             </div>
@@ -31,7 +33,7 @@ const DashboardLayout = ({ children }: Props) => {
           <div className="my-auto w-auto max-w-full flex-none px-3">
             <div className="h-full">
               <h5 className="mb-1">{user?.name}</h5>
-              <p className="mb-0 text-sm font-semibold leading-normal">{user?.email}</p>
+              <p className="mb-0 text-sm leading-normal font-semibold">{user?.email}</p>
             </div>
           </div>
           <div className="mx-auto mt-4 w-full max-w-full px-3 sm:my-auto sm:mr-0 md:w-1/2 md:flex-none lg:w-4/12">
