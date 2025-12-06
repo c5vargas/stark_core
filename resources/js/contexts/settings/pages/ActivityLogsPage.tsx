@@ -4,9 +4,6 @@ import { useQuery } from '@tanstack/react-query'
 import { Card } from '@/contexts/shared/components/ui/Card'
 import { Badge, BadgeVariant } from '@/contexts/shared/components/ui/Badge'
 import { EmptyState } from '@/contexts/shared/components/ui/EmptyState'
-import { Label } from '@/contexts/shared/components/ui/form/Label'
-import { InputText } from '@/contexts/shared/components/ui/form/InputText'
-import { Select } from '@/contexts/shared/components/ui/form/Select'
 import TableComponent from '@/contexts/shared/components/table/TableComponent'
 import TableFooter from '@/contexts/shared/components/table/TableFooter'
 import { InfoCard } from '../components/InfoCard'
@@ -15,20 +12,14 @@ import getActivityLogs, { ActivityLog } from '../actions/getActivityLogs'
 const ActivityLogsPage = () => {
   const { t } = useTranslation()
   const [page, setPage] = useState(1)
-  const [perPage, setPerPage] = useState(15)
-  const [action, setAction] = useState('')
-  const [userId, setUserId] = useState('')
-  const [query, setQuery] = useState('')
+  const perPage = 15
 
   const { data: logs = [], isLoading } = useQuery({
-    queryKey: ['activity-logs', page, perPage, action, userId, query],
+    queryKey: ['activity-logs', page, perPage],
     queryFn: () =>
       getActivityLogs({
         page,
         perPage,
-        action: action || undefined,
-        user_id: userId ? parseInt(userId) : undefined,
-        query: query || undefined,
       }),
   })
 
@@ -54,53 +45,6 @@ const ActivityLogsPage = () => {
       </InfoCard>
 
       <Card>
-        <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-4">
-          <div>
-            <Label>{t('dashboard.settings.activity_logs.search')}</Label>
-            <InputText
-              type="text"
-              placeholder={t('dashboard.settings.activity_logs.search_placeholder')}
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-            />
-          </div>
-          <div>
-            <Label>{t('dashboard.settings.activity_logs.action')}</Label>
-            <Select value={action} onChange={e => setAction(e.target.value)}>
-              <option value="">{t('dashboard.settings.activity_logs.all_actions')}</option>
-              <option value="created">
-                {t('dashboard.settings.activity_logs.action.created')}
-              </option>
-              <option value="updated">
-                {t('dashboard.settings.activity_logs.action.updated')}
-              </option>
-              <option value="deleted">
-                {t('dashboard.settings.activity_logs.action.deleted')}
-              </option>
-              <option value="login">{t('dashboard.settings.activity_logs.action.login')}</option>
-              <option value="logout">{t('dashboard.settings.activity_logs.action.logout')}</option>
-            </Select>
-          </div>
-          <div>
-            <Label>{t('dashboard.settings.activity_logs.user_id')}</Label>
-            <InputText
-              type="number"
-              placeholder={t('dashboard.settings.activity_logs.user_filter')}
-              value={userId}
-              onChange={e => setUserId(e.target.value)}
-            />
-          </div>
-          <div>
-            <Label>{t('dashboard.settings.activity_logs.per_page')}</Label>
-            <Select value={perPage} onChange={e => setPerPage(parseInt(e.target.value))}>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-            </Select>
-          </div>
-        </div>
-
         {isLoading ? (
           <TableComponent loading={isLoading}>
             <thead>
