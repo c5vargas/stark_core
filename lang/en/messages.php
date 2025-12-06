@@ -12,6 +12,20 @@
   'auth.login.motivation.h4' => 'Your tool, your success',
   'auth.login.motivation.p' => 'Your success starts here. Log in and start innovating.',
 
+  'auth.forgot_password.h4' => 'Forgot Password',
+  'auth.forgot_password.p' => 'Enter your email address and we will send you a link to reset your password.',
+  'auth.forgot_password.submit' => 'Send Reset Link',
+  'auth.forgot_password.link' => 'Forgot your password?',
+  'auth.forgot_password.success' => 'We have sent you an email with instructions to reset your password. Please check your inbox.',
+  'auth.forgot_password.back_to_login' => 'Back to login',
+
+  'auth.reset_password.h4' => 'Reset Password',
+  'auth.reset_password.p' => 'Enter your new password below.',
+  'auth.reset_password.submit' => 'Reset Password',
+  'auth.reset_password.password_confirmation' => 'Confirm Password',
+  'auth.reset_password.success' => 'Your password has been successfully reset. You will be redirected to the login page.',
+  'auth.reset_password.back_to_login' => 'Back to login',
+
   'buttons.add_new' => 'Add new',
   'buttons.delete' => 'Delete',
   'buttons.save_changes' => 'Save changes',
@@ -228,6 +242,14 @@
   'mail.welcome.message_6' => 'Your temporary password',
   'mail.welcome.message_7' => 'Sincerely, <br> :name.',
   'mail.welcome.link_1' => 'Click here to access',
+
+  'mail.reset_password.subject' => 'Reset Your Password - :app',
+  'mail.reset_password.message_1' => 'Hello :name,',
+  'mail.reset_password.message_2' => 'You are receiving this email because we received a password reset request for your account.',
+  'mail.reset_password.message_3' => 'Click the button below to reset your password:',
+  'mail.reset_password.message_4' => 'If you did not request a password reset, no further action is required.',
+  'mail.reset_password.message_5' => 'Sincerely,<br>:name',
+  'mail.reset_password.button' => 'Reset Password',
 
   'notice.title.app_name' => 'Application name',
   'notice.message.app_name' => 'You must configure a different name for your application',

@@ -7,6 +7,8 @@ import settingsRouter from '@/contexts/settings/router'
 
 const DashboardPage = lazy(() => import('@/contexts/dashboard/pages/DashboardPage'))
 const LoginPage = lazy(() => import('@/contexts/auth/pages/LoginPage'))
+const ForgotPasswordPage = lazy(() => import('@/contexts/auth/pages/ForgotPasswordPage'))
+const ResetPasswordPage = lazy(() => import('@/contexts/auth/pages/ResetPasswordPage'))
 const HomePage = lazy(() => import('@/contexts/landing/pages/HomePage'))
 
 const Router = createBrowserRouter([
@@ -24,6 +26,14 @@ const Router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />,
+      },
+      {
+        path: 'forgot-password',
+        element: <ForgotPasswordPage />,
+      },
+      {
+        path: 'reset-password',
+        element: <ResetPasswordPage />,
       },
     ],
   },

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-// use App\Events\WantResetPassword;
+use App\Events\WantResetPassword;
 use App\Http\Requests\Api\Authentication\ForgetPasswordRequest;
 use App\Http\Requests\Api\Authentication\LoginRequest;
 use App\Http\Requests\Api\Authentication\RegisterRequest;
@@ -110,7 +110,7 @@ class AuthController extends Controller
             throw new Exception(__('messages.controller.auth.email_failed'), 401);
         }
 
-        // WantResetPassword::dispatch($result['user'], $result['token']);
+        WantResetPassword::dispatch($result['user'], $result['token']);
 
         return $this->respondWithMessage( __('messages.controller.auth.forget_password'));
     }

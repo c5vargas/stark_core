@@ -74,7 +74,7 @@ class AuthRepository extends BaseRepository
 
     public function resetPassword(Request $request): Bool
     {
-        $isValid = DB::table('password_resets')
+        $isValid = DB::table('password_reset_tokens')
             ->where(['email' => $request->email, 'token' => $request->token])
             ->where('created_at', '>=', Carbon::now()->subMinutes(60))
             ->first();
@@ -88,7 +88,7 @@ class AuthRepository extends BaseRepository
         $saved = $user->save();
 
         if($saved)
-            DB::table('password_resets')->where(['email'=> $request->email])->delete();
+            DB::table('password_reset_tokens')->where(['email'=> $request->email])->delete();
 
         return $saved;
     }
@@ -97,7 +97,10 @@ class AuthRepository extends BaseRepository
     {
         $token = Str::random(64);
 
-        DB::table('password_resets')->insert([
+        // Delete existing token if exists (since email is primary key)
+        DB::table('password_reset_tokens')->where('email', $data['email'])->delete();
+
+        DB::table('password_reset_tokens')->insert([
             'email' => $data['email'],
             'token' => $token,
             'created_at' => Carbon::now()

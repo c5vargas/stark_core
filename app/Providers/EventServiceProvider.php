@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\UserSignedUp;
+use App\Events\WantResetPassword;
 use App\Listeners\SendWelcomeMail;
+use App\Listeners\SendResetPasswordMail;
 use App\Models\User;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
@@ -23,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserSignedUp::class => [
             SendWelcomeMail::class,
+        ],
+        WantResetPassword::class => [
+            SendResetPasswordMail::class,
         ],
     ];
 

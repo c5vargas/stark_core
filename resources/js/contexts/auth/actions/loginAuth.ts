@@ -14,7 +14,10 @@ const loginAuth = async (
 ): Promise<HTTPArrayResponse<LoginResponse>> => {
   try {
     const formData = formatPayload(credentials)
-    const response = await client.post<HTTPArrayResponse<LoginResponse>>('api/auth/login', formData)
+    const response = await client.post<HTTPArrayResponse<LoginResponse>>(
+      '/api/auth/login',
+      formData
+    )
     return response
   } catch (error: unknown) {
     throw new Error(handleHttpError(error))
