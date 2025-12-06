@@ -49,3 +49,19 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
     </button>
   )
 }
+
+// Simple Button component for flexible use
+export const Button: React.FC<
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    children: React.ReactNode
+  }
+> = ({ children, className = '', ...props }) => {
+  return (
+    <button
+      className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  )
+}

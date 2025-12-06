@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BackupController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MediaController;
@@ -88,6 +89,8 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
         Route::get('/top-pages', [AnalyticsController::class, 'topPages']);
     });
 
+    Route::get('health', [HealthController::class, 'index'])->name('health.authenticated');
+
     Route::prefix('activity-logs')->group(function () {
         Route::get('', [ActivityLogController::class, 'index']);
         Route::get('/{id}', [ActivityLogController::class, 'show']);
@@ -100,6 +103,13 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
         Route::post('/read-all', [NotificationController::class, 'markAllAsRead']);
         Route::delete('/{id}', [NotificationController::class, 'delete']);
         Route::delete('', [NotificationController::class, 'deleteAll']);
+    });
+
+    Route::prefix('backups')->group(function () {
+        Route::get('', [BackupController::class, 'index']);
+        Route::post('', [BackupController::class, 'create']);
+        Route::get('/{type}/{filename}', [BackupController::class, 'download'])->where(['type' => 'database|files', 'filename' => '.*']);
+        Route::delete('/{type}/{filename}', [BackupController::class, 'delete'])->where(['type' => 'database|files', 'filename' => '.*']);
     });
 });
 

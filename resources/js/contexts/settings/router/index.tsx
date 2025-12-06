@@ -10,6 +10,9 @@ const AnalyticsPage = lazy(() => import('@/contexts/settings/pages/AnalyticsPage
 const NotificationsPage = lazy(() => import('@/contexts/settings/pages/NotificationsPage'))
 const GdprPage = lazy(() => import('@/contexts/settings/pages/GdprPage'))
 const PermissionsPage = lazy(() => import('@/contexts/settings/pages/PermissionsPage'))
+const BackupsPage = lazy(() => import('@/contexts/settings/pages/BackupsPage'))
+const ActivityLogsPage = lazy(() => import('@/contexts/settings/pages/ActivityLogsPage'))
+const HelpPage = lazy(() => import('@/contexts/settings/pages/HelpPage'))
 
 const router = {
   path: 'settings',
@@ -50,6 +53,18 @@ const router = {
     {
       path: 'gdpr',
       element: <GdprPage />,
+    },
+    {
+      path: 'backups',
+      element: <BackupsPage />,
+    },
+    {
+      path: 'activity-logs',
+      element: <ActivityLogsPage />,
+    },
+    {
+      path: 'help',
+      element: <HelpPage />,
     },
   ],
 }

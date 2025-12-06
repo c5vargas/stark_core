@@ -3,7 +3,10 @@ import { NavItem } from '@/contexts/settings/libs/types'
 import { useTranslation } from 'react-i18next'
 import { Card } from '@/contexts/shared/components/ui/Card'
 import {
+  ActivityLogIcon,
   AnalyticsIcon,
+  BackupIcon,
+  HelpSquareIcon,
   LicenseDraftIcon,
   MailSettingIcon,
   MessageNotificationIcon,
@@ -51,6 +54,21 @@ const SettingsSidebar = () => {
       name: 'dashboard.settings.gdpr',
       route: '/dashboard/settings/gdpr',
       icon: <LicenseDraftIcon className="me-2 size-4" />,
+    },
+    {
+      name: 'dashboard.settings.backups',
+      route: '/dashboard/settings/backups',
+      icon: <BackupIcon className="me-2 size-4" />,
+    },
+    {
+      name: 'dashboard.settings.activity_logs',
+      route: '/dashboard/settings/activity-logs',
+      icon: <ActivityLogIcon className="me-2 size-4" />,
+    },
+    {
+      name: 'dashboard.settings.help',
+      route: '/dashboard/settings/help',
+      icon: <HelpSquareIcon className="me-2 size-4" />,
     },
   ]
 

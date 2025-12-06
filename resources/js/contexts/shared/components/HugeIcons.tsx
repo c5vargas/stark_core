@@ -328,3 +328,32 @@ export const ClockIcon = (props: SVGProps<SVGSVGElement>) => (
     <polyline points="12 6 12 12 16 14" />
   </svg>
 )
+
+export function BackupIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <g fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M3 10v6a7 7 0 0 0 7 7h4a7 7 0 0 0 7-7v-6"
+        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v12m0 0l-3-3m3 3l3-3" />
+      </g>
+    </svg>
+  )
+}
+
+export function ActivityLogIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <g fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2Z"
+        />
+      </g>
+    </svg>
+  )
+}
