@@ -145,7 +145,7 @@ const HelpPage = () => {
               <p className="mb-3 text-sm text-blue-800">
                 {t('dashboard.settings.help.need_help_desc')}
               </p>
-              <Button onClick={openSupportTicket} className="bg-blue-600 hover:bg-blue-700">
+              <Button onClick={openSupportTicket} variant="outline">
                 {t('dashboard.settings.help.open_ticket_envato')}
               </Button>
             </div>

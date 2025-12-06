@@ -12,7 +12,7 @@ import { Textarea } from '@/contexts/shared/components/ui/form/TextArea'
 
 const UserDetailPage = () => {
   const { t } = useTranslation()
-  const { user } = useUserPage()
+  const { user, update } = useUserPage()
 
   const [form, setForm] = useState<Partial<User>>({
     name: '',
@@ -37,12 +37,19 @@ const UserDetailPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // update(form)
+    update(form)
   }
 
   useEffect(() => {
     if (!user) return
-    setForm(user)
+
+    setForm({
+      ...user,
+      name: user.name ?? '',
+      username: user.username ?? '',
+      email: user.email ?? '',
+      avatar: user.avatar ?? '',
+    })
   }, [user])
 
   return (

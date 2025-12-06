@@ -56,12 +56,10 @@ const BackupsPage = () => {
     const baseUrl = window.location.origin
     const url = `${baseUrl}/api/backups/${backup.type}/${encodeURIComponent(backup.filename)}`
 
-    // Create a temporary link to download with auth token
     const link = document.createElement('a')
     link.href = url
     link.download = backup.filename
 
-    // Add token to headers via fetch
     fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -110,6 +108,7 @@ const BackupsPage = () => {
           <Tabs tabs={tabs} activeTab={backupType} onChange={handleTabChange} />
           <div className="flex gap-2">
             <Button
+              variant="ghost"
               onClick={() => handleCreateBackup('database')}
               disabled={createMutation.isPending}
             >
@@ -117,12 +116,20 @@ const BackupsPage = () => {
                 ? t('dashboard.settings.backups.creating')
                 : t('dashboard.settings.backups.create_database')}
             </Button>
-            <Button onClick={() => handleCreateBackup('files')} disabled={createMutation.isPending}>
+            <Button
+              variant="ghost"
+              onClick={() => handleCreateBackup('files')}
+              disabled={createMutation.isPending}
+            >
               {createMutation.isPending
                 ? t('dashboard.settings.backups.creating')
                 : t('dashboard.settings.backups.create_files')}
             </Button>
-            <Button onClick={() => handleCreateBackup('both')} disabled={createMutation.isPending}>
+            <Button
+              variant="ghost"
+              onClick={() => handleCreateBackup('both')}
+              disabled={createMutation.isPending}
+            >
               {createMutation.isPending
                 ? t('dashboard.settings.backups.creating')
                 : t('dashboard.settings.backups.create_both')}
@@ -167,15 +174,13 @@ const BackupsPage = () => {
                     <td className="px-4 py-3">{new Date(backup.created_at).toLocaleString()}</td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
-                        <Button
-                          onClick={() => handleDownload(backup)}
-                          className="bg-green-500 hover:bg-green-600"
-                        >
+                        <Button size="sm" variant="outline" onClick={() => handleDownload(backup)}>
                           {t('dashboard.settings.backups.download')}
                         </Button>
                         <Button
+                          variant="danger"
+                          size="sm"
                           onClick={() => handleDelete(backup)}
-                          className="bg-red-500 hover:bg-red-600"
                           disabled={deleteMutation.isPending}
                         >
                           {t('dashboard.settings.backups.delete')}
