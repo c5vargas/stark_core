@@ -1,12 +1,11 @@
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Card } from '@/contexts/shared/components/ui/Card'
 import { Button } from '@/contexts/shared/components/Button'
 import { Badge } from '@/contexts/shared/components/ui/Badge'
-import { Tabs } from '@/contexts/shared/components/ui/Tabs'
-import { EmptyState } from '@/contexts/shared/components/ui/EmptyState'
-import TableComponent from '@/contexts/shared/components/table/TableComponent'
+import { DataTable } from '@/contexts/shared/components/table/DataTable'
+import { DataTableConfig } from '@/contexts/shared/libs/dataTable/types'
 import { InfoCard } from '../components/InfoCard'
 import getBackups, { Backup } from '../actions/getBackups'
 import createBackup from '../actions/createBackup'
@@ -17,12 +16,6 @@ const BackupsPage = () => {
   const { t } = useTranslation()
   const { showAlert } = useAlert()
   const queryClient = useQueryClient()
-  const [backupType, setBackupType] = useState<'all' | 'database' | 'files'>('all')
-
-  const { data: backups = [], isLoading } = useQuery({
-    queryKey: ['backups', backupType],
-    queryFn: () => getBackups(backupType),
-  })
 
   const createMutation = useMutation({
     mutationFn: createBackup,
@@ -84,15 +77,69 @@ const BackupsPage = () => {
     }
   }
 
-  const tabs = [
-    { value: 'all', label: t('dashboard.settings.backups.all') },
-    { value: 'database', label: t('dashboard.settings.backups.database') },
-    { value: 'files', label: t('dashboard.settings.backups.files') },
-  ]
-
-  const handleTabChange = (value: string) => {
-    setBackupType(value as 'all' | 'database' | 'files')
-  }
+  const config: DataTableConfig<Backup> = useMemo(
+    () => ({
+      endpoint: 'backups',
+      queryFn: getBackups,
+      perPage: 15,
+      defaultSortBy: 'created_at',
+      defaultSortOrder: 'desc',
+      columns: [
+        {
+          key: 'type',
+          label: t('dashboard.settings.backups.type'),
+          filter: {
+            type: 'select',
+            options: [
+              { label: t('dashboard.settings.backups.all'), value: 'all' },
+              { label: t('dashboard.settings.backups.database'), value: 'database' },
+              { label: t('dashboard.settings.backups.files'), value: 'files' },
+            ],
+          },
+          render: backup => <Badge variant="info">{backup.type}</Badge>,
+        },
+        {
+          key: 'filename',
+          label: t('dashboard.settings.backups.filename'),
+          render: backup => <span className="font-mono text-sm">{backup.filename}</span>,
+        },
+        {
+          key: 'size',
+          label: t('dashboard.settings.backups.size'),
+          sortKey: 'size_bytes',
+          render: backup => backup.size,
+        },
+        {
+          key: 'created_at',
+          label: t('dashboard.settings.backups.created_at'),
+          render: backup => (
+            <span className="text-sm">{new Date(backup.created_at).toLocaleString()}</span>
+          ),
+        },
+        {
+          key: 'actions',
+          label: t('dashboard.settings.backups.actions'),
+          sortable: false,
+          render: backup => (
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" onClick={() => handleDownload(backup)}>
+                {t('dashboard.settings.backups.download')}
+              </Button>
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={() => handleDelete(backup)}
+                disabled={deleteMutation.isPending}
+              >
+                {t('dashboard.settings.backups.delete')}
+              </Button>
+            </div>
+          ),
+        },
+      ],
+    }),
+    [t, deleteMutation.isPending]
+  )
 
   return (
     <div className="space-y-4">
@@ -104,8 +151,7 @@ const BackupsPage = () => {
       </InfoCard>
 
       <Card>
-        <div className="mb-4 flex items-center justify-between">
-          <Tabs tabs={tabs} activeTab={backupType} onChange={handleTabChange} />
+        <div className="mb-4 flex items-center justify-end">
           <div className="flex gap-2">
             <Button
               variant="ghost"
@@ -137,62 +183,7 @@ const BackupsPage = () => {
           </div>
         </div>
 
-        {isLoading ? (
-          <TableComponent loading={isLoading}>
-            <thead>
-              <tr>
-                <th></th>
-              </tr>
-            </thead>
-          </TableComponent>
-        ) : backups.length === 0 ? (
-          <EmptyState title={t('dashboard.settings.backups.not_found')} />
-        ) : (
-          <div className="overflow-x-auto">
-            <TableComponent loading={false}>
-              <thead>
-                <tr className="border-b">
-                  <th className="px-4 py-3 text-left">{t('dashboard.settings.backups.type')}</th>
-                  <th className="px-4 py-3 text-left">
-                    {t('dashboard.settings.backups.filename')}
-                  </th>
-                  <th className="px-4 py-3 text-left">{t('dashboard.settings.backups.size')}</th>
-                  <th className="px-4 py-3 text-left">
-                    {t('dashboard.settings.backups.created_at')}
-                  </th>
-                  <th className="px-4 py-3 text-left">{t('dashboard.settings.backups.actions')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {backups.map(backup => (
-                  <tr key={`${backup.type}-${backup.filename}`} className="border-b">
-                    <td className="px-4 py-3">
-                      <Badge variant="info">{backup.type}</Badge>
-                    </td>
-                    <td className="px-4 py-3 font-mono text-sm">{backup.filename}</td>
-                    <td className="px-4 py-3">{backup.size}</td>
-                    <td className="px-4 py-3">{new Date(backup.created_at).toLocaleString()}</td>
-                    <td className="px-4 py-3">
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline" onClick={() => handleDownload(backup)}>
-                          {t('dashboard.settings.backups.download')}
-                        </Button>
-                        <Button
-                          variant="danger"
-                          size="sm"
-                          onClick={() => handleDelete(backup)}
-                          disabled={deleteMutation.isPending}
-                        >
-                          {t('dashboard.settings.backups.delete')}
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </TableComponent>
-          </div>
-        )}
+        <DataTable config={config} />
       </Card>
     </div>
   )

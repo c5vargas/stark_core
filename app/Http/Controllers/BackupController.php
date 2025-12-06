@@ -2,27 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Transformers\NotificationTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Carbon\Carbon;
 
 class BackupController extends Controller
 {
-    public function __construct(
-        NotificationTransformer $transformer,
-        Request $request
-    ) {
-        parent::__construct($transformer, $request);
+    public function __construct(Request $request)
+    {
+        parent::__construct(null, $request);
     }
 
     /**
-     * List all backups.
+     * List all backups with pagination, sorting and filtering.
      */
     public function index(Request $request)
     {
         $type = $request->get('type', 'all'); // 'database', 'files', 'all'
+        $query = $request->get('query', ''); // Search in filename
+        $sortBy = $request->get('sortBy', 'created_at');
+        $sortOrder = $request->get('sortOrder', 'desc');
+        $page = (int) $request->get('page', 1);
+        $perPage = (int) $request->get('perPage', 15);
         
         $backups = [];
         
@@ -36,13 +40,47 @@ class BackupController extends Controller
             $backups = array_merge($backups, $fileBackups);
         }
         
-        // Sort by date descending
-        usort($backups, function($a, $b) {
-            return strtotime($b['created_at']) - strtotime($a['created_at']);
+        // Filter by search query (filename)
+        if (!empty($query)) {
+            $backups = array_filter($backups, function($backup) use ($query) {
+                return stripos($backup['filename'], $query) !== false;
+            });
+            $backups = array_values($backups); // Re-index array
+        }
+        
+        // Sort
+        usort($backups, function($a, $b) use ($sortBy, $sortOrder) {
+            $valueA = $a[$sortBy] ?? '';
+            $valueB = $b[$sortBy] ?? '';
+            
+            // Handle numeric sorting for size_bytes
+            if ($sortBy === 'size_bytes') {
+                $result = $valueA <=> $valueB;
+            } else {
+                $result = strcmp((string)$valueA, (string)$valueB);
+            }
+            
+            return $sortOrder === 'asc' ? $result : -$result;
         });
         
+        // Paginate
+        $total = count($backups);
+        $offset = ($page - 1) * $perPage;
+        $items = array_slice($backups, $offset, $perPage);
+        $totalPages = (int) ceil($total / $perPage);
+        
+        // Build response manually since we're using arrays, not Eloquent models
         return $this->respondWithArray([
-            'data' => $backups,
+            'data' => $items,
+            'meta' => [
+                'pagination' => [
+                    'total' => $total,
+                    'count' => count($items),
+                    'per_page' => $perPage,
+                    'current_page' => $page,
+                    'total_pages' => $totalPages,
+                ],
+            ],
         ]);
     }
 

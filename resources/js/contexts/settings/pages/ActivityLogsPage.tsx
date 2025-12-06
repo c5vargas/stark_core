@@ -34,7 +34,7 @@ const ActivityLogsPage = () => {
         {
           key: 'user',
           label: t('dashboard.settings.activity_logs.user'),
-          sortable: false, // No se puede ordenar por user (es una relación)
+          sortable: false,
           render: log =>
             log.user ? (
               <div>
@@ -62,6 +62,7 @@ const ActivityLogsPage = () => {
         },
         {
           key: 'description',
+          sortable: false,
           label: t('dashboard.settings.activity_logs.description'),
           render: log => log.description,
         },

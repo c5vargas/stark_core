@@ -1,5 +1,7 @@
 import client from '@/contexts/shared/libs/api/httpAxios'
 import handleHttpError from '@/contexts/shared/libs/handleHttpError'
+import { HTTPPaginatedResponse } from '@/contexts/shared/libs/types'
+import { DataTableResponse, DataTableParams } from '@/contexts/shared/libs/dataTable/types'
 
 export interface Backup {
   type: 'database' | 'files'
@@ -10,13 +12,42 @@ export interface Backup {
   path: string
 }
 
-const getBackups = async (type: 'all' | 'database' | 'files' = 'all'): Promise<Backup[]> => {
+const getBackups = async (params: DataTableParams): Promise<DataTableResponse<Backup>> => {
   try {
-    const response = await client.get<{ results: { data: Backup[] }; status: number }>(
-      '/api/backups',
-      { type }
-    )
-    return response.results.data
+    // Construir query params para el backend
+    const queryParams: Record<string, unknown> = {
+      page: params.page,
+      perPage: params.perPage,
+    }
+
+    if (params.sortBy) {
+      queryParams.sortBy = params.sortBy
+    }
+
+    if (params.sortOrder) {
+      queryParams.sortOrder = params.sortOrder
+    }
+
+    // Agregar filtros
+    if (params.filters) {
+      Object.keys(params.filters).forEach(key => {
+        if (params.filters![key] !== null && params.filters![key] !== '') {
+          queryParams[key] = params.filters![key]
+        }
+      })
+    }
+
+    // Agregar búsqueda semántica
+    if (params.query) {
+      queryParams.query = params.query
+    }
+
+    const response = await client.get<HTTPPaginatedResponse<Backup>>('/api/backups', queryParams)
+
+    return {
+      data: response.results.data,
+      meta: response.results.meta,
+    }
   } catch (error: unknown) {
     throw new Error(handleHttpError(error))
   }
