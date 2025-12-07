@@ -11,9 +11,10 @@ import { SearchIcon } from '@/contexts/shared/components/Icons'
 interface DataTableProps<T> {
   config: DataTableConfig<T>
   headerActions?: React.ReactNode
+  onRowClick?: (item: T) => void
 }
 
-export const DataTable = <T,>({ config, headerActions }: DataTableProps<T>) => {
+export const DataTable = <T,>({ config, headerActions, onRowClick }: DataTableProps<T>) => {
   const {
     data,
     isFetching,
@@ -108,7 +109,11 @@ export const DataTable = <T,>({ config, headerActions }: DataTableProps<T>) => {
               </tr>
             ) : (
               data.map((item: T, index: number) => (
-                <tr key={index} className="border-b">
+                <tr
+                  key={index}
+                  className={`border-b ${onRowClick ? 'cursor-pointer transition-colors hover:bg-gray-100' : ''}`}
+                  onClick={onRowClick ? () => onRowClick(item) : undefined}
+                >
                   {config.columns.map(column => (
                     <td key={column.key} className={`px-4 py-3 ${column.className ?? ''}`}>
                       {renderCell(item, column)}

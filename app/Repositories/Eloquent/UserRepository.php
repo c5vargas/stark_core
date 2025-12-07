@@ -2,7 +2,7 @@
 namespace App\Repositories\Eloquent;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserRepository extends BaseRepository
 {
@@ -18,20 +18,36 @@ class UserRepository extends BaseRepository
         $this->model = $user;
     }
 
-    public function paginate(array $params): Collection
+    /**
+     * Paginate users with filters, search, and sorting.
+     */
+    public function paginate(array $params): LengthAwarePaginator
     {
         $query = $this->model->query();
 
-        if (array_key_exists('query', $params)) {
-            $query = $query->where('name', 'LIKE', '%' . $params['query'] . '%');
-            $query = $query->orWhere('email', 'LIKE', '%' . $params['query'] . '%');
+        // Search in name and email
+        if (isset($params['query']) && !empty($params['query'])) {
+            $query->where(function ($q) use ($params) {
+                $q->where('name', 'LIKE', '%' . $params['query'] . '%')
+                  ->orWhere('email', 'LIKE', '%' . $params['query'] . '%');
+            });
         }
 
-        if (array_key_exists('page', $params)) {
-            $query = $query->skip(($params['page'] - 1) * $params['perPage'])->take($params['perPage']);
+        // Filter by status
+        if (isset($params['status']) && !empty($params['status'])) {
+            $query->where('status', $params['status']);
         }
 
-        return $query->get();
+        // Sort
+        $sortBy = $params['sortBy'] ?? 'created_at';
+        $sortOrder = $params['sortOrder'] ?? 'desc';
+        $query->orderBy($sortBy, $sortOrder);
+
+        // Pagination
+        $perPage = $params['perPage'] ?? 15;
+        $page = $params['page'] ?? 1;
+
+        return $query->paginate($perPage, ['*'], 'page', $page);
     }
 
     /**
