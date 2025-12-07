@@ -1,20 +1,45 @@
 import client from '@/contexts/shared/libs/api/httpAxios'
-import formatPayload from '@/contexts/shared/libs/formatPayload'
 import handleHttpError from '@/contexts/shared/libs/handleHttpError'
-import { HTTPResultsResponse } from '@/contexts/shared/libs/types'
+import { HTTPPaginatedResponse } from '@/contexts/shared/libs/types'
+import { DataTableResponse, DataTableParams } from '@/contexts/shared/libs/dataTable/types'
 import { User } from '@/contexts/user/libs/types'
 
-interface IGetUsers {
-  perPage: number
-  page: number
-  query?: string
-}
-
-const getUsers = async (payload: IGetUsers): Promise<User[]> => {
+const getUsers = async (params: DataTableParams): Promise<DataTableResponse<User>> => {
   try {
-    const formData = formatPayload(payload)
-    const response = await client.get<HTTPResultsResponse<User[]>>('/api/users', formData)
-    return response.results.data
+    // Construir query params para el backend
+    const queryParams: Record<string, unknown> = {
+      page: params.page,
+      perPage: params.perPage,
+    }
+
+    if (params.sortBy) {
+      queryParams.sortBy = params.sortBy
+    }
+
+    if (params.sortOrder) {
+      queryParams.sortOrder = params.sortOrder
+    }
+
+    // Agregar filtros
+    if (params.filters) {
+      Object.keys(params.filters).forEach(key => {
+        if (params.filters![key] !== null && params.filters![key] !== '') {
+          queryParams[key] = params.filters![key]
+        }
+      })
+    }
+
+    // Agregar búsqueda semántica
+    if (params.query) {
+      queryParams.query = params.query
+    }
+
+    const response = await client.get<HTTPPaginatedResponse<User>>('/api/users', queryParams)
+
+    return {
+      data: response.results.data,
+      meta: response.results.meta,
+    }
   } catch (error: unknown) {
     throw new Error(handleHttpError(error))
   }

@@ -84,7 +84,7 @@ export const useDataTable = <T>(config: DataTableConfig<T>) => {
     setPage(1)
   }, [])
 
-  const pagination = data?.meta.pagination
+  const pagination = data?.meta?.pagination
 
   return {
     data: data?.data ?? [],
