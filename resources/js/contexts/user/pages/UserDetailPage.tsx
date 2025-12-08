@@ -9,10 +9,13 @@ import { User, UserStatus } from '@/contexts/user/libs/types'
 import { BaseButton } from '@/contexts/shared/components/Button'
 import { Select } from '@/contexts/shared/components/ui/form/Select'
 import { Textarea } from '@/contexts/shared/components/ui/form/TextArea'
+import { CustomFieldsForm } from '@/contexts/user/components/CustomFieldsForm'
+import { useCustomFields } from '@/contexts/user/hooks/useCustomFields'
 
 const UserDetailPage = () => {
   const { t } = useTranslation()
-  const { user, update } = useUserPage()
+  const { user, update, updating } = useUserPage()
+  const { fields: customFields } = useCustomFields()
 
   const [form, setForm] = useState<Partial<User>>({
     name: '',
@@ -22,6 +25,8 @@ const UserDetailPage = () => {
     status: undefined,
     metadata: undefined,
   })
+
+  const [customFieldValues, setCustomFieldValues] = useState<Record<string, unknown>>({})
 
   const statusOptions = Object.values(UserStatus).map(status => ({
     label: t(`dashboard.users.status.${status}`),
@@ -37,7 +42,14 @@ const UserDetailPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    update(form)
+    const payload = {
+      ...form,
+    }
+    // Send custom fields in metadata for now (backend will extract them)
+    if (Object.keys(customFieldValues).length > 0) {
+      payload.metadata = customFieldValues
+    }
+    update(payload)
   }
 
   useEffect(() => {
@@ -50,19 +62,29 @@ const UserDetailPage = () => {
       email: user.email ?? '',
       avatar: user.avatar ?? '',
     })
+
+    const values: Record<string, unknown> = {}
+    if (user.custom_fields && user.custom_fields.length > 0) {
+      user.custom_fields.forEach(field => {
+        if (field.value !== null && field.value !== undefined && field.custom_field?.name) {
+          values[field.custom_field.name] = field.value
+        }
+      })
+    } else if (user.metadata && typeof user.metadata === 'object') {
+      Object.assign(values, user.metadata)
+    }
+    setCustomFieldValues(values)
   }, [user])
 
   return (
     <div className="-mx-3 flex flex-wrap">
-      <div className="space-y-4">
+      <div className="w-full space-y-4">
         <InfoCard
           title={
             user.id ? t('dashboard.users.h4', { user: user?.name }) : t('dashboard.users.h4.new')
           }
-          description={t('dashboard.users.p', { user: user?.name })}
-        >
-          {t('dashboard.users.descr')}
-        </InfoCard>
+          description={t('dashboard.users.descr')}
+        />
 
         <Card>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -104,6 +126,17 @@ const UserDetailPage = () => {
               </Select>
             </FormField>
 
+            {customFields.length > 0 && (
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">{t('dashboard.users.custom_fields')}</h3>
+                <CustomFieldsForm
+                  fields={customFields}
+                  values={customFieldValues}
+                  onChange={setCustomFieldValues}
+                />
+              </div>
+            )}
+
             <FormField label={t('dashboard.users.metadata')}>
               <Textarea
                 value={form.metadata ? JSON.stringify(form.metadata) : ''}
@@ -115,7 +148,7 @@ const UserDetailPage = () => {
             <BaseButton
               title={t('dashboard.users.update')}
               variant="primary"
-              // loading={updating}
+              loading={updating}
               type="submit"
             />
           </form>

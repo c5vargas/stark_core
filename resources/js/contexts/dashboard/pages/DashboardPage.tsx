@@ -15,7 +15,7 @@ const DashboardPage = () => {
   return (
     <Layout pageTitle="Dashboard">
       <DashboardLayout>
-        <div className="space-y-6">
+        <div className="space-y-4">
           {/* Analytics disabled notice */}
           {!isEnabled && (
             <Alert variant="info">

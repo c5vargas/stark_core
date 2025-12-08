@@ -25,6 +25,10 @@ class Kernel extends ConsoleKernel
             ->onFailure(function () {
                 \Log::error('Files backup failed');
             });
+
+        // Clean expired sessions hourly
+        $schedule->command('sessions:clean-expired')
+            ->hourly();
     }
 
     /**

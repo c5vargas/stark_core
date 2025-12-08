@@ -20,7 +20,7 @@ function RequireAuth({ children }: { children: JSX.Element }) {
 
   if (hasPermission === undefined) {
     return (
-      <div className="w-dvh flex h-dvh items-center justify-center">
+      <div className="flex h-dvh w-dvh items-center justify-center">
         <Loading />
       </div>
     )

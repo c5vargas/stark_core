@@ -98,4 +98,46 @@ class User extends Authenticatable
 
         return $permissions;
     }
+
+    /**
+     * Get all sessions for the user.
+     */
+    public function sessions()
+    {
+        return $this->hasMany(UserSession::class);
+    }
+
+    /**
+     * Get active sessions for the user.
+     */
+    public function activeSessions()
+    {
+        return $this->hasMany(UserSession::class)->active();
+    }
+
+    /**
+     * Get custom field values for the user.
+     */
+    public function customFieldValues()
+    {
+        return $this->hasMany(UserCustomFieldValue::class);
+    }
+
+    /**
+     * Get custom fields associated with the user.
+     */
+    public function customFields()
+    {
+        return $this->belongsToMany(CustomField::class, 'user_custom_field_values')
+            ->withPivot('value')
+            ->withTimestamps();
+    }
+
+    /**
+     * Get activity logs for the user.
+     */
+    public function activityLogs()
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
 }

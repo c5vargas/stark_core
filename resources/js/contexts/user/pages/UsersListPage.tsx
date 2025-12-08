@@ -11,10 +11,14 @@ import getUsers from '@/contexts/user/actions/getUsers'
 import { User } from '@/contexts/user/libs/types'
 import { formatDate } from '@/contexts/shared/utils/date'
 import { isUserOnline } from '@/contexts/user/libs/utils/isUserOnline'
+import { useBulkActions } from '@/contexts/user/hooks/useBulkActions'
+import BulkActionsBar from '@/contexts/user/components/BulkActionsBar'
+import UserStatisticsWidget from '@/contexts/user/components/UserStatisticsWidget'
 
 const UsersListPage = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { selectedIds, selectAll, clearSelection, executeAction, executing } = useBulkActions()
 
   const onCreate = () => navigate('/dashboard/users/create')
 
@@ -95,17 +99,36 @@ const UsersListPage = () => {
 
   return (
     <Layout pageTitle={t('dashboard.users')}>
-      <Card>
-        <DataTable
-          config={config}
-          headerActions={
-            <Button title={t('dashboard.users.create')} variant="primary" onClick={onCreate}>
-              {t('dashboard.users.create')}
-            </Button>
-          }
-          onRowClick={handleRowClick}
+      <div className="space-y-4">
+        <UserStatisticsWidget />
+        <Card>
+          <DataTable
+            config={config}
+            headerActions={
+              <Button title={t('dashboard.users.create')} variant="primary" onClick={onCreate}>
+                {t('dashboard.users.create')}
+              </Button>
+            }
+            onRowClick={handleRowClick}
+            enableSelection
+            selectedIds={selectedIds}
+            onSelectionChange={ids => {
+              if (ids.length === 0) {
+                clearSelection()
+              } else {
+                selectAll(ids)
+              }
+            }}
+            getId={user => user.id}
+          />
+        </Card>
+        <BulkActionsBar
+          selectedCount={selectedIds.length}
+          onAction={executeAction}
+          executing={executing}
+          onClear={clearSelection}
         />
-      </Card>
+      </div>
     </Layout>
   )
 }
