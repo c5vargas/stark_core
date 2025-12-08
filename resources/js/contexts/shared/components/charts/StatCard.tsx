@@ -1,80 +1,67 @@
 import { ReactNode } from 'react'
+import { Card } from '@/contexts/shared/components/ui/Card'
 import clsx from 'clsx'
 
-interface StatCardProps {
+export interface StatCardProps {
   title: string
   value: string | number
   icon?: ReactNode
-  trend?: {
-    value: number
-    label: string
-    isPositive?: boolean
-  }
-  variant?: 'default' | 'primary' | 'success' | 'warning' | 'error'
+  change?: string
+  changeType?: 'increase' | 'decrease'
+  changeLabel?: string
   className?: string
-}
-
-const variantClasses = {
-  default: 'bg-white border-gray-200',
-  primary: 'bg-blue-50 border-blue-200',
-  success: 'bg-green-50 border-green-200',
-  warning: 'bg-yellow-50 border-yellow-200',
-  error: 'bg-red-50 border-red-200',
-}
-
-const iconClasses = {
-  default: 'text-gray-600',
-  primary: 'text-blue-600',
-  success: 'text-green-600',
-  warning: 'text-yellow-600',
-  error: 'text-red-600',
+  loading?: boolean
 }
 
 export const StatCard = ({
   title,
   value,
   icon,
-  trend,
-  variant = 'default',
+  change,
+  changeType,
+  changeLabel,
   className,
+  loading = false,
 }: StatCardProps) => {
+  if (loading) {
+    return (
+      <Card className={clsx('animate-pulse', className)}>
+        <div className="flex items-center justify-between">
+          <div className="space-y-3">
+            <div className="h-4 w-24 rounded bg-gray-200"></div>
+            <div className="h-8 w-32 rounded bg-gray-200"></div>
+            {change && <div className="h-3 w-16 rounded bg-gray-200"></div>}
+          </div>
+          {icon && <div className="h-12 w-12 rounded-lg bg-gray-200"></div>}
+        </div>
+      </Card>
+    )
+  }
+
   return (
-    <div
-      className={clsx(
-        'rounded-lg border p-3 transition-shadow hover:shadow-md',
-        variantClasses[variant],
-        className
-      )}
-    >
+    <Card className={className}>
       <div className="flex items-center justify-between">
-        <p className="m-0 text-sm font-medium text-gray-600">{title}</p>
-        {icon && (
-          <div
-            className={clsx(
-              'flex h-12 w-12 items-center justify-center rounded-lg',
-              iconClasses[variant]
-            )}
-          >
-            {icon}
-          </div>
-        )}
-      </div>
-      <div className="flex items-center justify-between">
-        <p className="mb-0 !text-3xl font-bold text-gray-900">{value}</p>
-        {trend && (
-          <div className="mt-2 flex items-center gap-1">
-            <span
-              className={clsx('text-xs font-medium', {
-                'text-green-600': trend.isPositive !== false,
-                'text-red-600': trend.isPositive === false,
-              })}
+        <div>
+          <p className="mb-0 !text-sm font-medium text-gray-600">{title}</p>
+          <p className="mb-0 !text-3xl font-semibold text-gray-900">{value}</p>
+          {change && changeType && (
+            <p
+              className={clsx(
+                'mt-1 mb-0 flex items-center text-sm',
+                changeType === 'increase' ? 'text-green-600' : 'text-red-600'
+              )}
             >
-              {trend.isPositive !== false ? '↑' : '↓'} {Math.abs(trend.value)}%
-            </span>
-            <span className="text-xs text-gray-600">{trend.label}</span>
+              <span>{change}</span>
+              {changeLabel && <span className="ml-1 text-gray-500">{changeLabel}</span>}
+            </p>
+          )}
+        </div>
+        {icon && (
+          <div className="rounded-lg bg-pink-50 p-3">
+            <div className="text-pink-700">{icon}</div>
           </div>
         )}
       </div>
-    </div>
+    </Card>
   )
 }
