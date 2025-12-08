@@ -1,8 +1,10 @@
+import { useMemo, useCallback } from 'react'
 import { DataTableConfig, ColumnConfig } from '@/contexts/shared/libs/dataTable/types'
 import { useDataTable } from '@/contexts/shared/hooks/useDataTable'
 import { FilterIcon } from './FilterIcon'
 import TableComponent from './TableComponent'
 import TableFooter from './TableFooter'
+import { TableRow } from './TableRow'
 import { EmptyState } from '@/contexts/shared/components/ui/EmptyState'
 import { ArrowUpIcon, ArrowDownIcon } from '../HugeIcons'
 import { InputText } from '@/contexts/shared/components/ui/form/InputText'
@@ -43,28 +45,51 @@ export const DataTable = <T,>({
     handleSort,
   } = useDataTable<T>(config)
 
-  const renderCell = (item: T, column: ColumnConfig<T>) => {
+  // Memoizar funciones auxiliares para evitar recreaciones
+  const renderCell = useCallback((item: T, column: ColumnConfig<T>) => {
     if (column.render) {
       return column.render(item)
     }
     // Fallback: intentar acceder a la propiedad directamente
     const value = (item as Record<string, unknown>)[column.key]
     return value !== null && value !== undefined ? String(value) : '-'
-  }
+  }, [])
 
-  const getSortKey = (column: ColumnConfig<T>): string => {
+  const getSortKey = useCallback((column: ColumnConfig<T>): string => {
     return column.sortKey ?? column.key
-  }
+  }, [])
 
-  const getSortIcon = (column: ColumnConfig<T>) => {
-    const sortKey = getSortKey(column)
-    if (sortBy !== sortKey) return null
-    return sortOrder === 'asc' ? (
-      <ArrowUpIcon className="ml-1 h-3 w-3" />
-    ) : (
-      <ArrowDownIcon className="ml-1 h-3 w-3" />
-    )
-  }
+  const getSortIcon = useCallback(
+    (column: ColumnConfig<T>) => {
+      const sortKey = getSortKey(column)
+      if (sortBy !== sortKey) return null
+      return sortOrder === 'asc' ? (
+        <ArrowUpIcon className="ml-1 h-3 w-3" />
+      ) : (
+        <ArrowDownIcon className="ml-1 h-3 w-3" />
+      )
+    },
+    [sortBy, sortOrder, getSortKey]
+  )
+
+  const selectedIdsSet = useMemo(() => new Set(selectedIds), [selectedIds])
+
+  const isAllSelected = useMemo(() => {
+    if (!enableSelection || !getId || data.length === 0) return false
+    return data.every(item => selectedIdsSet.has(getId(item)))
+  }, [enableSelection, getId, data, selectedIdsSet])
+
+  const handleSelectAll = useCallback(
+    (checked: boolean) => {
+      if (!onSelectionChange || !getId) return
+      if (checked) {
+        onSelectionChange(data.map(item => getId(item)))
+      } else {
+        onSelectionChange([])
+      }
+    },
+    [data, getId, onSelectionChange]
+  )
 
   return (
     <>
@@ -90,17 +115,8 @@ export const DataTable = <T,>({
                 <th className="px-4 py-3 text-left">
                   <input
                     type="checkbox"
-                    checked={
-                      data.length > 0 &&
-                      data.every(item => selectedIds.includes(getId?.(item) ?? 0))
-                    }
-                    onChange={e => {
-                      if (e.target.checked) {
-                        onSelectionChange?.(data.map(item => getId?.(item) ?? 0))
-                      } else {
-                        onSelectionChange?.([])
-                      }
-                    }}
+                    checked={isAllSelected}
+                    onChange={e => handleSelectAll(e.target.checked)}
                     className="h-4 w-4 rounded border-gray-300"
                   />
                 </th>
@@ -144,41 +160,22 @@ export const DataTable = <T,>({
                 </td>
               </tr>
             ) : (
-              data.map((item: T, index: number) => {
+              data.map((item: T) => {
                 const itemId = getId?.(item) ?? 0
-                const isSelected = selectedIds.includes(itemId)
+                const isSelected = selectedIdsSet.has(itemId)
                 return (
-                  <tr
-                    key={index}
-                    className={`border-b ${onRowClick ? 'cursor-pointer transition-colors hover:bg-gray-100' : ''}`}
-                    onClick={e => {
-                      if ((e.target as HTMLElement).tagName !== 'INPUT') {
-                        onRowClick?.(item)
-                      }
-                    }}
-                  >
-                    {enableSelection && (
-                      <td className="px-4 py-3" onClick={e => e.stopPropagation()}>
-                        <input
-                          type="checkbox"
-                          checked={isSelected}
-                          onChange={e => {
-                            if (e.target.checked) {
-                              onSelectionChange?.([...selectedIds, itemId])
-                            } else {
-                              onSelectionChange?.(selectedIds.filter(id => id !== itemId))
-                            }
-                          }}
-                          className="h-4 w-4 rounded border-gray-300"
-                        />
-                      </td>
-                    )}
-                    {config.columns.map(column => (
-                      <td key={column.key} className={`px-4 py-3 ${column.className ?? ''}`}>
-                        {renderCell(item, column)}
-                      </td>
-                    ))}
-                  </tr>
+                  <TableRow
+                    key={itemId}
+                    item={item}
+                    itemId={itemId}
+                    columns={config.columns}
+                    isSelected={isSelected}
+                    enableSelection={enableSelection}
+                    onRowClick={onRowClick}
+                    onSelectionChange={onSelectionChange}
+                    selectedIds={selectedIds}
+                    renderCell={renderCell}
+                  />
                 )
               })
             )}

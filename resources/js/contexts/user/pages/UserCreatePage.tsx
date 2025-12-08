@@ -60,7 +60,6 @@ const UserCreatePage = () => {
     const payload: Partial<User> & { custom_fields?: Record<string, unknown> } = {
       ...form,
     }
-    // Send custom fields in metadata for now (backend will extract them)
     if (Object.keys(customFieldValues).length > 0) {
       payload.metadata = customFieldValues
     }
@@ -70,14 +69,12 @@ const UserCreatePage = () => {
   return (
     <Layout pageTitle={t('dashboard.users.create')}>
       <div className="-mx-3 flex flex-wrap">
-        <div className="space-y-4">
-          <InfoCard title={t('dashboard.users.h4.new')} description={t('dashboard.users.descr')}>
-            {t('dashboard.users.descr')}
-          </InfoCard>
+        <div className="w-full space-y-4">
+          <InfoCard title={t('dashboard.users.h4.new')} description={t('dashboard.users.descr')} />
 
           <Card>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <FormField label={t('dashboard.users.name')} required>
+              <FormField label={t('dashboard.users.name')}>
                 <InputText
                   name="name"
                   value={form.name}
@@ -96,7 +93,7 @@ const UserCreatePage = () => {
                 />
               </FormField>
 
-              <FormField label={t('dashboard.users.email')} required>
+              <FormField label={t('dashboard.users.email')}>
                 <InputText
                   name="email"
                   type="email"
@@ -107,7 +104,7 @@ const UserCreatePage = () => {
                 />
               </FormField>
 
-              <FormField label={t('common.password')} required>
+              <FormField label={t('common.password')}>
                 <InputText
                   name="password"
                   type="password"
