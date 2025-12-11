@@ -38,7 +38,7 @@ export const CustomFieldsList: React.FC<CustomFieldsListProps> = ({
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {fields.map(field => (
         <CustomFieldListItem
           key={field.id}

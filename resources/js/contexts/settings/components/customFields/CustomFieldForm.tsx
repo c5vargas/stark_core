@@ -28,6 +28,7 @@ export const CustomFieldForm: React.FC<CustomFieldFormProps> = ({
     options: null,
     order: 0,
   })
+  const [optionsInput, setOptionsInput] = useState<string>('')
 
   const fieldTypes: { value: CustomFieldType; label: string }[] = [
     { value: 'text', label: t('dashboard.settings.custom_fields.types.text') },
@@ -40,14 +41,17 @@ export const CustomFieldForm: React.FC<CustomFieldFormProps> = ({
 
   useEffect(() => {
     if (initialData) {
+      const options = initialData.options
       setFormData({
         name: initialData.name || '',
         type: initialData.type || 'text',
         label: initialData.label || '',
         required: initialData.required || false,
-        options: initialData.options || null,
+        options: options || null,
         order: initialData.order || 0,
       })
+      // Inicializar el input de opciones como string
+      setOptionsInput(Array.isArray(options) ? options.join(', ') : options || '')
     }
   }, [initialData])
 
@@ -55,19 +59,30 @@ export const CustomFieldForm: React.FC<CustomFieldFormProps> = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target
+
+    // Manejar el campo de opciones de forma especial
+    if (name === 'options') {
+      setOptionsInput(value)
+      // Convertir a array solo para almacenar en formData
+      const optionsArray = value
+        .split(',')
+        .map(opt => opt.trim())
+        .filter(opt => opt.length > 0)
+      setFormData(prev => ({
+        ...prev,
+        options: optionsArray.length > 0 ? optionsArray : null,
+      }))
+      return
+    }
+
     setFormData(prev => ({
       ...prev,
       [name]:
         type === 'checkbox'
           ? (e.target as HTMLInputElement).checked
-          : name === 'options'
-            ? value
-                .split(',')
-                .map(opt => opt.trim())
-                .filter(opt => opt.length > 0)
-            : name === 'order'
-              ? parseInt(value) || 0
-              : value,
+          : name === 'order'
+            ? parseInt(value) || 0
+            : value,
     }))
   }
 
@@ -81,6 +96,7 @@ export const CustomFieldForm: React.FC<CustomFieldFormProps> = ({
     // Clear options if type is not select
     if (e.target.value !== 'select') {
       setFormData(prev => ({ ...prev, options: null }))
+      setOptionsInput('')
     }
   }
 
@@ -124,7 +140,7 @@ export const CustomFieldForm: React.FC<CustomFieldFormProps> = ({
         <FormField label={t('dashboard.settings.custom_fields.options')} required>
           <InputText
             name="options"
-            value={Array.isArray(formData.options) ? formData.options.join(', ') : ''}
+            value={optionsInput}
             onChange={handleChange}
             placeholder={t('dashboard.settings.custom_fields.options_placeholder')}
             required
