@@ -57,13 +57,16 @@ const UserCreatePage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const payload: Partial<User> & { custom_fields?: Record<string, unknown> } = {
+    const payload: Omit<Partial<User>, 'custom_fields'> & {
+      custom_fields?: Record<string, unknown>
+    } = {
       ...form,
-    }
+    } as Omit<Partial<User>, 'custom_fields'> & { custom_fields?: Record<string, unknown> }
+    delete (payload as Partial<User>).custom_fields
     if (Object.keys(customFieldValues).length > 0) {
-      payload.metadata = customFieldValues
+      payload.custom_fields = customFieldValues
     }
-    create(payload)
+    create(payload as Partial<User>)
   }
 
   return (

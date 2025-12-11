@@ -8,7 +8,6 @@ import { InputText } from '@/contexts/shared/components/ui/form/InputText'
 import { User, UserStatus } from '@/contexts/user/libs/types'
 import { BaseButton } from '@/contexts/shared/components/Button'
 import { Select } from '@/contexts/shared/components/ui/form/Select'
-import { Textarea } from '@/contexts/shared/components/ui/form/TextArea'
 import { CustomFieldsForm } from '@/contexts/user/components/CustomFieldsForm'
 import { useCustomFields } from '@/contexts/user/hooks/useCustomFields'
 
@@ -23,7 +22,6 @@ const UserDetailPage = () => {
     email: '',
     avatar: '',
     status: undefined,
-    metadata: undefined,
   })
 
   const [customFieldValues, setCustomFieldValues] = useState<Record<string, unknown>>({})
@@ -42,14 +40,16 @@ const UserDetailPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const payload = {
+    const payload: Omit<Partial<User>, 'custom_fields'> & {
+      custom_fields?: Record<string, unknown>
+    } = {
       ...form,
-    }
-    // Send custom fields in metadata for now (backend will extract them)
+    } as Omit<Partial<User>, 'custom_fields'> & { custom_fields?: Record<string, unknown> }
+    delete (payload as Partial<User>).custom_fields
     if (Object.keys(customFieldValues).length > 0) {
-      payload.metadata = customFieldValues
+      payload.custom_fields = customFieldValues
     }
-    update(payload)
+    update(payload as Partial<User>)
   }
 
   useEffect(() => {
@@ -70,8 +70,6 @@ const UserDetailPage = () => {
           values[field.custom_field.name] = field.value
         }
       })
-    } else if (user.metadata && typeof user.metadata === 'object') {
-      Object.assign(values, user.metadata)
     }
     setCustomFieldValues(values)
   }, [user])
@@ -136,14 +134,6 @@ const UserDetailPage = () => {
                 />
               </div>
             )}
-
-            <FormField label={t('dashboard.users.metadata')}>
-              <Textarea
-                value={form.metadata ? JSON.stringify(form.metadata) : ''}
-                onChange={handleChange}
-                placeholder={t('dashboard.users.metadata')}
-              />
-            </FormField>
 
             <BaseButton
               title={t('dashboard.users.update')}

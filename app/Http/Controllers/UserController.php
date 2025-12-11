@@ -56,11 +56,6 @@ class UserController extends Controller
     public function create(CreateRequest $request)
     {
         $data = $request->validated();
-        // Extract custom fields from metadata if present
-        if (isset($data['metadata']) && is_array($data['metadata'])) {
-            $data['custom_fields'] = $data['metadata'];
-            unset($data['metadata']);
-        }
         $user = $this->repository->create($data);
         $user->load('customFieldValues.customField');
         return $this->respondWithItem($user, 201, __('messages.controller.user.created'));
@@ -69,15 +64,15 @@ class UserController extends Controller
     public function update(UpdateRequest $request)
     {
         $data = $request->validated();
-        // Extract custom fields from metadata if present
-        if (isset($data['metadata']) && is_array($data['metadata'])) {
-            $data['custom_fields'] = $data['metadata'];
-            unset($data['metadata']);
-        }
-        $updated = $this->repository->update($data, $request->input('id'));
+        $userId = $request->input('id');
+        $updated = $this->repository->update($data, $userId);
 
         if(!$updated)
             throw new Exception(__('messages.controller.common.error_500'), 500);
+
+        // Reload the user with custom fields to ensure data is fresh
+        $user = $this->repository->find($userId);
+        $user->load('customFieldValues.customField');
 
         return $this->respondWithMessage(__('messages.controller.updated'));
     }

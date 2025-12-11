@@ -14,7 +14,9 @@ export const useUserPage = () => {
   const { mutateAsync: update, isPending: updating } = useMutation({
     mutationFn: (payload: Partial<User>) => updateUserById(payload),
     onSuccess: () => {
+      // Invalidate both user query and custom fields query to ensure fresh data
       queryClient.invalidateQueries({ queryKey: ['user', user.id] })
+      queryClient.invalidateQueries({ queryKey: ['custom-fields'] })
       showAlert(t('controller.updated'), 'success')
     },
     onError: (err: Error) => showAlert(err.message, 'error'),

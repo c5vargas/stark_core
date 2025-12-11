@@ -13,10 +13,6 @@ class UserCustomFieldValue extends Model
         'value',
     ];
 
-    protected $casts = [
-        'value' => 'array',
-    ];
-
     /**
      * Get the user that owns this value.
      */
@@ -34,21 +30,38 @@ class UserCustomFieldValue extends Model
     }
 
     /**
-     * Get the value as a string.
+     * Get the value attribute, handling JSON decoding.
      */
     public function getValueAttribute($value)
     {
+        if ($value === null) {
+            return null;
+        }
+        
+        // If already decoded (from cast), return as is
         if (is_array($value)) {
             return $value;
         }
-        return json_decode($value, true) ?? $value;
+        
+        // Try to decode JSON, if fails return as string
+        $decoded = json_decode($value, true);
+        return json_last_error() === JSON_ERROR_NONE ? $decoded : $value;
     }
 
     /**
-     * Set the value attribute.
+     * Set the value attribute, encoding to JSON.
+     * Always encode as JSON since the database column is JSON type.
      */
     public function setValueAttribute($value)
     {
-        $this->attributes['value'] = is_array($value) ? json_encode($value) : $value;
+        if ($value === null) {
+            $this->attributes['value'] = null;
+        } elseif (is_array($value)) {
+            $this->attributes['value'] = json_encode($value);
+        } else {
+            // For scalar values (string, number, boolean), wrap in JSON
+            // This ensures MySQL JSON column always receives valid JSON
+            $this->attributes['value'] = json_encode($value);
+        }
     }
 }

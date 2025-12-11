@@ -13,6 +13,7 @@ const PermissionsPage = lazy(() => import('@/contexts/settings/pages/Permissions
 const BackupsPage = lazy(() => import('@/contexts/settings/pages/BackupsPage'))
 const ActivityLogsPage = lazy(() => import('@/contexts/settings/pages/ActivityLogsPage'))
 const HelpPage = lazy(() => import('@/contexts/settings/pages/HelpPage'))
+const CustomFieldsPage = lazy(() => import('@/contexts/settings/pages/CustomFieldsPage'))
 
 const router = {
   path: 'settings',
@@ -61,6 +62,10 @@ const router = {
     {
       path: 'activity-logs',
       element: <ActivityLogsPage />,
+    },
+    {
+      path: 'custom-fields',
+      element: <CustomFieldsPage />,
     },
     {
       path: 'help',

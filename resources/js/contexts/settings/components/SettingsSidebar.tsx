@@ -6,6 +6,7 @@ import {
   ActivityLogIcon,
   AnalyticsIcon,
   BackupIcon,
+  FingerPrintScanIcon,
   HelpSquareIcon,
   LicenseDraftIcon,
   MailSettingIcon,
@@ -64,6 +65,11 @@ const SettingsSidebar = () => {
       name: 'dashboard.settings.activity_logs',
       route: '/dashboard/settings/activity-logs',
       icon: <ActivityLogIcon className="me-2 size-4" />,
+    },
+    {
+      name: 'dashboard.settings.custom_fields',
+      route: '/dashboard/settings/custom-fields',
+      icon: <FingerPrintScanIcon className="me-2 size-4" />,
     },
     {
       name: 'dashboard.settings.help',

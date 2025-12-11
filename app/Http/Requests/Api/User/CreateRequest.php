@@ -24,14 +24,15 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'      => 'required|string|min:4|max:100',
-            'username'  => 'nullable|string|min:3|max:50|unique:users,username',
-            'email'     => 'required|email|unique:users,email',
-            'password'  => 'required|string|min:6',
-            'avatar'    => 'nullable|url|max:255',
-            'status'    => ['sometimes', new Enum(UserStatus::class)],
-            'locale'    => 'nullable|string|size:2',
-            'metadata'  => 'nullable|array',
+            'name'          => 'required|string|min:4|max:100',
+            'username'      => 'nullable|string|min:3|max:50|unique:users,username',
+            'email'         => 'required|email|unique:users,email',
+            'password'      => 'required|string|min:6',
+            'avatar'        => 'nullable|url|max:255',
+            'status'        => ['sometimes', new Enum(UserStatus::class)],
+            'locale'        => 'nullable|string|size:2',
+            'metadata'      => 'nullable|array',
+            'custom_fields' => 'nullable|array',
         ];
     }
 }

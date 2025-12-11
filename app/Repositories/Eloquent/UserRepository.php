@@ -235,15 +235,16 @@ class UserRepository extends BaseRepository
         foreach ($customFields as $fieldName => $value) {
             if (isset($customFieldIds[$fieldName])) {
                 $fieldId = $customFieldIds[$fieldName];
-                \App\Models\UserCustomFieldValue::updateOrCreate(
-                    [
-                        'user_id' => $userId,
-                        'custom_field_id' => $fieldId,
-                    ],
-                    [
-                        'value' => is_array($value) ? json_encode($value) : $value,
-                    ]
-                );
+                
+                // Find or create the custom field value model
+                $fieldValue = \App\Models\UserCustomFieldValue::firstOrNew([
+                    'user_id' => $userId,
+                    'custom_field_id' => $fieldId,
+                ]);
+                
+                // Use the mutator to properly encode the value as JSON
+                $fieldValue->value = $value;
+                $fieldValue->save();
             }
         }
     }
