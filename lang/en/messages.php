@@ -249,6 +249,7 @@
   'dashboard.users.deactivate' => 'Deactivate',
   'dashboard.users.block' => 'Block',
   'dashboard.users.selected_count' => '{{count}} selected',
+  'dashboard.users.basic_info' => 'Basic Information',
   'dashboard.users.custom_fields' => 'Custom Fields',
   'dashboard.users.custom_fields_desc' => 'Manage custom fields for users',
   'dashboard.users.custom_field.name' => 'Field Name',

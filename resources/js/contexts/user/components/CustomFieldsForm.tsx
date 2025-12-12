@@ -87,12 +87,12 @@ export const CustomFieldsForm = ({ fields, values, onChange }: CustomFieldsFormP
   }
 
   return (
-    <>
+    <div className="space-y-4">
       {fields.map(field => (
-        <FormField key={field.id} label={field.label} required={field.required}>
+        <FormField key={field.id} label={field.label}>
           {renderField(field)}
         </FormField>
       ))}
-    </>
+    </div>
   )
 }

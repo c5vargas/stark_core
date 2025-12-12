@@ -84,65 +84,87 @@ const UserDetailPage = () => {
           description={t('dashboard.users.descr')}
         />
 
-        <Card>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <FormField label={t('dashboard.users.name')}>
-              <InputText
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                placeholder={t('dashboard.users.name')}
-              />
-            </FormField>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Card>
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">
+                {t('dashboard.users.basic_info')}
+              </h3>
+            </div>
+            <div className="space-y-4">
+              <FormField label={t('dashboard.users.name')}>
+                <InputText
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder={t('dashboard.users.name')}
+                />
+              </FormField>
 
-            <FormField label={t('dashboard.users.username')}>
-              <InputText
-                name="username"
-                value={form.username}
-                onChange={handleChange}
-                placeholder={t('dashboard.users.username')}
-              />
-            </FormField>
+              <FormField label={t('dashboard.users.username')}>
+                <InputText
+                  name="username"
+                  value={form.username}
+                  onChange={handleChange}
+                  placeholder={t('dashboard.users.username')}
+                />
+              </FormField>
 
-            <FormField label={t('dashboard.users.email')}>
-              <InputText
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder={t('dashboard.users.email')}
-              />
-            </FormField>
+              <FormField label={t('dashboard.users.email')}>
+                <InputText
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder={t('dashboard.users.email')}
+                />
+              </FormField>
 
-            <FormField label={t('dashboard.users.status')}>
-              <Select name="status" value={form.status} onChange={e => handleChange(e)}>
-                {statusOptions.map(option => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </Select>
-            </FormField>
+              <FormField label={t('dashboard.users.status')}>
+                <Select name="status" value={form.status} onChange={e => handleChange(e)}>
+                  {statusOptions.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </Select>
+              </FormField>
 
-            {customFields.length > 0 && (
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">{t('dashboard.users.custom_fields')}</h3>
-                <CustomFieldsForm
-                  fields={customFields}
-                  values={customFieldValues}
-                  onChange={setCustomFieldValues}
+              <div className="flex justify-end">
+                <BaseButton
+                  title={t('dashboard.users.update')}
+                  variant="primary"
+                  loading={updating}
+                  type="submit"
                 />
               </div>
-            )}
+            </div>
+          </Card>
 
-            <BaseButton
-              title={t('dashboard.users.update')}
-              variant="primary"
-              loading={updating}
-              type="submit"
-            />
-          </form>
-        </Card>
+          {customFields.length > 0 && (
+            <Card>
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {t('dashboard.users.custom_fields')}
+                </h3>
+              </div>
+              <CustomFieldsForm
+                fields={customFields}
+                values={customFieldValues}
+                onChange={setCustomFieldValues}
+              />
+
+              <div className="mt-4 flex justify-end">
+                <BaseButton
+                  title={t('dashboard.users.update')}
+                  variant="primary"
+                  loading={updating}
+                  type="submit"
+                />
+              </div>
+            </Card>
+          )}
+        </form>
       </div>
     </div>
   )
