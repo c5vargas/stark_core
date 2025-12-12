@@ -7,8 +7,8 @@ import { SVGProps } from 'react'
 
 interface CustomFieldListItemProps {
   field: CustomField
-  onEdit: (field: CustomField) => void
-  onDelete: (id: number) => void
+  onEdit?: (field: CustomField) => void
+  onDelete?: (id: number) => void
   isDeleting?: boolean
 }
 
@@ -124,25 +124,31 @@ export const CustomFieldListItem: React.FC<CustomFieldListItemProps> = ({
               </div>
             </div>
 
-            <div className="flex shrink-0 items-center gap-2">
-              <BaseButton
-                title={t('buttons.edit')}
-                variant="ghost"
-                onClick={() => onEdit(field)}
-                size="sm"
-                icon={<EditIcon className="h-4 w-4" />}
-                className="opacity-60 transition-opacity duration-200"
-              />
-              <BaseButton
-                title={t('buttons.delete')}
-                variant="ghost"
-                onClick={() => onDelete(field.id)}
-                loading={isDeleting}
-                size="sm"
-                icon={<TrashIcon className="h-4 w-4" />}
-                className="text-red-600 opacity-60 transition-opacity duration-200"
-              />
-            </div>
+            {(onEdit || onDelete) && (
+              <div className="flex shrink-0 items-center gap-2">
+                {onEdit && (
+                  <BaseButton
+                    title={t('buttons.edit')}
+                    variant="ghost"
+                    onClick={() => onEdit(field)}
+                    size="sm"
+                    icon={<EditIcon className="h-4 w-4" />}
+                    className="opacity-60 transition-opacity duration-200"
+                  />
+                )}
+                {onDelete && (
+                  <BaseButton
+                    title={t('buttons.delete')}
+                    variant="ghost"
+                    onClick={() => onDelete(field.id)}
+                    loading={isDeleting}
+                    size="sm"
+                    icon={<TrashIcon className="h-4 w-4" />}
+                    className="text-red-600 opacity-60 transition-opacity duration-200"
+                  />
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

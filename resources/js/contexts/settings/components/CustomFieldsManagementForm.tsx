@@ -8,9 +8,11 @@ import Loading from '@/contexts/shared/components/Loading'
 import { CustomFieldsList } from './customFields/CustomFieldsList'
 import { CustomFieldModal } from './customFields/CustomFieldModal'
 import { ConfirmDialog } from '@/contexts/shared/components/ui/ConfirmDialog'
+import { useAuthStore } from '@/contexts/auth/stores/authStore'
 
 export const CustomFieldsManagementForm: React.FC = () => {
   const { t } = useTranslation()
+  const hasEditPermission = useAuthStore(state => state.hasPermission('edit.settings'))
   const { fields, isLoading, creating, updating, deleting, create, update, remove } =
     useCustomFields()
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -68,19 +70,21 @@ export const CustomFieldsManagementForm: React.FC = () => {
           <h3 className="text-lg font-semibold">
             {t('dashboard.settings.custom_fields.fields_list')}
           </h3>
-          <BaseButton
-            title={t('dashboard.settings.custom_fields.add_field')}
-            variant="primary"
-            onClick={handleCreate}
-          />
+          {hasEditPermission && (
+            <BaseButton
+              title={t('dashboard.settings.custom_fields.add_field')}
+              variant="primary"
+              onClick={handleCreate}
+            />
+          )}
         </div>
 
         <CustomFieldsList
           fields={fields}
-          onEdit={handleEdit}
-          onDelete={handleDelete}
+          onEdit={hasEditPermission ? handleEdit : undefined}
+          onDelete={hasEditPermission ? handleDelete : undefined}
           isDeleting={deleting}
-          onCreateNew={handleCreate}
+          onCreateNew={hasEditPermission ? handleCreate : undefined}
         />
       </Card>
 

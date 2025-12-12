@@ -5,8 +5,8 @@ import { CustomFieldListItem } from './CustomFieldListItem'
 
 interface CustomFieldsListProps {
   fields: CustomField[]
-  onEdit: (field: CustomField) => void
-  onDelete: (id: number) => void
+  onEdit?: (field: CustomField) => void
+  onDelete?: (id: number) => void
   isDeleting?: boolean
   onCreateNew?: () => void
 }
