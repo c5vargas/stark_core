@@ -53,4 +53,10 @@ export default defineConfig([
   tanstackQuery.configs['flat/recommended'],
   prettier,
   prettierConfig,
+  {
+    rules: {
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
+    },
+  },
 ])

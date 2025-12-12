@@ -12,7 +12,7 @@ const CookiesPage = () => {
   useEffect(() => {
     if (settings.gdpr_cookies_page) {
       try {
-        const parsed = JSON.parse(settings.gdpr_cookies_page)
+        const parsed = JSON.parse(settings.gdpr_cookies_page) as OutputData
         setContent(parsed)
       } catch {
         setContent(null)
@@ -43,4 +43,3 @@ const CookiesPage = () => {
 }
 
 export default CookiesPage
-

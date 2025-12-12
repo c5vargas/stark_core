@@ -15,13 +15,13 @@ const Footer = () => {
           <nav className="flex gap-6">
             <Link
               to="/privacy"
-              className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              className="text-sm text-gray-600 transition-colors hover:text-gray-900"
             >
               Privacy Policy
             </Link>
             <Link
               to="/cookies"
-              className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              className="text-sm text-gray-600 transition-colors hover:text-gray-900"
             >
               Cookie Policy
             </Link>
@@ -33,4 +33,3 @@ const Footer = () => {
 }
 
 export default Footer
-

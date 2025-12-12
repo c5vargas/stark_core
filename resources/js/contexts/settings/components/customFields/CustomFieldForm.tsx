@@ -93,7 +93,6 @@ export const CustomFieldForm: React.FC<CustomFieldFormProps> = ({
 
   const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     handleChange(e)
-    // Clear options if type is not select
     if (e.target.value !== 'select') {
       setFormData(prev => ({ ...prev, options: null }))
       setOptionsInput('')
@@ -102,7 +101,7 @@ export const CustomFieldForm: React.FC<CustomFieldFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <FormField label={t('dashboard.settings.custom_fields.name')} required>
+      <FormField label={t('dashboard.settings.custom_fields.name')}>
         <InputText
           name="name"
           value={formData.name}
@@ -116,7 +115,7 @@ export const CustomFieldForm: React.FC<CustomFieldFormProps> = ({
         </p>
       </FormField>
 
-      <FormField label={t('dashboard.settings.custom_fields.label')} required>
+      <FormField label={t('dashboard.settings.custom_fields.label')}>
         <InputText
           name="label"
           value={formData.label}
@@ -126,7 +125,7 @@ export const CustomFieldForm: React.FC<CustomFieldFormProps> = ({
         />
       </FormField>
 
-      <FormField label={t('dashboard.settings.custom_fields.type')} required>
+      <FormField label={t('dashboard.settings.custom_fields.type')}>
         <Select name="type" value={formData.type} onChange={handleTypeChange} required>
           {fieldTypes.map(type => (
             <option key={type.value} value={type.value}>
@@ -137,7 +136,7 @@ export const CustomFieldForm: React.FC<CustomFieldFormProps> = ({
       </FormField>
 
       {formData.type === 'select' && (
-        <FormField label={t('dashboard.settings.custom_fields.options')} required>
+        <FormField label={t('dashboard.settings.custom_fields.options')}>
           <InputText
             name="options"
             value={optionsInput}

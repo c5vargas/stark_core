@@ -22,8 +22,8 @@ export const useUserPermissions = () => {
   const { mutateAsync: syncPermissions, isPending: syncing } = useMutation({
     mutationFn: (permissionIds: number[]) =>
       syncUserPermissions(user.id, { permission_ids: permissionIds }),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['user', user.id] })
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['user', user.id] })
       showAlert(t('messages.controller.user.permissions_synced'), 'success')
     },
     onError: (err: Error) => showAlert(err.message, 'error'),

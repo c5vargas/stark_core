@@ -21,8 +21,8 @@ export const useUserRoles = () => {
 
   const { mutateAsync: syncRoles, isPending: syncing } = useMutation({
     mutationFn: (roleIds: number[]) => syncUserRoles(user.id, { role_ids: roleIds }),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['user', user.id] })
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['user', user.id] })
       showAlert(t('messages.controller.user.roles_synced'), 'success')
     },
     onError: (err: Error) => showAlert(err.message, 'error'),
