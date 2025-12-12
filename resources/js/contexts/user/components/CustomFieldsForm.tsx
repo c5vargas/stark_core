@@ -16,13 +16,23 @@ export const CustomFieldsForm = ({ fields, values, onChange }: CustomFieldsFormP
   }
 
   const renderField = (field: CustomField) => {
-    const value = values[field.name] ?? ''
+    const rawValue = values[field.name]
+    const value =
+      rawValue === null || rawValue === undefined
+        ? ''
+        : typeof rawValue === 'object'
+          ? ''
+          : typeof rawValue === 'string' ||
+              typeof rawValue === 'number' ||
+              typeof rawValue === 'boolean'
+            ? String(rawValue)
+            : ''
 
     switch (field.type) {
       case 'textarea':
         return (
           <Textarea
-            value={String(value)}
+            value={value}
             onChange={e => handleFieldChange(field.name, e.target.value)}
             placeholder={field.label}
             required={field.required}
@@ -31,7 +41,7 @@ export const CustomFieldsForm = ({ fields, values, onChange }: CustomFieldsFormP
       case 'select':
         return (
           <Select
-            value={String(value)}
+            value={value}
             onChange={e => handleFieldChange(field.name, e.target.value)}
             required={field.required}
           >
@@ -47,7 +57,7 @@ export const CustomFieldsForm = ({ fields, values, onChange }: CustomFieldsFormP
         return (
           <InputText
             type="number"
-            value={String(value)}
+            value={value}
             onChange={e => handleFieldChange(field.name, Number(e.target.value))}
             placeholder={field.label}
             required={field.required}
@@ -57,7 +67,7 @@ export const CustomFieldsForm = ({ fields, values, onChange }: CustomFieldsFormP
         return (
           <InputText
             type="date"
-            value={String(value)}
+            value={value}
             onChange={e => handleFieldChange(field.name, e.target.value)}
             placeholder={field.label}
             required={field.required}
@@ -67,7 +77,7 @@ export const CustomFieldsForm = ({ fields, values, onChange }: CustomFieldsFormP
         return (
           <InputText
             type="email"
-            value={String(value)}
+            value={value}
             onChange={e => handleFieldChange(field.name, e.target.value)}
             placeholder={field.label}
             required={field.required}
@@ -77,7 +87,7 @@ export const CustomFieldsForm = ({ fields, values, onChange }: CustomFieldsFormP
         return (
           <InputText
             type="text"
-            value={String(value)}
+            value={value}
             onChange={e => handleFieldChange(field.name, e.target.value)}
             placeholder={field.label}
             required={field.required}

@@ -14,7 +14,7 @@ export const useBulkActions = () => {
   const { mutateAsync: executeAction, isPending: executing } = useMutation({
     mutationFn: (action: BulkActionType) => bulkUserAction({ action, ids: selectedIds }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] })
+      void queryClient.invalidateQueries({ queryKey: ['users'] })
       setSelectedIds([])
       showAlert(t('messages.controller.user.bulk_action_success'), 'success')
     },
