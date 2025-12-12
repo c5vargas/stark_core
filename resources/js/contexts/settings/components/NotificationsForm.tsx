@@ -34,7 +34,7 @@ export const NotificationsForm: React.FC = () => {
     setForm(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     update(form)
   }

@@ -15,7 +15,7 @@ const GeneralSettings: React.FC = () => {
   const { settings } = useOutletContext<{ settings: SettingsMap }>()
   const { update, updating } = useSettings()
 
-  const appUrl = import.meta.env.VITE_APP_URL
+  const appUrl = String(import.meta.env.VITE_APP_URL || '')
   const [form, setForm] = useState<Partial<SettingsMap>>({
     app_name: '',
     app_descr: '',
