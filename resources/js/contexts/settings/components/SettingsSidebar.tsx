@@ -6,13 +6,13 @@ import {
   ActivityLogIcon,
   AnalyticsIcon,
   BackupIcon,
-  FingerPrintScanIcon,
   HelpSquareIcon,
   LicenseDraftIcon,
   MailSettingIcon,
   MessageNotificationIcon,
   SecurityLockIcon,
   SettingsIcon,
+  ThirdBracketIcon,
   TranslationIcon,
 } from '@/contexts/shared/components/HugeIcons'
 import clsx from 'clsx'
@@ -69,7 +69,7 @@ const SettingsSidebar = () => {
     {
       name: 'dashboard.settings.custom_fields',
       route: '/dashboard/settings/custom-fields',
-      icon: <FingerPrintScanIcon className="me-2 size-4" />,
+      icon: <ThirdBracketIcon className="me-2 size-4" />,
     },
     {
       name: 'dashboard.settings.help',

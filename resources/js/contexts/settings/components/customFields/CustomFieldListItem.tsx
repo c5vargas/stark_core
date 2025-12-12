@@ -3,7 +3,14 @@ import { CustomField, CustomFieldType } from '@/contexts/user/libs/types'
 import { Badge } from '@/contexts/shared/components/ui/Badge'
 import { BaseButton } from '@/contexts/shared/components/Button'
 import { EditIcon, TrashIcon } from '@/contexts/shared/components/Icons'
-import { SVGProps } from 'react'
+import {
+  ArrangeByNumbersIcon,
+  AtIcon,
+  CalendarIcon,
+  ParagraphIcon,
+  SelectIcon,
+  TextIcon,
+} from '@/contexts/shared/components/HugeIcons'
 
 interface CustomFieldListItemProps {
   field: CustomField
@@ -13,61 +20,21 @@ interface CustomFieldListItemProps {
 }
 
 const FieldTypeIcon = ({ type, className }: { type: CustomFieldType; className?: string }) => {
-  const iconProps: SVGProps<SVGSVGElement> = {
-    className: className || 'h-5 w-5',
-    fill: 'none',
-    stroke: 'currentColor',
-    strokeWidth: '2',
-    strokeLinecap: 'round',
-    strokeLinejoin: 'round',
-  }
-
   switch (type) {
     case 'text':
-      return (
-        <svg {...iconProps} viewBox="0 0 24 24">
-          <path d="M4 7h16M4 12h16M4 17h10" />
-        </svg>
-      )
+      return <TextIcon className={className} />
     case 'textarea':
-      return (
-        <svg {...iconProps} viewBox="0 0 24 24">
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <path d="M7 7h10M7 12h10M7 17h6" />
-        </svg>
-      )
+      return <ParagraphIcon className={className} />
     case 'select':
-      return (
-        <svg {...iconProps} viewBox="0 0 24 24">
-          <path d="M6 9l6 6l6-6" />
-        </svg>
-      )
+      return <SelectIcon className={className} />
     case 'date':
-      return (
-        <svg {...iconProps} viewBox="0 0 24 24">
-          <rect x="3" y="4" width="18" height="18" rx="2" />
-          <path d="M16 2v4M8 2v4M3 10h18" />
-        </svg>
-      )
+      return <CalendarIcon className={className} />
     case 'number':
-      return (
-        <svg {...iconProps} viewBox="0 0 24 24">
-          <path d="M7 20V4M17 20V4M3 8h4M17 8h4M7 12h10" />
-        </svg>
-      )
+      return <ArrangeByNumbersIcon className={className} />
     case 'email':
-      return (
-        <svg {...iconProps} viewBox="0 0 24 24">
-          <rect x="2" y="4" width="20" height="16" rx="2" />
-          <path d="m22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-        </svg>
-      )
+      return <AtIcon className={className} />
     default:
-      return (
-        <svg {...iconProps} viewBox="0 0 24 24">
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-        </svg>
-      )
+      return <ParagraphIcon className={className} />
   }
 }
 
