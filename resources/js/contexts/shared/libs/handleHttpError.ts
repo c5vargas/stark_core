@@ -3,11 +3,15 @@ import { ValidationErrorResponse } from './types'
 
 function handleHttpError(error: unknown): string {
   if (isAxiosError<ValidationErrorResponse>(error)) {
-    const { response, request } = error
+    const response = error.response
 
     if (response) {
-      const { status, data } = response
-      const errorMessage = data?.message
+      const status = response.status
+      const data = response.data
+      const errorMessage =
+        typeof data === 'object' && data !== null && 'message' in data
+          ? String(data.message)
+          : undefined
 
       if (errorMessage && status !== 422) return errorMessage
 
@@ -21,9 +25,16 @@ function handleHttpError(error: unknown): string {
         case 404:
           return 'Element not found.'
         case 422:
-          if (data.errors) {
-            const validationMessages = Object.values(data.errors).flat()[0]
-            return validationMessages
+          if (
+            typeof data === 'object' &&
+            data !== null &&
+            'errors' in data &&
+            typeof data.errors === 'object' &&
+            data.errors !== null
+          ) {
+            const errors = data.errors as Record<string, string[]>
+            const validationMessages = Object.values(errors).flat()
+            return validationMessages[0] || 'Validation error occurred.'
           }
           return errorMessage || 'Validation error occurred.'
         default:
@@ -31,7 +42,7 @@ function handleHttpError(error: unknown): string {
       }
     }
 
-    if (request) {
+    if (error.request) {
       return 'Could not communicate with the server. Please check your connection.'
     }
   }

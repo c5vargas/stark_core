@@ -80,3 +80,11 @@ export interface SyncRolesRequest {
 export interface SyncPermissionsRequest {
   permission_ids: number[]
 }
+
+export interface Category {
+  id: number
+  name: string
+  description?: string | null
+  created_at?: string
+  updated_at?: string
+}

@@ -45,14 +45,25 @@ export const DataTable = <T,>({
     handleSort,
   } = useDataTable<T>(config)
 
-  // Memoizar funciones auxiliares para evitar recreaciones
   const renderCell = useCallback((item: T, column: ColumnConfig<T>) => {
     if (column.render) {
       return column.render(item)
     }
-    // Fallback: intentar acceder a la propiedad directamente
+
     const value = (item as Record<string, unknown>)[column.key]
-    return value !== null && value !== undefined ? String(value) : '-'
+    if (value === null || value === undefined) return '-'
+    if (typeof value === 'object') {
+      return JSON.stringify(value)
+    }
+    if (
+      typeof value === 'string' ||
+      typeof value === 'number' ||
+      typeof value === 'boolean' ||
+      typeof value === 'bigint'
+    ) {
+      return String(value)
+    }
+    return '-'
   }, [])
 
   const getSortKey = useCallback((column: ColumnConfig<T>): string => {
