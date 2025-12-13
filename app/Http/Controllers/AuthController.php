@@ -13,13 +13,14 @@ use App\Models\ActivityLog;
 use App\Repositories\Eloquent\AuthRepository;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 Use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
     /**
-     * @property UserRepositoryInterface
+     * @property AuthRepository $repository
      */
     private $repository;
 
@@ -46,7 +47,7 @@ class AuthController extends Controller
     public function get(Request $request)
     {
         $user = $this->repository->getAuth($request);
-        
+
 
         if(!$user)
             return $this->respondWithMessage(__('messages.controller.auth.no_token'), 401);
@@ -66,7 +67,7 @@ class AuthController extends Controller
         }
 
         RateLimiter::clear($this->throttleKey());
-        
+
         // Log login activity
         if ($result['user']) {
             ActivityLog::create([
@@ -79,7 +80,7 @@ class AuthController extends Controller
                 'user_agent' => $request->userAgent(),
             ]);
         }
-        
+
         return $this->respondWithArray($result);
     }
 
@@ -87,9 +88,7 @@ class AuthController extends Controller
     {
         $user = $request->user();
         if($user) {
-            $user->token()->revoke();
-            
-            // Log logout activity
+            // Log logout activity before logging out
             ActivityLog::create([
                 'user_id' => $user->id,
                 'action' => 'logout',
@@ -99,6 +98,11 @@ class AuthController extends Controller
                 'ip_address' => $request->ip(),
                 'user_agent' => $request->userAgent(),
             ]);
+
+            // Logout user - this invalidates the session cookie
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
         }
 
         return $this->respondWithMessage( __('messages.controller.auth.logout'));

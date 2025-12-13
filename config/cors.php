@@ -19,7 +19,14 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    /*
+     * When supports_credentials is true, you cannot use '*' for allowed_origins.
+     * You must specify the exact origins that are allowed.
+     * These should match the SANCTUM_STATEFUL_DOMAINS in your .env file.
+     * For development, common values are: localhost, localhost:3000, 127.0.0.1, etc.
+     * Set CORS_ALLOWED_ORIGINS in your .env file for production.
+     */
+    'allowed_origins' => explode(',', env('CORS_ALLOWED_ORIGINS', 'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1')),
 
     'allowed_origins_patterns' => [],
 
@@ -29,6 +36,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];

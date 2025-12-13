@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class LanguageController extends Controller
 {
     /**
-     * @property LanguageRepositoryInterface
+     * @property LanguageRepositoryInterface $repository
      */
     private $repository;
 

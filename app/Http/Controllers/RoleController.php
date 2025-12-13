@@ -12,7 +12,7 @@ use Exception;
 class RoleController extends Controller
 {
     /**
-     * @property LanguageRepositoryInterface
+     * @property RoleRepository $repository
      */
     private $repository;
 
@@ -28,7 +28,7 @@ class RoleController extends Controller
     public function index()
     {
         $items = $this->repository->getRolesAndPermissions();
-        
+
         return $this->respondWithArray([
             "data" => $items
         ]);

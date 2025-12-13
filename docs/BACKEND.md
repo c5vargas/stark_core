@@ -194,6 +194,7 @@ class UserController extends Controller
 ### Controller Responsibilities
 
 ✅ **DO**:
+
 - Inject dependencies (Repository, Transformer)
 - Delegate data operations to repositories
 - Use Request classes for validation
@@ -201,6 +202,7 @@ class UserController extends Controller
 - Handle high-level flow control
 
 ❌ **DON'T**:
+
 - Query models directly
 - Contain business logic
 - Perform validation manually
@@ -286,13 +288,13 @@ class UserRepository extends BaseRepository
     public function paginate(array $params)
     {
         $query = $this->model->query();
-        
+
         // Add search filter
         if(isset($params['query']) && !empty($params['query'])) {
             $query->where('name', 'like', '%' . $params['query'] . '%')
                   ->orWhere('email', 'like', '%' . $params['query'] . '%');
         }
-        
+
         $perPage = $params['perPage'] ?? 15;
         return $query->paginate($perPage);
     }
@@ -372,13 +374,13 @@ class User extends Authenticatable
     public function getAllPermissionsAttribute() {
         $user = Auth::user();
         $permissions = [];
-        
+
         foreach (Permission::all() as $permission) {
             if ($user->can($permission->name)) {
                 $permissions[] = $permission->name;
             }
         }
-        
+
         return $permissions;
     }
 
@@ -405,6 +407,7 @@ class User extends Authenticatable
 ### Model Best Practices
 
 ✅ **DO**:
+
 - Use Enums for status fields
 - Define relationships explicitly
 - Use type casting for complex types (JSON, dates)
@@ -413,6 +416,7 @@ class User extends Authenticatable
 - Use model observers for lifecycle events
 
 ❌ **DON'T**:
+
 - Put complex business logic in models
 - Query other models directly (use repositories)
 - Expose sensitive data (use `$hidden`)
@@ -497,8 +501,8 @@ class UserTransformer extends TransformerAbstract
             'username'      => $user->username,
             'email'         => $user->email,
             'avatar'        => $user->avatar,
-            'status'        => $user->status instanceof \BackedEnum 
-                                ? $user->status->value 
+            'status'        => $user->status instanceof \BackedEnum
+                                ? $user->status->value
                                 : $user->status,
             'locale'        => $user->locale,
             'metadata'      => $user->metadata ?? [],
@@ -531,11 +535,11 @@ class ApplyLocale
     public function handle(Request $request, Closure $next)
     {
         $locale = $request->header('X-Locale');
-        
+
         if(!empty($locale)) {
             app()->setLocale($locale);
         }
-        
+
         return $next($request);
     }
 }
@@ -551,6 +555,7 @@ class ApplyLocale
 ### Applying Middleware
 
 **In routes:**
+
 ```php
 Route::middleware(['auth:sanctum', 'apply_locale'])->group(function() {
     Route::get('/users', [UserController::class, 'index']);
@@ -615,7 +620,7 @@ Route::prefix('auth')->middleware(['apply_locale'])->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('password/forget', [AuthController::class, 'forgetPassword']);
-    
+
     // Protected auth routes
     Route::middleware(['auth:sanctum'])->group(function() {
         Route::get('', [AuthController::class, 'get']);
@@ -706,14 +711,14 @@ Stark Core uses Laravel Sanctum for API authentication.
 public function login(LoginRequest $request)
 {
     $credentials = $request->validated();
-    
+
     if (!Auth::attempt($credentials)) {
         throw new Exception('Invalid credentials', 401);
     }
-    
+
     $user = Auth::user();
     $token = $user->createToken('auth_token')->plainTextToken;
-    
+
     return response()->json([
         'results' => [
             'token' => $token,
@@ -758,7 +763,7 @@ public function render($request, Throwable $exception)
             ]
         ], $exception->getCode() ?: 500);
     }
-    
+
     return parent::render($request, $exception);
 }
 ```
@@ -857,4 +862,3 @@ foreach ($users as $user) {
 ---
 
 **Next**: Learn about the frontend architecture in the [Frontend Guide](./FRONTEND.md).
-

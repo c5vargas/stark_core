@@ -4,11 +4,8 @@ import loginAuth from '../actions/loginAuth'
 import getAuth from '../actions/getAuth'
 import { isErrorWithMessage } from '@/contexts/shared/libs/isErrorWithMessage'
 
-export const tokenInitialState = window.localStorage.getItem('__auth__') || ''
-
 interface AuthState {
   user: Auth | null
-  token: string
   isAuthenticated: boolean
   loading: boolean
   error: string | null
@@ -20,8 +17,7 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>(set => ({
   user: null,
-  token: tokenInitialState,
-  isAuthenticated: tokenInitialState !== '',
+  isAuthenticated: false,
   loading: false,
   error: null,
 
@@ -29,20 +25,17 @@ export const useAuthStore = create<AuthState>(set => ({
     set({ loading: true, error: null })
     try {
       const { results, status } = await loginAuth(credentials)
-      const { token, user } = results
+      const { user } = results
 
       if (!status) {
         return false
       }
 
-      if (token) window.localStorage.setItem('__auth__', token)
-
-      // Ensure permissions array exists
       if (!user.permissions) {
         user.permissions = []
       }
 
-      set({ user, token, isAuthenticated: true, loading: false })
+      set({ user, isAuthenticated: true, loading: false })
 
       return !!status
     } catch (error: unknown) {
@@ -56,8 +49,7 @@ export const useAuthStore = create<AuthState>(set => ({
   },
 
   logout: () => {
-    window.localStorage.removeItem('__auth__')
-    set({ user: null, token: '', isAuthenticated: false })
+    set({ user: null, isAuthenticated: false })
   },
 
   getAuth: async () => {
@@ -66,9 +58,8 @@ export const useAuthStore = create<AuthState>(set => ({
       const { results, status } = await getAuth()
       const user = results.data
 
-      if (status !== 201) throw new Error('No token received')
+      if (status !== 201) throw new Error('Authentication failed')
 
-      // Ensure permissions array exists
       if (!user.permissions) {
         user.permissions = []
       }

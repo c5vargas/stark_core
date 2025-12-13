@@ -1,19 +1,18 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { Http } from './Http'
 
+// Create axios instance with credentials enabled for cookie-based authentication
+const axiosInstance = axios.create({
+  withCredentials: true,
+})
+
 const defaultHeaders = {
   accept: 'application/json',
   'Content-Type': 'application/json',
 }
 
-const getAuthHeaders = (): Record<string, string> => {
-  const token = localStorage.getItem('__auth__')
-  return token ? { ...defaultHeaders, Authorization: `Bearer ${token}` } : defaultHeaders
-}
-
 const getHeaders = (isMultipart: boolean = false): Record<string, string> => {
-  const authHeaders = getAuthHeaders()
-  return isMultipart ? { ...authHeaders, 'Content-Type': 'multipart/form-data' } : authHeaders
+  return isMultipart ? { ...defaultHeaders, 'Content-Type': 'multipart/form-data' } : defaultHeaders
 }
 
 const httpAxios: Http = {
@@ -23,7 +22,7 @@ const httpAxios: Http = {
     config?: AxiosRequestConfig
   ): Promise<T> => {
     const headers = getHeaders()
-    const response = await axios.get<T>(path, { ...config, params, headers })
+    const response = await axiosInstance.get<T>(path, { ...config, params, headers })
     return response.data
   },
 
@@ -34,7 +33,7 @@ const httpAxios: Http = {
     isMultipart: boolean = false
   ): Promise<T> => {
     const headers = getHeaders(isMultipart)
-    const response = await axios.post<T>(path, { ...params }, { ...config, headers })
+    const response = await axiosInstance.post<T>(path, { ...params }, { ...config, headers })
     return response.data
   },
 
@@ -45,7 +44,7 @@ const httpAxios: Http = {
     isMultipart: boolean = false
   ): Promise<T> => {
     const headers = getHeaders(isMultipart)
-    const response = await axios.put<T>(path, { ...params }, { ...config, headers })
+    const response = await axiosInstance.put<T>(path, { ...params }, { ...config, headers })
     return response.data
   },
 
@@ -55,7 +54,7 @@ const httpAxios: Http = {
     config?: AxiosRequestConfig
   ): Promise<T> => {
     const headers = getHeaders()
-    const response = await axios.delete<T>(path, { ...config, params, headers })
+    const response = await axiosInstance.delete<T>(path, { ...config, params, headers })
     return response.data
   },
 }
