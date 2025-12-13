@@ -20,12 +20,12 @@ use League\Fractal\Resource\Collection;
 class UserController extends Controller
 {
     /**
-     * @property UserRepository
+     * @property UserRepository $repository
      */
     private $repository;
 
     /**
-     * @property UserSessionRepository
+     * @property UserSessionRepository $sessionRepository
      */
     private $sessionRepository;
 
@@ -128,7 +128,7 @@ class UserController extends Controller
     public function getActivityLogs(int $id, Request $request)
     {
         $logs = $this->repository->getActivityLogs($id, $request->all());
-        
+
         // Use ActivityLogTransformer instead of UserTransformer
         $activityLogTransformer = new ActivityLogTransformer();
         $collection = new Collection($logs, $activityLogTransformer);
@@ -181,7 +181,7 @@ class UserController extends Controller
     public function getSessions(int $id)
     {
         $sessions = $this->repository->getSessions($id);
-        
+
         // Use UserSessionTransformer instead of UserTransformer
         $sessionTransformer = new UserSessionTransformer();
         $collection = new Collection($sessions, $sessionTransformer);

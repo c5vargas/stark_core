@@ -33,30 +33,15 @@ class AuthRepository extends BaseRepository
             return false;
         }
 
-        // Verify the current token is still valid
-        $currentToken = $user->currentAccessToken();
-        if (!$currentToken) {
-            return false;
-        }
-
-        // Check if token exists in database (not revoked)
-        $tokenExists = \Laravel\Sanctum\PersonalAccessToken::find($currentToken->id);
-        if (!$tokenExists) {
-            return false;
-        }
+        // With cookie-based authentication, we use session authentication
+        // No need to verify tokens, the session middleware handles it
 
         $user->update([
             'last_login_at' => Carbon::now(),
         ]);
 
-        // Update last_activity in user_sessions if session exists
-        $session = \App\Models\UserSession::where('personal_access_token_id', $currentToken->id)->first();
-        if ($session) {
-            $session->update(['last_activity' => Carbon::now()]);
-        }
-
         $user->getAllPermissions();
-        
+
         return $user;
     }
 
@@ -85,12 +70,8 @@ class AuthRepository extends BaseRepository
             }
         }
 
+        // Login user - this creates the session cookie automatically
         Auth::login($user);
-
-        // Create token and get the access token model
-        $tokenResult = $user->createToken($user->email);
-        $token = $tokenResult->plainTextToken;
-        $accessToken = $tokenResult->accessToken;
 
         $user->getAllPermissions();
 
@@ -98,19 +79,23 @@ class AuthRepository extends BaseRepository
             'last_login_at' => Carbon::now(),
         ]);
 
-        // Save user session with personal access token ID
-        $expiresAt = $accessToken->expires_at ?? Carbon::now()->addMinutes(config('sanctum.expiration', 60 * 24 * 7));
+        // Save user session for tracking purposes
+        // Use Laravel session ID as token since we're using cookie-based auth
+        $sessionLifetime = (int) config('session.lifetime', 120);
+        $sessionId = session()->getId();
+
         UserSession::create([
             'user_id' => $user->id,
-            'personal_access_token_id' => $accessToken->id,
-            'token' => hash('sha256', $token),
+            'personal_access_token_id' => null, // No token needed for cookie-based auth
+            'token' => hash('sha256', $sessionId), // Hash session ID to match token format
             'ip_address' => request()->ip(),
             'user_agent' => request()->userAgent(),
             'last_activity' => Carbon::now(),
-            'expires_at' => $expiresAt,
+            'expires_at' => Carbon::now()->addMinutes($sessionLifetime),
         ]);
 
-        return ['user' => $user, 'token' => $token];
+        // Return only user data, no token (cookie is set automatically)
+        return ['user' => $user];
     }
 
     public function updateUserProfile(Array $data): Bool

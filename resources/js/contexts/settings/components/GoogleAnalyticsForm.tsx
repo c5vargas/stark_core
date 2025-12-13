@@ -53,10 +53,8 @@ export const GoogleAnalyticsForm: React.FC = () => {
 
     try {
       if (accountKeyFile) {
-        // If there's a file, use FormData
         const formData = new FormData()
 
-        // Add text fields
         Object.keys(form).forEach(key => {
           const value = form[key as keyof SettingsMap]
           if (value !== undefined && value !== null && value !== '') {
@@ -64,22 +62,13 @@ export const GoogleAnalyticsForm: React.FC = () => {
           }
         })
 
-        // Add file
         formData.append('account_key', accountKeyFile)
 
-        // Use axios directly for FormData
-        const token = localStorage.getItem('__auth__')
-        const headers: Record<string, string> = {}
-        if (token) {
-          headers.Authorization = `Bearer ${token}`
-        }
-
-        await axios.post('/api/settings', formData, { headers })
+        await axios.post('/api/settings', formData, { withCredentials: true })
         queryClient.invalidateQueries({ queryKey: ['settings'] })
         showAlert(t('controller.updated'), 'success')
         setAccountKeyFile(null)
       } else {
-        // No file, use regular update from hook
         await update(form)
       }
     } catch (error: unknown) {

@@ -45,7 +45,6 @@ const BackupsPage = () => {
   }
 
   const handleDownload = (backup: Backup) => {
-    const token = localStorage.getItem('__auth__')
     const baseUrl = window.location.origin
     const url = `${baseUrl}/api/backups/${backup.type}/${encodeURIComponent(backup.filename)}`
 
@@ -54,9 +53,7 @@ const BackupsPage = () => {
     link.download = backup.filename
 
     fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      credentials: 'include', // Include cookies for authentication
     })
       .then(response => response.blob())
       .then(blob => {

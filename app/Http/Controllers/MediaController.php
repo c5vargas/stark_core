@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class MediaController extends Controller
 {
     /**
-     * @property MediaRepository
+     * @property MediaRepository $repository
      */
     private $repository;
 
@@ -23,7 +23,7 @@ class MediaController extends Controller
         $this->repository = $repository;
     }
 
-    public function index() 
+    public function index()
     {
         $items = $this->repository->all();
         return $this->respondWithCollection($items);

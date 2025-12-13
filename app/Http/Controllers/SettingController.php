@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 class SettingController extends Controller
 {
     /**
-     * @property SettingRepositoryInterface
+     * @property SettingRepository $repository
      */
     private $repository;
 
@@ -41,11 +41,11 @@ class SettingController extends Controller
         // Handle account key file upload
         if ($request->hasFile('account_key')) {
             $file = $request->file('account_key');
-            
+
             // Validate JSON structure
             $jsonContent = file_get_contents($file->getRealPath());
             $jsonData = json_decode($jsonContent, true);
-            
+
             if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new Exception('Invalid JSON file format.', 422);
             }

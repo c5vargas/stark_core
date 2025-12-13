@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ActivityLogController extends Controller
 {
     /**
-     * @var ActivityLogRepository
+     * @property ActivityLogRepository $repository
      */
     private $repository;
 

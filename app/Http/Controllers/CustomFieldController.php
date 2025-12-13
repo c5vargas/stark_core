@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class CustomFieldController extends Controller
 {
     /**
-     * @property CustomFieldRepository
+     * @property CustomFieldRepository $repository
      */
     private $repository;
 

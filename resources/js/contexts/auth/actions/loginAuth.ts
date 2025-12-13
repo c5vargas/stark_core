@@ -6,7 +6,6 @@ import formatPayload from '@/contexts/shared/libs/formatPayload'
 
 interface LoginResponse {
   user: Auth
-  token: string
 }
 
 const loginAuth = async (
