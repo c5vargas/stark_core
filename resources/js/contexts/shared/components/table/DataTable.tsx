@@ -1,20 +1,36 @@
+import { useMemo, useCallback } from 'react'
 import { DataTableConfig, ColumnConfig } from '@/contexts/shared/libs/dataTable/types'
 import { useDataTable } from '@/contexts/shared/hooks/useDataTable'
 import { FilterIcon } from './FilterIcon'
 import TableComponent from './TableComponent'
 import TableFooter from './TableFooter'
+import { TableRow } from './TableRow'
 import { EmptyState } from '@/contexts/shared/components/ui/EmptyState'
 import { ArrowUpIcon, ArrowDownIcon } from '../HugeIcons'
 import { InputText } from '@/contexts/shared/components/ui/form/InputText'
 import { SearchIcon } from '@/contexts/shared/components/Icons'
+import { useTranslation } from 'react-i18next'
 
 interface DataTableProps<T> {
   config: DataTableConfig<T>
   headerActions?: React.ReactNode
   onRowClick?: (item: T) => void
+  enableSelection?: boolean
+  selectedIds?: number[]
+  onSelectionChange?: (ids: number[]) => void
+  getId?: (item: T) => number
 }
 
-export const DataTable = <T,>({ config, headerActions, onRowClick }: DataTableProps<T>) => {
+export const DataTable = <T,>({
+  config,
+  headerActions,
+  onRowClick,
+  enableSelection = false,
+  selectedIds = [],
+  onSelectionChange,
+  getId,
+}: DataTableProps<T>) => {
+  const { t } = useTranslation()
   const {
     data,
     isFetching,
@@ -29,28 +45,62 @@ export const DataTable = <T,>({ config, headerActions, onRowClick }: DataTablePr
     handleSort,
   } = useDataTable<T>(config)
 
-  const renderCell = (item: T, column: ColumnConfig<T>) => {
+  const renderCell = useCallback((item: T, column: ColumnConfig<T>) => {
     if (column.render) {
       return column.render(item)
     }
-    // Fallback: intentar acceder a la propiedad directamente
+
     const value = (item as Record<string, unknown>)[column.key]
-    return value !== null && value !== undefined ? String(value) : '-'
-  }
+    if (value === null || value === undefined) return '-'
+    if (typeof value === 'object') {
+      return JSON.stringify(value)
+    }
+    if (
+      typeof value === 'string' ||
+      typeof value === 'number' ||
+      typeof value === 'boolean' ||
+      typeof value === 'bigint'
+    ) {
+      return String(value)
+    }
+    return '-'
+  }, [])
 
-  const getSortKey = (column: ColumnConfig<T>): string => {
+  const getSortKey = useCallback((column: ColumnConfig<T>): string => {
     return column.sortKey ?? column.key
-  }
+  }, [])
 
-  const getSortIcon = (column: ColumnConfig<T>) => {
-    const sortKey = getSortKey(column)
-    if (sortBy !== sortKey) return null
-    return sortOrder === 'asc' ? (
-      <ArrowUpIcon className="ml-1 h-3 w-3" />
-    ) : (
-      <ArrowDownIcon className="ml-1 h-3 w-3" />
-    )
-  }
+  const getSortIcon = useCallback(
+    (column: ColumnConfig<T>) => {
+      const sortKey = getSortKey(column)
+      if (sortBy !== sortKey) return null
+      return sortOrder === 'asc' ? (
+        <ArrowUpIcon className="ml-1 h-3 w-3" />
+      ) : (
+        <ArrowDownIcon className="ml-1 h-3 w-3" />
+      )
+    },
+    [sortBy, sortOrder, getSortKey]
+  )
+
+  const selectedIdsSet = useMemo(() => new Set(selectedIds), [selectedIds])
+
+  const isAllSelected = useMemo(() => {
+    if (!enableSelection || !getId || data.length === 0) return false
+    return data.every(item => selectedIdsSet.has(getId(item)))
+  }, [enableSelection, getId, data, selectedIdsSet])
+
+  const handleSelectAll = useCallback(
+    (checked: boolean) => {
+      if (!onSelectionChange || !getId) return
+      if (checked) {
+        onSelectionChange(data.map(item => getId(item)))
+      } else {
+        onSelectionChange([])
+      }
+    },
+    [data, getId, onSelectionChange]
+  )
 
   return (
     <>
@@ -63,7 +113,7 @@ export const DataTable = <T,>({ config, headerActions, onRowClick }: DataTablePr
             type="text"
             value={searchQuery}
             onChange={e => handleSearch(e.target.value)}
-            placeholder="Buscar..."
+            placeholder={t('common.search')}
           />
         </div>
         {headerActions && <div className="flex items-center gap-2">{headerActions}</div>}
@@ -72,6 +122,16 @@ export const DataTable = <T,>({ config, headerActions, onRowClick }: DataTablePr
         <TableComponent loading={isFetching}>
           <thead>
             <tr className="border-b">
+              {enableSelection && (
+                <th className="px-4 py-3 text-left">
+                  <input
+                    type="checkbox"
+                    checked={isAllSelected}
+                    onChange={e => handleSelectAll(e.target.checked)}
+                    className="h-4 w-4 rounded border-gray-300"
+                  />
+                </th>
+              )}
               {config.columns.map(column => (
                 <th key={column.key} className={`px-4 py-3 text-left ${column.className ?? ''}`}>
                   <div className="flex items-center gap-1">
@@ -103,24 +163,32 @@ export const DataTable = <T,>({ config, headerActions, onRowClick }: DataTablePr
           <tbody>
             {data.length === 0 ? (
               <tr>
-                <td colSpan={config.columns.length} className="px-4 py-12 text-center">
-                  <EmptyState title="No se encontraron resultados" />
+                <td
+                  colSpan={config.columns.length + (enableSelection ? 1 : 0)}
+                  className="px-4 py-12 text-center"
+                >
+                  <EmptyState title={t('common.no_results')} />
                 </td>
               </tr>
             ) : (
-              data.map((item: T, index: number) => (
-                <tr
-                  key={index}
-                  className={`border-b ${onRowClick ? 'cursor-pointer transition-colors hover:bg-gray-100' : ''}`}
-                  onClick={onRowClick ? () => onRowClick(item) : undefined}
-                >
-                  {config.columns.map(column => (
-                    <td key={column.key} className={`px-4 py-3 ${column.className ?? ''}`}>
-                      {renderCell(item, column)}
-                    </td>
-                  ))}
-                </tr>
-              ))
+              data.map((item: T) => {
+                const itemId = getId?.(item) ?? 0
+                const isSelected = selectedIdsSet.has(itemId)
+                return (
+                  <TableRow
+                    key={itemId}
+                    item={item}
+                    itemId={itemId}
+                    columns={config.columns}
+                    isSelected={isSelected}
+                    enableSelection={enableSelection}
+                    onRowClick={onRowClick}
+                    onSelectionChange={onSelectionChange}
+                    selectedIds={selectedIds}
+                    renderCell={renderCell}
+                  />
+                )
+              })
             )}
           </tbody>
         </TableComponent>

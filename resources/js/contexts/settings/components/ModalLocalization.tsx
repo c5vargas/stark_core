@@ -18,7 +18,7 @@ export const ModalLocalization: React.FC<ModalLocalizationProps> = ({ onClose, o
   const handleCreate = () => onCreate(form)
 
   return (
-    <Modal onSubmit={handleCreate} onCancel={onClose}>
+    <Modal onSubmit={handleCreate} onCancel={onClose} submitLabel={t('buttons.create')}>
       <div className="grid grid-cols-1 gap-3">
         <FormField label={t('dashboard.settings.name_new_locale')}>
           <InputText

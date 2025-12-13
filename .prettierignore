@@ -1,2 +1,40 @@
-public
+# Dependencies
 node_modules
+vendor
+
+# Build outputs
+dist
+build
+public/build
+public/hot
+public/storage
+
+# Cache
+bootstrap/cache
+.storage
+.cache
+
+# Logs
+*.log
+logs
+
+# Coverage
+coverage
+.nyc_output
+
+# Generated files
+*.min.js
+*.min.css
+*.map
+
+# Laravel specific
+storage
+bootstrap/cache
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db

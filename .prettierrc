@@ -9,5 +9,5 @@
   "printWidth": 100,
   "plugins": ["prettier-plugin-tailwindcss"],
   "tailwindStylesheet": "./resources/js/styles/tailwind.css",
-  "endOfLine": "auto"
+  "endOfLine": "lf"
 }

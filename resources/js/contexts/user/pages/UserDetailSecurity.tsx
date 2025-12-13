@@ -12,16 +12,14 @@ const UserDetailSecurity = () => {
 
   return (
     <div className="-mx-3 flex flex-wrap">
-      <div className="space-y-4">
+      <div className="w-full space-y-4">
         <InfoCard
           title={t('dashboard.users.security.title', { user: user?.name })}
-          description={t('dashboard.users.security.description')}
-        >
-          {t('dashboard.users.security.info')}
-        </InfoCard>
+          description={t('dashboard.users.security.info')}
+        />
 
         <Card>
-          <form onSubmit={handleSubmit} className="flex items-center gap-4">
+          <form onSubmit={handleSubmit} className="flex items-center justify-between gap-4">
             <FormField label={t('dashboard.users.security.password')}>
               <InputText
                 name="password"

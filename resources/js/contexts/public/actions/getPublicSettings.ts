@@ -19,4 +19,3 @@ const getPublicSettings = async (): Promise<PublicSettings> => {
 }
 
 export default getPublicSettings
-

@@ -387,3 +387,124 @@ export function ActivityLogIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
+
+export function FingerPrintScanIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      >
+        <path d="M2.5 8.187c.104-2.1.415-3.41 1.347-4.34c.93-.932 2.24-1.243 4.34-1.347M21.5 8.187c-.104-2.1-.415-3.41-1.347-4.34c-.93-.932-2.24-1.243-4.34-1.347m0 19c2.1-.104 3.41-.415 4.34-1.347c.932-.93 1.243-2.24 1.347-4.34M8.187 21.5c-2.1-.104-3.41-.415-4.34-1.347c-.932-.93-1.243-2.24-1.347-4.34m14-.313V11a4.5 4.5 0 1 0-9 0v4.5" />
+        <path d="M13.5 12.5V11a1.5 1.5 0 0 0-3 0v5.5m3-1v2" />
+      </g>
+    </svg>
+  )
+}
+
+export function ThirdBracketIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      >
+        <path d="M14 16c.924 0 1.673-.512 1.673-1.143c0-1.22.014-1.723 1.082-2.453c.327-.223.327-.585 0-.808c-1.068-.73-1.082-1.232-1.082-2.453C15.673 8.512 14.924 8 14 8m-4 8c-.924 0-1.673-.512-1.673-1.143c0-1.22-.014-1.723-1.082-2.453c-.327-.223-.327-.585 0-.808c1.068-.73 1.082-1.232 1.082-2.453C8.327 8.512 9.076 8 10 8" />
+        <path d="M2.5 12c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12" />
+      </g>
+    </svg>
+  )
+}
+
+export function ParagraphIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        d="M15 3v18m0-18h-5m5 0h6m-11 9H7.5a4.5 4.5 0 0 1 0-9H10m0 9V3m0 9v9"
+      />
+    </svg>
+  )
+}
+
+export function TextIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5">
+        <path strokeLinejoin="round" d="M15 21.001H9" />
+        <path d="M12 3v18m0-18c1.387 0 3.17.03 4.588.176c.6.062.9.093 1.166.202a2.05 2.05 0 0 1 1.165 1.299C19 4.954 19 5.27 19 5.902M12 3c-1.387 0-3.17.03-4.588.176c-.6.062-.9.093-1.166.202A2.05 2.05 0 0 0 5.08 4.677C5 4.954 5 5.27 5 5.902" />
+      </g>
+    </svg>
+  )
+}
+
+export function SelectIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <g fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M5 2v6M2 5h6m12 13V7M7 20h11m0-15h-6m-7 7v6"
+        />
+        <path d="M18 5c0-.943 0-1.414.293-1.707S19.057 3 20 3s1.414 0 1.707.293S22 4.057 22 5s0 1.414-.293 1.707S20.943 7 20 7s-1.414 0-1.707-.293S18 5.943 18 5Zm0 15c0-.943 0-1.414.293-1.707S19.057 18 20 18s1.414 0 1.707.293S22 19.057 22 20s0 1.414-.293 1.707S20.943 22 20 22s-1.414 0-1.707-.293S18 20.943 18 20ZM3 20c0-.943 0-1.414.293-1.707S4.057 18 5 18s1.414 0 1.707.293S7 19.057 7 20s0 1.414-.293 1.707S5.943 22 5 22s-1.414 0-1.707-.293S3 20.943 3 20Z" />
+      </g>
+    </svg>
+  )
+}
+
+export function CalendarIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+      >
+        <path d="M16 2v4M8 2v4m5-2h-2C7.229 4 5.343 4 4.172 5.172S3 8.229 3 12v2c0 3.771 0 5.657 1.172 6.828S7.229 22 11 22h2c3.771 0 5.657 0 6.828-1.172S21 17.771 21 14v-2c0-3.771 0-5.657-1.172-6.828S16.771 4 13 4M3 10h18" />
+        <path d="M10 18.5v-4.653c0-.191-.137-.347-.305-.347H9m5 4.998l1.486-4.606a.3.3 0 0 0-.286-.392H13" />
+      </g>
+    </svg>
+  )
+}
+
+export function AtIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="1.5"
+        d="M15.6 8.4v4.5a2.7 2.7 0 1 0 5.4 0V12a9 9 0 1 0-3.6 7.2M15.6 12a3.6 3.6 0 1 1-7.2 0a3.6 3.6 0 0 1 7.2 0Z"
+      />
+    </svg>
+  )
+}
+
+export function ArrangeByNumbersIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        d="M7 10V3.95c0-.575 0-.862-.23-.933C6.263 2.859 5.5 4 5.5 4M7 10H5.5M7 10h1.5m.5 7.5v-1.75c0-.825 0-1.237-.293-1.494S7.943 14 7 14s-1.414 0-1.707.256C5 14.513 5 14.925 5 15.75s0 1.237.293 1.494s.764.256 1.707.256zm0 0v.875c0 1.237 0 1.856-.44 2.24C8.122 21 7.415 21 6 21H5m11.5-1V4m0 16c-.7 0-2.008-1.994-2.5-2.5m2.5 2.5c.7 0 2.009-1.994 2.5-2.5"
+      />
+    </svg>
+  )
+}

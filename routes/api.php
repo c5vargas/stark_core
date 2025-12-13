@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BackupController;
+use App\Http\Controllers\CustomFieldController;
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MediaController;
@@ -47,10 +48,18 @@ Route::prefix('auth')->middleware(['apply_locale'])->group(function () {
 Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
     Route::prefix('users')->group(function () {
         Route::get('', [UserController::class, 'index']);
+        Route::get('/statistics', [UserController::class, 'statistics']);
+        Route::post('/bulk', [UserController::class, 'bulkAction']);
         Route::get('/{id}', [UserController::class, 'show']);
         Route::post('', [UserController::class, 'create']);
         Route::post('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'delete']);
+        Route::get('/{id}/activity-logs', [UserController::class, 'getActivityLogs']);
+        Route::post('/{id}/roles', [UserController::class, 'syncRoles']);
+        Route::post('/{id}/permissions', [UserController::class, 'syncPermissions']);
+        Route::get('/{id}/sessions', [UserController::class, 'getSessions']);
+        Route::delete('/{id}/sessions/{sessionId}', [UserController::class, 'revokeSession']);
+        Route::delete('/{id}/sessions', [UserController::class, 'revokeAllSessions']);
     });
 
     Route::prefix('settings')->group(function () {
@@ -110,6 +119,13 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
         Route::post('', [BackupController::class, 'create']);
         Route::get('/{type}/{filename}', [BackupController::class, 'download'])->where(['type' => 'database|files', 'filename' => '.*']);
         Route::delete('/{type}/{filename}', [BackupController::class, 'delete'])->where(['type' => 'database|files', 'filename' => '.*']);
+    });
+
+    Route::prefix('custom-fields')->group(function () {
+        Route::get('', [CustomFieldController::class, 'index']);
+        Route::post('', [CustomFieldController::class, 'store']);
+        Route::post('/{id}', [CustomFieldController::class, 'update']);
+        Route::delete('/{id}', [CustomFieldController::class, 'delete']);
     });
 });
 

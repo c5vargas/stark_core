@@ -24,7 +24,7 @@ export const Badge: React.FC<BadgeProps> = ({
   className = '',
   customColor,
 }) => {
-  const baseClasses = 'inline-block rounded px-2 py-1 text-xs font-medium'
+  const baseClasses = 'inline-block rounded-lg px-2 py-1 text-xs font-medium'
 
   if (variant === 'custom' && customColor) {
     return <span className={clsx(baseClasses, customColor, className)}>{children}</span>

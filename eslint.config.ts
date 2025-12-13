@@ -1,39 +1,62 @@
+import { defineConfig } from 'eslint/config'
 import js from '@eslint/js'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
+import react from 'eslint-plugin-react'
 import tanstackQuery from '@tanstack/eslint-plugin-query'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-
-import { defineConfig } from 'eslint/config'
+import prettier from 'eslint-plugin-prettier/recommended'
+import prettierConfig from 'eslint-config-prettier/flat'
 
 export default defineConfig([
   {
+    ignores: [
+      'node_modules/**',
+      'vendor/**',
+      'dist/**',
+      'build/**',
+      'public/**',
+      'storage/**',
+      'bootstrap/cache/**',
+      '*.min.js',
+      '*.min.css',
+    ],
+  },
+  {
     files: ['resources/js/**/*.{js,ts,tsx}'],
-    ignores: ['node_modules/', 'vendor/', 'dist/', 'build/'],
+
     languageOptions: {
+      parser: tseslint.parser,
       parserOptions: {
-        ecmaVersion: 2021,
+        ecmaVersion: 'latest',
         sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true,
-        },
+        ecmaFeatures: { jsx: true },
+        project: true,
       },
       globals: globals.browser,
     },
-    plugins: { js },
-    extends: ['js/recommended'],
-    settings: {
-      react: {
-        version: 'detect',
-        runtime: 'automatic',
-      },
+
+    plugins: {
+      react,
     },
+
+    settings: {
+      react: { version: 'detect', runtime: 'automatic' },
+    },
+
     rules: {
-      'react/jsx-uses-react': 'off',
       'react/react-in-jsx-scope': 'off',
+      'react/jsx-uses-react': 'off',
     },
   },
-  tseslint.configs.recommended,
+  js.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
   tanstackQuery.configs['flat/recommended'],
-  eslintPluginPrettierRecommended,
+  prettier,
+  prettierConfig,
+  {
+    rules: {
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
+    },
+  },
 ])

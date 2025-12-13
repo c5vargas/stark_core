@@ -6,7 +6,7 @@ interface CategoryState {
   categories: Category[]
   loading: boolean
   error: string | null
-  getCategories: (includes: string) => Promise<void>
+  getCategories: (includes: string) => void
 }
 
 export const useCategoryStore = create<CategoryState>(set => ({
@@ -14,7 +14,7 @@ export const useCategoryStore = create<CategoryState>(set => ({
   loading: false,
   error: null,
 
-  getCategories: async () => {
+  getCategories: () => {
     set({ loading: true, error: null })
     try {
       // const resp = await getCategories(includes)

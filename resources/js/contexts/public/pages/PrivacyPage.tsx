@@ -12,7 +12,7 @@ const PrivacyPage = () => {
   useEffect(() => {
     if (settings.gdpr_privacy_page) {
       try {
-        const parsed = JSON.parse(settings.gdpr_privacy_page)
+        const parsed = JSON.parse(settings.gdpr_privacy_page) as OutputData
         setContent(parsed)
       } catch {
         setContent(null)
@@ -43,4 +43,3 @@ const PrivacyPage = () => {
 }
 
 export default PrivacyPage
-

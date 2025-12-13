@@ -15,9 +15,8 @@ export const useUserSecurity = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    update({ id: user.id, password }).then(() => {
-      resetForm()
-    })
+    await update({ id: user.id, password })
+    resetForm()
   }
 
   return {

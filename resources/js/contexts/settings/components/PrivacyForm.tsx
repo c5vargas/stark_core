@@ -19,7 +19,8 @@ export const PrivacyForm: React.FC = () => {
   useEffect(() => {
     try {
       if (settings?.gdpr_privacy_page) {
-        setInitialData(JSON.parse(settings.gdpr_privacy_page))
+        const parsed = JSON.parse(settings.gdpr_privacy_page) as OutputData
+        setInitialData(parsed)
       }
     } catch {
       setInitialData(undefined)
@@ -30,7 +31,7 @@ export const PrivacyForm: React.FC = () => {
     setInitialData(newVal)
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
     update({

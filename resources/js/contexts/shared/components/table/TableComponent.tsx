@@ -1,6 +1,12 @@
+import { memo } from 'react'
 import Loading from '@/contexts/shared/components/Loading'
 
-const TableComponent = ({ children, loading }: { children: React.ReactNode; loading: boolean }) => {
+interface TableComponentProps {
+  children: React.ReactNode
+  loading: boolean
+}
+
+const TableComponent = ({ children, loading }: TableComponentProps) => {
   if (loading)
     return (
       <section className="flex min-h-[300px] w-full items-center justify-center">
@@ -11,4 +17,4 @@ const TableComponent = ({ children, loading }: { children: React.ReactNode; load
   return <table className="w-full table-auto border-collapse">{children}</table>
 }
 
-export default TableComponent
+export default memo(TableComponent)

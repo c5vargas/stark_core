@@ -24,15 +24,16 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'        => 'required|exists:users,id',
-            'name'      => 'sometimes|string|min:4|max:100',
-            'username'  => 'sometimes|nullable|string|min:3|max:50|unique:users,username,' . $this->id,
-            'email'     => 'sometimes|required|email|unique:users,email,' . $this->id,
-            'password'  => 'sometimes|nullable|string|min:6',
-            'avatar'    => 'sometimes|nullable|url|max:255',
-            'status'    => ['sometimes', new Enum(UserStatus::class)],
-            'locale'    => 'sometimes|nullable|string|size:2',
-            'metadata'  => 'sometimes|nullable|array',
+            'id'            => 'required|exists:users,id',
+            'name'          => 'sometimes|string|min:4|max:100',
+            'username'      => 'sometimes|nullable|string|min:3|max:50|unique:users,username,' . $this->id,
+            'email'         => 'sometimes|required|email|unique:users,email,' . $this->id,
+            'password'      => 'sometimes|nullable|string|min:6',
+            'avatar'        => 'sometimes|nullable|url|max:255',
+            'status'        => ['sometimes', new Enum(UserStatus::class)],
+            'locale'        => 'sometimes|nullable|string|size:2',
+            'metadata'      => 'sometimes|nullable|array',
+            'custom_fields' => 'sometimes|nullable|array',
         ];
     }
 }

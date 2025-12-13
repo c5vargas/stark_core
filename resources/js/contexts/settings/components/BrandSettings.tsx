@@ -25,7 +25,7 @@ const BrandSettings: React.FC = () => {
   const [logoModalOpen, setLogoModalOpen] = useState(false)
   const [faviconModalOpen, setFaviconModalOpen] = useState(false)
 
-  const handleFileChange = async (media: Media, type: 'logo' | 'favicon') => {
+  const handleFileChange = (media: Media, type: 'logo' | 'favicon') => {
     if (type === 'logo') {
       update({ app_logo: media.url })
     } else {
@@ -69,7 +69,7 @@ const BrandSettings: React.FC = () => {
             <img
               src={favicon.previewUrl}
               alt="Favicon Preview"
-              className="aspect-square size-16 rounded border bg-gray-50 object-contain object-cover"
+              className="aspect-square size-16 rounded border bg-gray-50 object-cover"
             />
           )}
           <BaseButton
