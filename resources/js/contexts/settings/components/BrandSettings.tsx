@@ -6,8 +6,8 @@ import { useSettings } from '@/contexts/settings/hooks/useSettings'
 import { FormField } from '@/contexts/shared/components/ui/form/FormField'
 import { Card } from '@/contexts/shared/components/ui/Card'
 import { BaseButton } from '@/contexts/shared/components/Button'
-import { MediaSelectorModal } from '@/contexts/shared/components/MediaSelectorModal'
-import { Media } from '@/contexts/shared/libs/types'
+import { MediaSelectorModal } from '@/contexts/media/components/MediaSelectorModal'
+import { Media } from '@/contexts/media/libs/types'
 
 interface FilePreview {
   file: File | null
@@ -84,12 +84,14 @@ const BrandSettings: React.FC = () => {
         isOpen={logoModalOpen}
         onCancel={() => setLogoModalOpen(false)}
         onSelect={media => handleFileChange(media, 'logo')}
+        accept="image/*"
       />
 
       <MediaSelectorModal
         isOpen={faviconModalOpen}
         onCancel={() => setFaviconModalOpen(false)}
         onSelect={media => handleFileChange(media, 'favicon')}
+        accept="image/*"
       />
     </Card>
   )

@@ -44,7 +44,9 @@ const UserStatisticsWidget = () => {
     <>
       <div className="mb-4 flex items-center gap-2">
         <ChartIcon className="h-5 w-5 text-gray-600" />
-        <h3 className="text-lg font-semibold text-gray-900">{t('dashboard.users.statistics')}</h3>
+        <h3 className="m-0 text-lg font-semibold text-gray-900">
+          {t('dashboard.users.statistics')}
+        </h3>
       </div>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
         {stats.map((stat, index) => (

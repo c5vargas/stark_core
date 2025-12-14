@@ -71,6 +71,7 @@ Route::middleware(['auth:sanctum', 'apply_locale'])->group( function() {
     Route::prefix('media')->group(function () {
         Route::get('', [MediaController::class, 'index']);
         Route::post('', [MediaController::class, 'store']);
+        Route::delete('/{id}', [MediaController::class, 'delete']);
     });
 
     Route::prefix('languages')->group(function () {
