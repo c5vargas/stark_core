@@ -33,8 +33,18 @@ class AuthRepository extends BaseRepository
             return false;
         }
 
-        // With cookie-based authentication, we use session authentication
-        // No need to verify tokens, the session middleware handles it
+        // Update last activity - the middleware ValidateUserSession already verified
+        // that the session exists in user_sessions table
+        $sessionId = $request->session()->getId();
+        $userSession = UserSession::where('user_id', $user->id)
+            ->where('laravel_session_id', $sessionId)
+            ->first();
+
+        if ($userSession) {
+            $userSession->update([
+                'last_activity' => Carbon::now(),
+            ]);
+        }
 
         $user->update([
             'last_login_at' => Carbon::now(),
@@ -88,6 +98,7 @@ class AuthRepository extends BaseRepository
             'user_id' => $user->id,
             'personal_access_token_id' => null, // No token needed for cookie-based auth
             'token' => hash('sha256', $sessionId), // Hash session ID to match token format
+            'laravel_session_id' => $sessionId, // Store real session ID to invalidate later
             'ip_address' => request()->ip(),
             'user_agent' => request()->userAgent(),
             'last_activity' => Carbon::now(),

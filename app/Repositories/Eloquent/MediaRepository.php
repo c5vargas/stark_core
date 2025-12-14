@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Media;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class MediaRepository extends BaseRepository
 {
@@ -30,5 +31,28 @@ class MediaRepository extends BaseRepository
         ]);
 
         return $media;
+    }
+
+    /**
+     * Delete a media file and its physical file from storage
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $media = $this->find($id);
+
+        if (!$media) {
+            return false;
+        }
+
+        // Delete physical file from storage
+        if (Storage::disk('public')->exists($media->path)) {
+            Storage::disk('public')->delete($media->path);
+        }
+
+        // Delete database record
+        return parent::delete($id);
     }
 }

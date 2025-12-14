@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { ShopIcon, UserIcon } from './Icons'
+import { ShopIcon, UserIcon, MediaIcon } from './Icons'
 import { Link, useLocation } from 'react-router-dom'
 import { useSettings } from '@/contexts/settings/hooks/useSettings'
 import { useAuthStore } from '@/contexts/auth/stores/authStore'
@@ -40,6 +40,13 @@ const Sidebar = ({ showSidebar }: { showSidebar: boolean }) => {
       icon: <ShopIcon />,
       exact: false,
       permission: 'view.settings',
+    },
+    {
+      path: '/dashboard/media',
+      title: t('dashboard.media.title'),
+      icon: <MediaIcon />,
+      exact: false,
+      permission: 'view.media',
     },
   ]
 

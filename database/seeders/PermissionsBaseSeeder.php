@@ -44,6 +44,11 @@ class PermissionsBaseSeeder extends Seeder
         // Dashboard
         Permission::create(['name' => 'view.dashboard', 'descr' => 'Provides access to the application dashboard.']);
 
+        // Media
+        Permission::create(['name' => 'view.media', 'descr' => 'Grants access to view media library.']);
+        Permission::create(['name' => 'create.media', 'descr' => 'Allows uploading new media files.']);
+        Permission::create(['name' => 'delete.media', 'descr' => 'Permits media file deletion.']);
+
 
         $root->syncPermissions([
             'view.users',
@@ -57,6 +62,9 @@ class PermissionsBaseSeeder extends Seeder
             'create.notifications',
             'edit.notifications',
             'delete.notifications',
+            'view.media',
+            'create.media',
+            'delete.media',
         ]);
 
         $editor->syncPermissions([
@@ -65,6 +73,8 @@ class PermissionsBaseSeeder extends Seeder
             'edit.users',
             'delete.users',
             'view.dashboard',
+            'view.media',
+            'create.media',
         ]);
 
         $userRoot = User::factory()->active()->createQuietly([

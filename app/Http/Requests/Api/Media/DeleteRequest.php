@@ -4,13 +4,14 @@ namespace App\Http\Requests\Api\Media;
 
 use App\Http\Requests\Api\FormRequest;
 
-class StoreRequest extends FormRequest{
+class DeleteRequest extends FormRequest
+{
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->check() && auth()->user()->can('create.media');
+        return auth()->check() && auth()->user()->can('delete.media');
     }
 
     /**
@@ -20,8 +21,6 @@ class StoreRequest extends FormRequest{
      */
     public function rules(): array
     {
-        return [
-            'file' => ['required', 'file', 'max:5120']
-        ];
+        return [];
     }
 }

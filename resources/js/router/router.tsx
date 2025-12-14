@@ -4,6 +4,7 @@ import RequireAuth from './guards/RequireAuth'
 
 import usersRouter from '@/contexts/user/router'
 import settingsRouter from '@/contexts/settings/router'
+import mediaRouter from '@/contexts/media/router'
 
 const DashboardPage = lazy(() => import('@/contexts/dashboard/pages/DashboardPage'))
 const LoginPage = lazy(() => import('@/contexts/auth/pages/LoginPage'))
@@ -61,6 +62,7 @@ const Router = createBrowserRouter([
       },
       { ...usersRouter },
       { ...settingsRouter },
+      { ...mediaRouter },
     ],
   },
 ])

@@ -18,15 +18,21 @@ class MailConfigServiceProvider extends ServiceProvider
         if (Schema::hasTable('settings')) {
             $app = $this->getSettingsPhp();
 
-            if(!$app->mail_host || !$app->mail_port || !$app->mail_username || !$app->mail_password)
+            if(!isset($app->mail_host) || !isset($app->mail_port) || !isset($app->mail_username) || !isset($app->mail_password))
+                return;
+
+            if(empty($app->mail_host) || empty($app->mail_port) || empty($app->mail_username) || empty($app->mail_password))
                 return;
 
             $config = array(
-                'driver'     => $app->mail_driver,
+                'driver'     => $app->mail_driver ?? 'smtp',
                 'host'       => $app->mail_host,
                 'port'       => $app->mail_port,
-                'from'       => array('address' => $app->mail_from_address, 'name' => $app->mail_from_name),
-                'encryption' => $app->mail_encryption,
+                'from'       => array(
+                    'address' => $app->mail_from_address ?? config('mail.from.address'),
+                    'name' => $app->mail_from_name ?? config('mail.from.name')
+                ),
+                'encryption' => $app->mail_encryption ?? null,
                 'username'   => $app->mail_username,
                 'password'   => $app->mail_password,
                 'sendmail'   => '/usr/sbin/sendmail -bs -i',

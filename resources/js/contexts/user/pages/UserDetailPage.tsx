@@ -87,7 +87,7 @@ const UserDetailPage = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <Card>
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="m-0 text-lg font-semibold text-gray-900">
                 {t('dashboard.users.basic_info')}
               </h3>
             </div>

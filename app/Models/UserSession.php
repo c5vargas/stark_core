@@ -11,6 +11,7 @@ class UserSession extends Model
         'user_id',
         'personal_access_token_id',
         'token',
+        'laravel_session_id',
         'ip_address',
         'user_agent',
         'last_activity',

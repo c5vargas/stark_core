@@ -13,7 +13,7 @@ export type ButtonVariant =
   | 'outline'
   | 'link'
 
-export type ButtonSize = 'sm' | 'md' | 'lg'
+export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl'
 
 export type ButtonShape = 'default' | 'rounded' | 'pill' | 'square'
 
@@ -50,6 +50,7 @@ const SIZE_CLASSES: Record<ButtonSize, string> = {
   sm: 'px-4 py-1 text-xs',
   md: 'px-6 py-2 text-sm',
   lg: 'px-8 py-3 text-base',
+  xl: 'px-10 py-4 text-lg',
 }
 
 const SHAPE_CLASSES: Record<ButtonShape, string> = {
@@ -115,7 +116,7 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
       ) : (
         <>
           {icon && iconPosition === 'left' && icon}
-          <span>{title}</span>
+          {title && <span>{title}</span>}
           {icon && iconPosition === 'right' && icon}
         </>
       )}
