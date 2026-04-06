@@ -91,6 +91,9 @@
 
   'dashboard.title' => 'Dashboard',
 
+  'dashboard.user_menu.my_profile' => 'My profile',
+  'dashboard.user_menu.open_user_menu' => 'Open user menu',
+
   'dashboard.settings.analytics' => 'Analytics',
   'dashboard.settings.default_locale' => 'Default locale',
   'dashboard.settings.default_timezone' => 'Timezone',
