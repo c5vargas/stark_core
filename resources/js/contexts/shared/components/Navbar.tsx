@@ -1,6 +1,7 @@
 import { ArrowRightIcon } from './HugeIcons'
 import { MenuIcon, ShopIcon } from './Icons'
 import UserDropdown from './UserDropdown'
+import { Button } from './Button'
 
 interface NavbarProps {
   pageTitle: string
@@ -13,13 +14,16 @@ const Navbar: React.FC<NavbarProps> = ({ pageTitle, onHandleSidebar }) => {
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center space-x-4">
-            <button
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
               onClick={onHandleSidebar}
-              className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 focus:ring-2 focus:ring-violet-500 focus:outline-none lg:hidden"
+              className="text-slate-600 hover:bg-slate-100 lg:hidden"
               aria-label="Abrir menú"
             >
               <MenuIcon className="h-6 w-6" />
-            </button>
+            </Button>
 
             <nav className="hidden sm:flex" aria-label="Breadcrumb">
               <ol className="flex items-center gap-1">
@@ -44,13 +48,16 @@ const Navbar: React.FC<NavbarProps> = ({ pageTitle, onHandleSidebar }) => {
           </div>
 
           <div className="flex items-center space-x-4">
-            <button
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
               onClick={onHandleSidebar}
-              className="hidden rounded-lg p-2 text-slate-600 hover:bg-slate-100 focus:ring-2 focus:ring-violet-500 focus:outline-none lg:block xl:hidden"
+              className="hidden text-slate-600 hover:bg-slate-100 lg:block xl:hidden [&>svg]:!h-5 [&>svg]:!w-5"
               aria-label="Toggle sidebar"
             >
               <MenuIcon className="h-5 w-5" />
-            </button>
+            </Button>
 
             <UserDropdown />
           </div>

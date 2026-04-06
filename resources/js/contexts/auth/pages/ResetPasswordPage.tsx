@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import useResetPassword from '../hooks/useResetPassword'
+import { BaseButton } from '@/contexts/shared/components/Button'
+import { InputText } from '@/contexts/shared/components/ui/form/InputText'
 
 const ResetPasswordPage = () => {
   const { t } = useTranslation()
@@ -37,33 +39,33 @@ const ResetPasswordPage = () => {
                   ) : (
                     <form role="form" onSubmit={handleResetPassword}>
                       <div className="mb-4">
-                        <input
+                        <InputText
                           value={email}
                           onChange={e => setEmail(e.currentTarget.value)}
                           type="email"
                           placeholder={t('auth.login.email')}
-                          className="focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 text-sm font-normal text-gray-700 transition-all outline-none placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
+                          autoComplete="email"
                           required
                         />
                       </div>
                       <div className="mb-4">
-                        <input
+                        <InputText
                           value={password}
                           onChange={e => setPassword(e.currentTarget.value)}
                           type="password"
                           placeholder={t('auth.login.password')}
-                          className="focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 text-sm font-normal text-gray-700 transition-all outline-none placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
+                          autoComplete="new-password"
                           required
                           minLength={8}
                         />
                       </div>
                       <div className="mb-1">
-                        <input
+                        <InputText
                           value={passwordConfirmation}
                           onChange={e => setPasswordConfirmation(e.currentTarget.value)}
                           type="password"
                           placeholder={t('auth.reset_password.password_confirmation')}
-                          className="focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-3 text-sm font-normal text-gray-700 transition-all outline-none placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
+                          autoComplete="new-password"
                           required
                           minLength={8}
                         />
@@ -76,15 +78,15 @@ const ResetPasswordPage = () => {
                       </span>
 
                       <div className="text-center">
-                        <button
+                        <BaseButton
                           type="submit"
-                          className={`mt-6 mb-0 w-full cursor-pointer rounded-lg border-0 px-6 py-4 text-center align-middle font-bold text-white uppercase transition-all ${loading ? 'cursor-not-allowed opacity-50' : 'hover:shadow-soft-xs hover:scale-[1.02] active:opacity-85'} leading-pro ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-purple-700 to-pink-500 text-xs`}
-                          disabled={loading}
-                        >
-                          <span>
-                            {loading ? t('shared.loading') : t('auth.reset_password.submit')}
-                          </span>
-                        </button>
+                          fullWidth
+                          variant="primary"
+                          size="xl"
+                          loading={loading}
+                          title={t('auth.reset_password.submit')}
+                          className="mt-6 font-bold uppercase"
+                        />
                       </div>
                     </form>
                   )}

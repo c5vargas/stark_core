@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { BaseButton } from '../Button'
+import { BaseButton, Button } from '../Button'
 import ReactDOM from 'react-dom'
 import { useEffect, useRef } from 'react'
 
@@ -59,14 +59,18 @@ export const Modal: React.FC<ModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between border-b px-4 py-3">
           <h5 className="mb-0 text-lg font-semibold">{title}</h5>
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
             onClick={onCancel}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-gray-400 hover:bg-gray-100 hover:text-gray-600"
             aria-label="Close"
           >
-            <span className="sr-only">Close</span>✕
-          </button>
+            <span aria-hidden className="text-lg leading-none">
+              ✕
+            </span>
+          </Button>
         </div>
 
         {/* Body */}

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Card } from '@/contexts/shared/components/ui/Card'
+import { SegmentedControl } from '@/contexts/shared/components/ui/SegmentedControl'
 import { useAnalytics } from '@/contexts/dashboard/hooks/useAnalytics'
 import Loading from '@/contexts/shared/components/Loading'
 
@@ -30,38 +31,16 @@ export const AnalyticsChart: React.FC = () => {
         <h3 className="text-lg font-semibold text-gray-900">
           {t('dashboard.analytics.traffic_overview')}
         </h3>
-        <div className="flex gap-2">
-          <button
-            onClick={() => setTimeRange('7d')}
-            className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
-              timeRange === '7d'
-                ? 'bg-blue-600 !text-violet-700'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {t('dashboard.analytics.period.7d')}
-          </button>
-          <button
-            onClick={() => setTimeRange('30d')}
-            className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
-              timeRange === '30d'
-                ? 'bg-blue-600 !text-violet-700'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {t('dashboard.analytics.period.30d')}
-          </button>
-          <button
-            onClick={() => setTimeRange('90d')}
-            className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
-              timeRange === '90d'
-                ? 'bg-blue-600 !text-violet-700'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {t('dashboard.analytics.period.90d')}
-          </button>
-        </div>
+        <SegmentedControl
+          variant="neutral"
+          value={timeRange}
+          onChange={v => setTimeRange(v as '7d' | '30d' | '90d')}
+          options={[
+            { value: '7d', label: t('dashboard.analytics.period.7d') },
+            { value: '30d', label: t('dashboard.analytics.period.30d') },
+            { value: '90d', label: t('dashboard.analytics.period.90d') },
+          ]}
+        />
       </div>
 
       <div className="mb-4 flex gap-6">

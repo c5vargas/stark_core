@@ -77,14 +77,16 @@ export const TranslateStrings: React.FC<TranslateStringsProps> = ({
             </Select>
 
             <div className="text-end">
-              <button
-                className="group inline-flex h-[42px] w-[42px] cursor-pointer items-center justify-center gap-2 rounded-lg border !border-slate-400 bg-transparent !text-slate-400 transition-all hover:!bg-slate-400 hover:opacity-85 active:opacity-85 disabled:opacity-25"
-                title={t('dashboard.settings.new_localization')}
+              <BaseButton
                 type="button"
+                variant="outline"
+                size="icon"
+                className="!h-[42px] !w-[42px] border-slate-400 text-slate-400 hover:!border-slate-400 hover:!bg-slate-400 hover:!text-white [&>svg]:!h-6 [&>svg]:!w-6"
+                aria-label={t('dashboard.settings.new_localization')}
+                title=""
+                icon={<PlusSignIcon />}
                 onClick={() => setShowModal(true)}
-              >
-                <PlusSignIcon className="size-6 group-hover:text-white" />
-              </button>
+              />
             </div>
           </div>
           <small className="text-muted">{t('dashboard.settings.locale_list_desc')}</small>

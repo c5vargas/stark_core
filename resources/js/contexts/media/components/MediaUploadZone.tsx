@@ -2,6 +2,7 @@ import { useRef, useState, DragEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useUploadMedia } from '../hooks/useUploadMedia'
 import { BaseButton } from '@/contexts/shared/components/Button'
+import { FolderAddIcon } from '@/contexts/shared/components/HugeIcons'
 
 interface MediaUploadZoneProps {
   onUploadComplete?: () => void
@@ -72,7 +73,9 @@ export const MediaUploadZone: React.FC<MediaUploadZoneProps> = ({
       onDrop={handleDrop}
     >
       <div className="flex flex-col items-center justify-center text-center">
-        <div className="mb-4 text-4xl">📁</div>
+        <div className="mb-4 text-4xl">
+          <FolderAddIcon />
+        </div>
         <p className="mb-2 text-lg font-medium text-gray-700">
           {t('dashboard.media.upload_zone.title')}
         </p>

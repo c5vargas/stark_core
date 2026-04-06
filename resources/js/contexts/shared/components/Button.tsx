@@ -13,12 +13,12 @@ export type ButtonVariant =
   | 'outline'
   | 'link'
 
-export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl'
+export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl' | 'icon'
 
 export type ButtonShape = 'default' | 'rounded' | 'pill' | 'square'
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  title: string
+  title?: string
   icon?: React.ReactNode
   iconPosition?: 'left' | 'right'
   loading?: boolean
@@ -51,6 +51,7 @@ const SIZE_CLASSES: Record<ButtonSize, string> = {
   md: 'px-6 py-2 text-sm',
   lg: 'px-8 py-3 text-base',
   xl: 'px-10 py-4 text-lg',
+  icon: 'h-9 w-9 shrink-0 justify-center p-0 gap-0 [&>svg]:h-5 [&>svg]:w-5',
 }
 
 const SHAPE_CLASSES: Record<ButtonShape, string> = {
@@ -61,7 +62,7 @@ const SHAPE_CLASSES: Record<ButtonShape, string> = {
 }
 
 export const BaseButton: React.FC<BaseButtonProps> = ({
-  title,
+  title = '',
   icon,
   iconPosition = 'left',
   loading = false,
@@ -78,15 +79,22 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
   const sizeClasses = SIZE_CLASSES[size] ?? ''
   const shapeClasses = SHAPE_CLASSES[shape] ?? ''
   const widthClass = fullWidth ? 'w-full justify-center' : ''
+  const isIconSize = size === 'icon'
 
-  const baseClasses =
-    'leading-pro tracking-tight-soft ease-soft-in inline-flex cursor-pointer items-center gap-2 font-medium transition-all disabled:opacity-25 disabled:cursor-not-allowed'
+  const baseClasses = clsx(
+    'leading-pro tracking-tight-soft ease-soft-in inline-flex cursor-pointer items-center font-medium transition-all disabled:opacity-25 disabled:cursor-not-allowed',
+    isIconSize ? 'gap-0' : 'gap-2',
+    'focus-visible:ring-violet-500/60 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none'
+  )
 
   const variantsWithCustomHover = ['success', 'danger', 'warning', 'info', 'outline']
   const isLinkVariant = variant === 'link'
   const hasCustomHover = variantsWithCustomHover.includes(variant)
   const hoverClasses =
     isLinkVariant || hasCustomHover ? '' : 'hover:opacity-85 active:opacity-85 active:scale-[0.98]'
+
+  const spinnerClass =
+    size === 'sm' ? 'h-3 w-3' : size === 'lg' ? 'h-5 w-5' : size === 'icon' ? 'h-4 w-4' : 'h-4 w-4'
 
   return (
     <button
@@ -107,16 +115,16 @@ export const BaseButton: React.FC<BaseButtonProps> = ({
       {...rest}
     >
       {loading ? (
-        <span className="flex items-center">
-          <LoadingIcon
-            className={size === 'sm' ? 'h-3 w-3' : size === 'lg' ? 'h-5 w-5' : 'h-4 w-4'}
-          />
-          <span className={iconPosition === 'right' ? 'mr-2' : 'ml-2'}>{title}</span>
+        <span className={clsx('flex items-center', isIconSize && 'justify-center')}>
+          <LoadingIcon className={spinnerClass} />
+          {!isIconSize && title ? (
+            <span className={iconPosition === 'right' ? 'mr-2' : 'ml-2'}>{title}</span>
+          ) : null}
         </span>
       ) : (
         <>
           {icon && iconPosition === 'left' && icon}
-          {title && <span>{title}</span>}
+          {title ? <span>{title}</span> : null}
           {icon && iconPosition === 'right' && icon}
         </>
       )}
@@ -146,9 +154,13 @@ export const Button: React.FC<
   const sizeClasses = SIZE_CLASSES[size] ?? ''
   const shapeClasses = SHAPE_CLASSES[shape] ?? ''
   const widthClass = fullWidth ? 'w-full justify-center' : ''
+  const isIconSize = size === 'icon'
 
-  const baseClasses =
-    'inline-flex justify-center items-center gap-2 font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed'
+  const baseClasses = clsx(
+    'inline-flex items-center justify-center font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed',
+    isIconSize ? 'gap-0' : 'gap-2',
+    'focus-visible:ring-violet-500/60 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none'
+  )
 
   return (
     <button

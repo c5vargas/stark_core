@@ -2,8 +2,8 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BaseButton } from '@/contexts/shared/components/Button'
 import { GridViewIcon, ListBulletIcon } from '@/contexts/shared/components/Icons'
-import { clsx } from 'clsx'
 import { InputText } from '@/contexts/shared/components/ui/form/InputText'
+import { SegmentedControl } from '@/contexts/shared/components/ui/SegmentedControl'
 
 type ViewMode = 'grid' | 'list'
 
@@ -43,32 +43,23 @@ export const MediaToolbar: React.FC<MediaToolbarProps> = ({
           />
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex h-[38px] gap-1 rounded-lg border border-gray-200 bg-white p-1">
-            <BaseButton
-              variant="ghost"
-              icon={<GridViewIcon className="h-4 w-4" />}
-              title=""
-              size="sm"
-              onClick={() => onViewModeChange('grid')}
-              className={clsx(
-                'rounded px-3 py-1.5 text-sm font-medium transition-colors',
-                viewMode === 'grid' ? 'bg-gray-200' : 'text-gray-600 hover:bg-gray-100'
-              )}
-              aria-label="Grid view"
-            />
-            <BaseButton
-              variant="ghost"
-              icon={<ListBulletIcon className="h-4 w-4" />}
-              title=""
-              size="sm"
-              onClick={() => onViewModeChange('list')}
-              className={clsx(
-                'rounded px-3 py-1.5 text-sm font-medium transition-colors',
-                viewMode === 'list' ? 'bg-gray-200' : 'text-gray-600 hover:bg-gray-100'
-              )}
-              aria-label="List view"
-            />
-          </div>
+          <SegmentedControl
+            variant="toolbar"
+            value={viewMode}
+            onChange={v => onViewModeChange(v as ViewMode)}
+            options={[
+              {
+                value: 'grid',
+                label: <GridViewIcon className="h-4 w-4" />,
+                ariaLabel: 'Grid view',
+              },
+              {
+                value: 'list',
+                label: <ListBulletIcon className="h-4 w-4" />,
+                ariaLabel: 'List view',
+              },
+            ]}
+          />
 
           <BaseButton
             variant="secondary"
